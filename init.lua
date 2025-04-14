@@ -1,16 +1,16 @@
 -- Minimized Nyoom framework (only core features and Nui present)
 
-require('src.nyoom.require') -- Custom loader to search for lua files matching the folder name
-require('src.nyoom.globals')
+require('nyoom.require') -- Custom loader to search for lua files matching the folder name
+require('nyoom.globals')
 
 ---@class Nyoom
 nyoom = {}
-nyoom.objects = require('src.nyoom.objects') ---@type Objects
-nyoom.graphics = require('src.nyoom.graphics') ---@type Graphics
-nyoom.timing = require('src.nyoom.timing') ---@type Timing
-nyoom.events = require('src.nyoom.events') ---@type Events
-nyoom.perf = require('src.nyoom.perfmon') -- TODO: rewrite and properly type perfmon
-nyoom.nui = require('src.nyoom.nui') ---@type Nui
+nyoom.objects = require('nyoom.objects') ---@type Objects
+nyoom.graphics = require('nyoom.graphics') ---@type Graphics
+nyoom.timing = require('nyoom.timing') ---@type Timing
+nyoom.events = require('nyoom.events') ---@type Events
+nyoom.perf = require('nyoom.perfmon') -- TODO: rewrite and properly type perfmon
+nyoom.nui = require('nyoom.nui') ---@type Nui
 
 function nyoom.update(deltaTime)
   nyoom.perf.start()

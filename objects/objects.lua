@@ -1,5 +1,5 @@
-local newVector2 = require('src.nyoom.objects.vector2')
-local newRect = require('src.nyoom.objects.rect')
+local newVector2 = require('nyoom.objects.vector2')
+local newRect = require('nyoom.objects.rect')
 
 ---@class Objects
 local objects = {}

@@ -5,7 +5,7 @@
 ---@field update fun(deltaTime: number)
 ---@field draw fun()
 local nui = {
-  newElement = require('src.nyoom.nui.element'),
+  newElement = require('nyoom.nui.element'),
   root = nil, ---@type Element
   focused = nil, ---@type Element?
   topmost = nil, ---@type Element

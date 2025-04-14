@@ -1,4 +1,4 @@
-local newColor = require ('src.nyoom.graphics.color')
+local newColor = require ('nyoom.graphics.color')
 
 ---@class Graphics
 local graphics = {}

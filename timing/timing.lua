@@ -1,5 +1,5 @@
-local tween = require('src.nyoom.timing.tween')
-local delay = require('src.nyoom.timing.delay')
+local tween = require('nyoom.timing.tween')
+local delay = require('nyoom.timing.delay')
 
 ---@class Timing
 ---@field update fun(deltaTime: number)
