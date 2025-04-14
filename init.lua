@@ -1,5 +1,6 @@
 -- Minimized Nyoom framework (only core features and Nui present)
 
+require('src.nyoom.require') -- Custom loader to search for lua files matching the folder name
 require('src.nyoom.globals')
 
 ---@class Nyoom
