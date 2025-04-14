@@ -1,0 +1,5 @@
+require('src.nyoom.globals.type')
+require('src.nyoom.globals.math')
+require('src.nyoom.globals.string')
+require('src.nyoom.globals.table')
+require('src.nyoom.globals.print')
