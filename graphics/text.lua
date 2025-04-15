@@ -95,7 +95,7 @@ end
 
 ---@param self Text
 function methods:updateText()
-  self.offset = (self.font:getHeight() - self.rect.height) / 2
+  self.offset = (self.rect.height - self.font:getHeight()) / 2
 end
 
 -- Metamethods
