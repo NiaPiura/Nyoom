@@ -17,7 +17,7 @@ local newColor = require('nyoom.graphics.color')
 ---@field setPosition fun(self: Text, position: Vector2): Text
 ---@field setSize fun(self: Text, width: number, height: number): Text
 ---@field setSize fun(self: Text, size: Vector2): Text
----@field updateText fun(self: Text)
+---@field update fun(self: Text)
 
 ---@alias TextHorizontalAlignment 'left'|'right'|'center'|'justify'
 ---@alias TextVerticalAlignment 'top'|'bottom'|'center'
@@ -48,7 +48,7 @@ local function newText(string, x, y, width, height)
 
   setmetatable(text, metamethods)
 
-  text:updateText()
+  text:update()
 
   return text
 end
@@ -59,9 +59,15 @@ function methods:draw()
   love.graphics.printf(self.string, self.font, self.rect.x, self.rect.y + self.offset, self.rect.width, self.horizontalAlignment)
 end
 
+function methods:setText(string)
+  self.string = string
+  self:update()
+  return self
+end
+
 function methods:setFont(font)
   self.font = font
-  self:updateText()
+  self:update()
   return self
 end
 
@@ -73,7 +79,7 @@ end
 function methods:setAlignments(horizontal, vertical)
   self.horizontalAlignment = horizontal
   self.verticalAlignment = vertical
-  self:updateText()
+  self:update()
   return self
 end
 
@@ -90,11 +96,11 @@ end
 function methods:setSize(width, height)
   if type(width) == 'number' then self.rect.size = nyoom.objects.newVector2(width, height)
   else self.rect.size = width end
-  self:updateText()
+  self:update()
 end
 
 ---@param self Text
-function methods:updateText()
+function methods:update()
   self.offset = (self.rect.height - self.font:getHeight()) / 2
 end
 
