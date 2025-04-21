@@ -10,18 +10,18 @@
 ---@field stop fun(self: Nyoom.Delay): Nyoom.Delay Remove tween from activeDelays.
 ---@field restart fun(self: Nyoom.Delay): Nyoom.Delay Equivalent to `self:set(0):start()`
 
----@type Nyoom.Delay[]
-local activeDelays = {}
 local methods, metamethods = {}, { __name = 'Nyoom.Delay' }
 
 ---A simple delayed execution library.
 ---@class Nyoom.Delays
 ---@field update fun(deltaTime: number)
 ---@field newDelay fun(duration: number, onFinish: function): Nyoom.Delay
-local delays = {}
+local delays = {
+  activeDelays = {} ---@type Nyoom.Delay[]
+}
 
 function delays.update(deltaTime)
-  for _, delay in pairs(activeDelays) do
+  for _, delay in pairs(delays.activeDelays) do
     delay:set(delay.position + deltaTime)
   end
 end
@@ -58,14 +58,14 @@ function methods:finish()
 end
 
 function methods:start()
-  local index = table.indexOf(activeDelays, self)
-  if not index then table.insert(activeDelays, self) end
+  local index = table.indexOf(delays.activeDelays, self)
+  if not index then table.insert(delays.activeDelays, self) end
   return self
 end
 
 function methods:stop()
-  local index = table.indexOf(activeDelays, self)
-  if index then table.remove(activeDelays, index) end
+  local index = table.indexOf(delays.activeDelays, self)
+  if index then table.remove(delays.activeDelays, index) end
   return self
 end
 

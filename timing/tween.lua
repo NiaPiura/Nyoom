@@ -30,18 +30,18 @@ local easingMethods = {
   easeInOut = function (x, p) if x < 0.5 then return math.pow(x * 2, p) / 2 else return 1 - math.pow(2 - x * 2, p) / 2 end end
 }
 
----@type Nyoom.Tween[]
-local activeTweens = {}
 local methods, metamethods = {}, { __name = 'Nyoom.Tween' }
 
 ---A simple tweening Library.
 ---@class Nyoom.Tweens
 ---@field update fun(deltaTime: number)
 ---@field newTween fun(duration: number, object: table, target: table): Nyoom.Tween
-local tweens = {}
+local tweens = {
+  activeTweens = {} ---@type Nyoom.Tween[]
+}
 
 function tweens.update(deltaTime)
-  for _, tween in pairs(activeTweens) do
+  for _, tween in pairs(tweens.activeTweens) do
     tween:set(tween.position + (deltaTime * (tween.isReversed and -1 or 1)))
   end
 end
@@ -112,14 +112,14 @@ function methods:finish()
 end
 
 function methods:start()
-  local index = table.indexOf(activeTweens, self)
-  if not index then table.insert(activeTweens, self) end
+  local index = table.indexOf(tweens.activeTweens, self)
+  if not index then table.insert(tweens.activeTweens, self) end
   return self
 end
 
 function methods:stop()
-  local index = table.indexOf(activeTweens, self)
-  if index then table.remove(activeTweens, index) end
+  local index = table.indexOf(tweens.activeTweens, self)
+  if index then table.remove(tweens.activeTweens, index) end
   return self
 end
 
