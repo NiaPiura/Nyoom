@@ -1,3 +1,9 @@
+-- A Custom loader to search for lua files matching the folder name.
+-- This is added primarily to replace needing to put init.lua files everywhere, which can get confusing fast.
+
+-- This does however have one issue: Sumneko's Lua language server does not auto resolve typing for modules imported this way.
+-- To remedy this, define a type/class for the module, and expressly import the module using that type.
+
 local function load(modname)
   modname = string.gsub(modname, "%.", "/")
 

@@ -1,6 +1,6 @@
--- Minimized Nyoom framework (only core features and Nui present)
+-- Nyoom Framework (c) 2025 Nia Piura
 
-require('nyoom.require') -- Custom loader to search for lua files matching the folder name
+require('nyoom.require')
 require('nyoom.globals')
 
 ---@class Nyoom
