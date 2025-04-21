@@ -5,7 +5,7 @@ require('nyoom.globals')
 
 ---@class Nyoom
 nyoom = {}
-nyoom.objects = require('nyoom.objects') ---@type Objects
+nyoom.common = require('nyoom.common') ---@type Common
 nyoom.graphics = require('nyoom.graphics') ---@type Graphics
 nyoom.timing = require('nyoom.timing') ---@type Timing
 nyoom.events = require('nyoom.events') ---@type Events

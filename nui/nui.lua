@@ -30,7 +30,7 @@ end
 ---@param mouseX number
 ---@param mouseY number
 local function mouseMoved(mouseX, mouseY)
-  local mousePosition = nyoom.objects.newVector2(mouseX, mouseY)
+  local mousePosition = nyoom.common.newVector2(mouseX, mouseY)
   for _, element in ipairs(hoverStack) do
     if not element.rect:isWithinBounds(mousePosition) then element:unhover() end
   end
@@ -61,7 +61,7 @@ end
 ---@param mouseY number
 ---@param button number
 local function mousePressed(mouseX, mouseY, button)
-  local mousePosition = nyoom.objects.newVector2(mouseX, mouseY)
+  local mousePosition = nyoom.common.newVector2(mouseX, mouseY)
   clickCache[button] = {}
   for _, element in ipairs(hoverStack) do
     if not element.isIgnored then
@@ -76,7 +76,7 @@ end
 ---@param button number
 ---@param presses number
 local function mouseReleased(mouseX, mouseY, button, _, presses)
-  local mousePosition = nyoom.objects.newVector2(mouseX, mouseY)
+  local mousePosition = nyoom.common.newVector2(mouseX, mouseY)
   if nui.focused and nui.focused ~= clickCache[button][#clickCache[button]] then
     nui.focused:unfocus()
     nui.focused = nil
@@ -97,13 +97,13 @@ end
 ---@param deltaX number
 ---@param deltaY number
 local function wheelMoved(deltaX, deltaY)
-  nui.root:wheel(nyoom.objects.newVector2(deltaX, deltaY))
+  nui.root:wheel(nyoom.common.newVector2(deltaX, deltaY))
 end
 
 ---@param width number
 ---@param height number
 local function resize(width, height)
-  nui.root:resize(nyoom.objects.newVector2(width, height))
+  nui.root:resize(nyoom.common.newVector2(width, height))
 end
 
 -- Love event hooks

@@ -38,7 +38,7 @@ local methods, metamethods = {}, { __name = 'Text' }
 local function newText(string, x, y, width, height)
   local text = {
     string = string,
-    rect = nyoom.objects.newRect(x, y, width, height),
+    rect = nyoom.common.newRect(x, y, width, height),
     font = defaults.font,
     color = defaults.color,
     horizontalAlignment = 'left',
@@ -86,7 +86,7 @@ end
 ---@param x number|Vector2
 ---@param y number|nil
 function methods:setPosition(x, y)
-  if type(x) == 'number' then self.rect.position = nyoom.objects.newVector2(x, y)
+  if type(x) == 'number' then self.rect.position = nyoom.common.newVector2(x, y)
   else self.rect.position = x end
 end
 
@@ -94,7 +94,7 @@ end
 ---@param width number|Vector2
 ---@param height number|nil
 function methods:setSize(width, height)
-  if type(width) == 'number' then self.rect.size = nyoom.objects.newVector2(width, height)
+  if type(width) == 'number' then self.rect.size = nyoom.common.newVector2(width, height)
   else self.rect.size = width end
   self:update()
 end

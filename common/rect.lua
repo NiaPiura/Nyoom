@@ -14,8 +14,8 @@ local methods, metamethods = {}, { __name = 'Rect' }
 
 local function newRect(x, y, width, height)
   local rect = {
-    position = nyoom.objects.newVector2(x or 0, y or 0),
-    size = nyoom.objects.newVector2(width or 0, height or 0),
+    position = nyoom.common.newVector2(x or 0, y or 0),
+    size = nyoom.common.newVector2(width or 0, height or 0),
   }
 
   return setmetatable(rect, metamethods)

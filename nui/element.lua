@@ -77,8 +77,8 @@ local methods, metamethods = {}, { __name = 'Element' }
 local function newElement(id, x, y, width, height, parent, state)
   local element = {
     id = id or '',
-    offset = nyoom.objects.newVector2(x, y),
-    rect = nyoom.objects.newRect(x, y, width, height),
+    offset = nyoom.common.newVector2(x, y),
+    rect = nyoom.common.newRect(x, y, width, height),
 
     isVisible = (state and state.isVisible) or true,
     isEnabled = (state and state.isEnabled) or true,
@@ -204,14 +204,14 @@ end
 
 ---@param self Element
 function methods:setPosition(x, y)
-  if type(x) == 'number' then self.offset = nyoom.objects.newVector2(x, y)
+  if type(x) == 'number' then self.offset = nyoom.common.newVector2(x, y)
   else self.offset = x end
   self:updateScreenPosition()
 end
 
 ---@param self Element
 function methods:setSize(width, height)
-  if type(width) == 'number' then self.size = nyoom.objects.newVector2(width, height)
+  if type(width) == 'number' then self.size = nyoom.common.newVector2(width, height)
   else self.size = width end
   self:resize(self.size)
 end
@@ -228,7 +228,7 @@ end
 
 ---@param self Element
 function methods:getRelativeMousePosition()
-  local mousePosition = nyoom.objects.newVector2(love.mouse.getPosition())
+  local mousePosition = nyoom.common.newVector2(love.mouse.getPosition())
   return mousePosition - self.position
 end
 

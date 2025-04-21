@@ -22,7 +22,7 @@ local display = {
   graph = love.graphics.newCanvas(200, 120),
   graphBuffer = love.graphics.newCanvas(200, 120),
   font = love.graphics.newFont(11),
-  markOffset = nyoom.objects.newVector2(3, 28) -- 210, 28
+  markOffset = nyoom.common.newVector2(3, 28) -- 210, 28
 }
 
 display.font:setLineHeight(0.75)
