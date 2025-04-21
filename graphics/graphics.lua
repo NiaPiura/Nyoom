@@ -1,7 +1,7 @@
 local newColor = require('nyoom.graphics.color')
 local newText = require('nyoom.graphics.text')
 
----@class Graphics
+---@class Nyoom.Graphics
 local graphics = {}
 
 ---Creates an object representing a color.
@@ -9,7 +9,7 @@ local graphics = {}
 ---@param g number
 ---@param b number
 ---@param a? number
----@return Color
+---@return Nyoom.Color
 function graphics.newColor(r, g, b, a)
   return newColor(r, g, b, a)
 end
@@ -20,7 +20,7 @@ end
 ---@param y number
 ---@param width number
 ---@param height number
----@return Text
+---@return Nyoom.Text
 function graphics.newText(string, x, y, width, height)
   return newText(string, x, y, width, height)
 end

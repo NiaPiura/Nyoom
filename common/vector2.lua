@@ -1,30 +1,30 @@
 ---A two-dimensional vector, consisting of x and y components.
----@class Vector2
+---@class Nyoom.Vector2
 ---@field x number
 ---@field y number
 ---@field width number
 ---@field height number
 ---
 ----@operator call: number, number
----@operator unm: Vector2
----@operator add(Vector2): Vector2
----@operator sub(Vector2): Vector2
----@operator mul(number | Vector2): Vector2
----@operator div(number): Vector2
+---@operator unm: Nyoom.Vector2
+---@operator add(Nyoom.Vector2): Nyoom.Vector2
+---@operator sub(Nyoom.Vector2): Nyoom.Vector2
+---@operator mul(number | Nyoom.Vector2): Nyoom.Vector2
+---@operator div(number): Nyoom.Vector2
 ---
----@field magnitude fun(self: Vector2): number Returns the magnitude of the vector.
----@field sqrMagnitude fun(self: Vector2): number Returns the squared magnitude of the vector.
----@field normalized fun(self: Vector2): Vector2 Returns a normalized version of this vector.
----@field distance fun(self: Vector2, target: Vector2): number Returns the distance to `target`.
----@field angleRad fun(self: Vector2, target: Vector2): number Returns the angle between `self` and `target` in radians.
----@field angleDeg fun(self: Vector2, target: Vector2): number Returns the angle between `self` and `target` in degrees.
+---@field magnitude fun(self: Nyoom.Vector2): number Returns the magnitude of the vector.
+---@field sqrMagnitude fun(self: Nyoom.Vector2): number Returns the squared magnitude of the vector.
+---@field normalized fun(self: Nyoom.Vector2): Nyoom.Vector2 Returns a normalized version of this vector.
+---@field distance fun(self: Nyoom.Vector2, target: Nyoom.Vector2): number Returns the distance to `target`.
+---@field angleRad fun(self: Nyoom.Vector2, target: Nyoom.Vector2): number Returns the angle between `self` and `target` in radians.
+---@field angleDeg fun(self: Nyoom.Vector2, target: Nyoom.Vector2): number Returns the angle between `self` and `target` in degrees.
 
-local methods, metamethods = {}, { __name = 'Vector2' }
+local methods, metamethods = {}, { __name = 'Nyoom.Vector2' }
 
 ---Create a new Vector. Arguments default to 0.
 ---@param x number | nil
 ---@param y number | nil
----@return Vector2
+---@return Nyoom.Vector2
 local function newVector2(x, y)
   return setmetatable({ x, y }, metamethods)
 end
@@ -49,17 +49,17 @@ function methods:normalized()
   else return newVector2(self.x / length, self.y / length) end
 end
 
----@param target Vector2
+---@param target Nyoom.Vector2
 function methods:distance(target)
   return (self - target):magnitude()
 end
 
----@param target Vector2
+---@param target Nyoom.Vector2
 function methods:angleRad(target)
   return math.atan2(target.y - self.y, target.x - self.x)
 end
 
----@param target Vector2
+---@param target Nyoom.Vector2
 function methods:angleDeg(target)
   return (self:angleRad(target) * (180 / math.pi) + 90.0) % 360.0
 end

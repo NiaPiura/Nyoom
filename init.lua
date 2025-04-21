@@ -5,12 +5,12 @@ require('nyoom.globals')
 
 ---@class Nyoom
 nyoom = {}
-nyoom.common = require('nyoom.common') ---@type Common
-nyoom.graphics = require('nyoom.graphics') ---@type Graphics
-nyoom.timing = require('nyoom.timing') ---@type Timing
-nyoom.events = require('nyoom.events') ---@type Events
-nyoom.profiler = require('nyoom.profiler') ---@type Profiler
-nyoom.nui = require('nyoom.nui') ---@type Nui
+nyoom.common = require('nyoom.common') ---@type Nyoom.Common
+nyoom.graphics = require('nyoom.graphics') ---@type Nyoom.Graphics
+nyoom.timing = require('nyoom.timing') ---@type Nyoom.Timing
+nyoom.events = require('nyoom.events') ---@type Nyoom.Events
+nyoom.profiler = require('nyoom.profiler') ---@type Nyoom.Profiler
+nyoom.nui = require('nyoom.nui') ---@type Nyoom.Nui
 
 function nyoom.update(deltaTime)
   nyoom.profiler.start()

@@ -1,23 +1,23 @@
 local newColor = require('nyoom.graphics.color')
 
----@class Text
+---@class Nyoom.Text
 ---@field string string
 ---@field font love.Font
----@field rect Rect
----@field color Color
+---@field rect Nyoom.Rect
+---@field color Nyoom.Color
 ---@field horizontalAlignment TextHorizontalAlignment
 ---@field verticalAlignment TextVerticalAlignment
 ---@field offset number
 ---
----@field draw fun(self: Text)
----@field setFont fun(self: Text, font: love.Font): Text
----@field setColor fun(self: Text, color: Color): Text
----@field setAlignments fun(self: Text, horizonral: TextHorizontalAlignment, vertical: TextVerticalAlignment): Text
----@field setPosition fun(self: Text, x: number, y: number): Text
----@field setPosition fun(self: Text, position: Vector2): Text
----@field setSize fun(self: Text, width: number, height: number): Text
----@field setSize fun(self: Text, size: Vector2): Text
----@field update fun(self: Text)
+---@field draw fun(self: Nyoom.Text)
+---@field setFont fun(self: Nyoom.Text, font: love.Font): Nyoom.Text
+---@field setColor fun(self: Nyoom.Text, color: Nyoom.Color): Nyoom.Text
+---@field setAlignments fun(self: Nyoom.Text, horizonral: TextHorizontalAlignment, vertical: TextVerticalAlignment): Nyoom.Text
+---@field setPosition fun(self: Nyoom.Text, x: number, y: number): Nyoom.Text
+---@field setPosition fun(self: Nyoom.Text, position: Nyoom.Vector2): Nyoom.Text
+---@field setSize fun(self: Nyoom.Text, width: number, height: number): Nyoom.Text
+---@field setSize fun(self: Nyoom.Text, size: Nyoom.Vector2): Nyoom.Text
+---@field update fun(self: Nyoom.Text)
 
 ---@alias TextHorizontalAlignment 'left'|'right'|'center'|'justify'
 ---@alias TextVerticalAlignment 'top'|'bottom'|'center'
@@ -27,14 +27,14 @@ local defaults = {
   font = love.graphics.newFont(12)
 }
 
-local methods, metamethods = {}, { __name = 'Text' }
+local methods, metamethods = {}, { __name = 'Nyoom.Text' }
 
 ---@param string string
 ---@param x number
 ---@param y number
 ---@param width number
 ---@param height number
----@return Text
+---@return Nyoom.Text
 local function newText(string, x, y, width, height)
   local text = {
     string = string,
@@ -53,7 +53,7 @@ local function newText(string, x, y, width, height)
   return text
 end
 
----@param self Text
+---@param self Nyoom.Text
 function methods:draw()
   love.graphics.setColor(self.color)
   love.graphics.printf(self.string, self.font, self.rect.x, self.rect.y + self.offset, self.rect.width, self.horizontalAlignment)
@@ -83,15 +83,15 @@ function methods:setAlignments(horizontal, vertical)
   return self
 end
 
----@param x number|Vector2
+---@param x number|Nyoom.Vector2
 ---@param y number|nil
 function methods:setPosition(x, y)
   if type(x) == 'number' then self.rect.position = nyoom.common.newVector2(x, y)
   else self.rect.position = x end
 end
 
----@param self Text
----@param width number|Vector2
+---@param self Nyoom.Text
+---@param width number|Nyoom.Vector2
 ---@param height number|nil
 function methods:setSize(width, height)
   if type(width) == 'number' then self.rect.size = nyoom.common.newVector2(width, height)
@@ -99,7 +99,7 @@ function methods:setSize(width, height)
   self:update()
 end
 
----@param self Text
+---@param self Nyoom.Text
 function methods:update()
   self.offset = (self.rect.height - self.font:getHeight()) / 2
 end

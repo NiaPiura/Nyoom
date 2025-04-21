@@ -1,16 +1,16 @@
 ---An Axis Aligned Bounding Box (AABB), internally represented by two vectors
----@class Rect
+---@class Nyoom.Rect
 ---@field x number
 ---@field y number
 ---@field width number
 ---@field height number
----@field position Vector2
----@field size Vector2
+---@field position Nyoom.Vector2
+---@field size Nyoom.Vector2
 ---
----@field getCenter fun(self: Rect): Vector2
----@field isWithinBounds fun(self: Rect, point: Vector2): boolean
+---@field getCenter fun(self: Nyoom.Rect): Nyoom.Vector2
+---@field isWithinBounds fun(self: Nyoom.Rect, point: Nyoom.Vector2): boolean
 
-local methods, metamethods = {}, { __name = 'Rect' }
+local methods, metamethods = {}, { __name = 'Nyoom.Rect' }
 
 local function newRect(x, y, width, height)
   local rect = {
@@ -27,7 +27,7 @@ function methods:getCenter()
   return self.position + self.size / 2
 end
 
----@param point Vector2
+---@param point Nyoom.Vector2
 function methods:isWithinBounds(point)
   return
     point.x >= self.x and point.x < self.x + self.width and

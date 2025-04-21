@@ -1,5 +1,5 @@
 ---Nyoom event system. Allows for registering and listening to both Löve2D and user-made events.
----@class Events
+---@class Nyoom.Events
 ---@field register fun(name: string) Register a new event handle.
 ---@field listen fun(name: string, func: fun(...)) Add a listener to an event handle.
 ---@field fire fun(name: string, ...) Fires an event and passes additional argument to all listeners.

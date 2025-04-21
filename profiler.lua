@@ -1,10 +1,10 @@
----@class ProfilerMark
+---@class Nyoom.ProfilerMark
 ---@field label string
 ---@field delta number
 ---@field percentage number
 
----@class Profiler
----@field marks ProfilerMark[]
+---@class Nyoom.Profiler
+---@field marks Nyoom.ProfilerMark[]
 ---@field targetFPS number
 ---@field frameStart number
 ---@field timestamp number

@@ -1,23 +1,23 @@
----@class Color
+---@class Nyoom.Color
 ---@field r number
 ---@field g number
 ---@field b number
 ---@field a number
 ---
----@field setActive fun(self: Color)
----@field add fun(self: Color, value: Color|number): Color
----@field multiply fun(self: Color, value: number): Color
+---@field setActive fun(self: Nyoom.Color)
+---@field add fun(self: Nyoom.Color, value: Nyoom.Color|number): Nyoom.Color
+---@field multiply fun(self: Nyoom.Color, value: number): Nyoom.Color
 ---
----@operator add(Color|number): Color
----@operator mul(number): Color
+---@operator add(Nyoom.Color|number): Nyoom.Color
+---@operator mul(number): Nyoom.Color
 
-local methods, metamethods = {}, { __name = 'Color' }
+local methods, metamethods = {}, { __name = 'Nyoom.Color' }
 
 ---@param r number
 ---@param g number
 ---@param b number
 ---@param a? number
----@return Color
+---@return Nyoom.Color
 local function newColor(r, g, b, a)
   return setmetatable({ r, g, b, a or 1 }, metamethods)
 end
@@ -28,7 +28,7 @@ function methods:setActive()
   love.graphics.setColor(self)
 end
 
----@param value Color|number
+---@param value Nyoom.Color|number
 function methods:add(value)
   if type(value) == 'number' then
     return newColor(
@@ -70,7 +70,7 @@ end
 
 function metamethods:__newindex() end
 
----@param value Color|number
+---@param value Nyoom.Color|number
 function metamethods:__add(value)
   return self:add(value)
 end

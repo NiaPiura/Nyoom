@@ -1,22 +1,22 @@
 ---@diagnostic disable: invisible
 
 ---A cute, minimalistic event-driven UI system
----@class Nui
+---@class Nyoom.Nui
 ---@field update fun(deltaTime: number)
 ---@field draw fun()
 local nui = {
   newElement = require('nyoom.nui.element'),
-  root = nil, ---@type Element
-  focused = nil, ---@type Element?
-  topmost = nil, ---@type Element
+  root = nil, ---@type Nyoom.Element
+  focused = nil, ---@type Nyoom.Element?
+  topmost = nil, ---@type Nyoom.Element
 }
 
 nui.root = nui.newElement('root', 0, 0, love.graphics.getDimensions())
 nui.topmost = nui.root
 function nui.root:onResize(dimensions) self.size = dimensions end
 
-local hoverStack = {} ---@type Element[]
-local clickCache = {} ---@type table<number, Element[]>
+local hoverStack = {} ---@type Nyoom.Element[]
+local clickCache = {} ---@type table<number, Nyoom.Element[]>
 
 function nui.update(deltaTime)
   nui.root:update(deltaTime)

@@ -1,5 +1,5 @@
 ---A representation of an easing operation on two sets of values over time.
----@class Tween
+---@class Nyoom.Tween
 ---@field method EasingMethods
 ---@field duration number
 ---@field position number
@@ -8,17 +8,17 @@
 ---
 ---@field isReversed boolean
 ---
----@field ease fun(self: Tween, method: EasingMethods, power: number): Tween Set the easing method.
----@field set fun(self: Tween, position: number): Tween Sets the current tween value to the given position.
----@field forward fun(self: Tween): Tween Set tween to play back in forwards direction.
----@field backward fun(self: Tween): Tween Set tween to play back in backwards direction.
----@field finish fun(self: Tween): Tween Finish the tween.
----@field start fun(self: Tween): Tween Add tween into activeTweens.
----@field stop fun(self: Tween): Tween Remove tween from activeTweens.
----@field restart fun(self: Tween): Tween Equivalent to `self:set(0):start()`
+---@field ease fun(self: Nyoom.Tween, method: EasingMethods, power: number): Nyoom.Tween Set the easing method.
+---@field set fun(self: Nyoom.Tween, position: number): Nyoom.Tween Sets the current tween value to the given position.
+---@field forward fun(self: Nyoom.Tween): Nyoom.Tween Set tween to play back in forwards direction.
+---@field backward fun(self: Nyoom.Tween): Nyoom.Tween Set tween to play back in backwards direction.
+---@field finish fun(self: Nyoom.Tween): Nyoom.Tween Finish the tween.
+---@field start fun(self: Nyoom.Tween): Nyoom.Tween Add tween into activeTweens.
+---@field stop fun(self: Nyoom.Tween): Nyoom.Tween Remove tween from activeTweens.
+---@field restart fun(self: Nyoom.Tween): Nyoom.Tween Equivalent to `self:set(0):start()`
 ---
----@field onUpdate fun(self: Tween)? Add a callback that runs on every step to apply the tween's state to something.
----@field onFinish fun(self: Tween)? Add a callback that runs when the tween is finished.
+---@field onUpdate fun(self: Nyoom.Tween)? Add a callback that runs on every step to apply the tween's state to something.
+---@field onFinish fun(self: Nyoom.Tween)? Add a callback that runs when the tween is finished.
 
 ---@alias EasingMethods 'linear'|'easeIn'|'easeOut'|'easeInOut'
 
@@ -30,14 +30,14 @@ local easingMethods = {
   easeInOut = function (x, p) if x < 0.5 then return math.pow(x * 2, p) / 2 else return 1 - math.pow(2 - x * 2, p) / 2 end end
 }
 
----@type Tween[]
+---@type Nyoom.Tween[]
 local activeTweens = {}
-local methods, metamethods = {}, { __name = 'Tween' }
+local methods, metamethods = {}, { __name = 'Nyoom.Tween' }
 
 ---A simple tweening Library.
 ---@class Tweens
 ---@field update fun(deltaTime: number)
----@field new fun(duration: number, object: table, target: table): Tween
+---@field new fun(duration: number, object: table, target: table): Nyoom.Tween
 local tweens = {}
 
 function tweens.update(deltaTime)

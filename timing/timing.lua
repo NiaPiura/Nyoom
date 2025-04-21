@@ -1,10 +1,10 @@
 local tween = require('nyoom.timing.tween')
 local delay = require('nyoom.timing.delay')
 
----@class Timing
+---@class Nyoom.Timing
 ---@field update fun(deltaTime: number)
----@field newTween fun(duration: number, object: table, target: table): Tween Create a new Tween
----@field newDelay fun(duration: number, onFinish: fun(self: Delay) ): Delay Create a new Delay and automatically starts it.
+---@field newTween fun(duration: number, object: table, target: table): Nyoom.Tween Create a new Tween
+---@field newDelay fun(duration: number, onFinish: fun(self: Nyoom.Delay) ): Nyoom.Delay Create a new Delay and automatically starts it.
 local timing = {}
 
 function timing.update(deltaTime)
