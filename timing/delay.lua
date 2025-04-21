@@ -15,9 +15,9 @@ local activeDelays = {}
 local methods, metamethods = {}, { __name = 'Nyoom.Delay' }
 
 ---A simple delayed execution library.
----@class Delays
+---@class Nyoom.Delays
 ---@field update fun(deltaTime: number)
----@field new fun(duration: number, onFinish: function): Nyoom.Delay
+---@field newDelay fun(duration: number, onFinish: function): Nyoom.Delay
 local delays = {}
 
 function delays.update(deltaTime)
@@ -26,18 +26,18 @@ function delays.update(deltaTime)
   end
 end
 
-function delays.new(duration, onFinish)
-  local newDelay = {
+function delays.newDelay(duration, onFinish)
+  local delay = {
     duration = duration or 0,
     position = 0,
     onFinish = onFinish
   }
 
-  setmetatable(newDelay, metamethods)
+  setmetatable(delay, metamethods)
 
-  newDelay:start()
+  delay:start()
 
-  return newDelay
+  return delay
 end
 
 -- Methods

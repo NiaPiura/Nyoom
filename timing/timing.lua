@@ -13,11 +13,11 @@ function timing.update(deltaTime)
 end
 
 function timing.newTween(duration, object, target)
-  return tween.new(duration, object, target)
+  return tween.newTween(duration, object, target)
 end
 
 function timing.newDelay(duration, onFinish)
-  return delay.new(duration, onFinish)
+  return delay.newDelay(duration, onFinish)
 end
 
 return timing
