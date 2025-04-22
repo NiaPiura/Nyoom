@@ -9,6 +9,7 @@ nyoom.common = require('nyoom.common') ---@type Nyoom.Common
 nyoom.graphics = require('nyoom.graphics') ---@type Nyoom.Graphics
 nyoom.timing = require('nyoom.timing') ---@type Nyoom.Timing
 nyoom.events = require('nyoom.events') ---@type Nyoom.Events
+nyoom.levels = require('nyoom.levels') ---@type Nyoom.Levels
 nyoom.profiler = require('nyoom.profiler') ---@type Nyoom.Profiler
 nyoom.nui = require('nyoom.nui') ---@type Nyoom.Nui
 
