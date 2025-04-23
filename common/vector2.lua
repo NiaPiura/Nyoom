@@ -22,8 +22,8 @@
 local methods, metamethods = {}, { __name = 'Nyoom.Vector2' }
 
 ---Create a new Vector. Arguments default to 0.
----@param x number | nil
----@param y number | nil
+---@param x number
+---@param y number
 ---@return Nyoom.Vector2
 local function newVector2(x, y)
   return setmetatable({ x, y }, metamethods)
