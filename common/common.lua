@@ -2,7 +2,7 @@ local newVector2 = require('nyoom.common.vector2')
 local newRect = require('nyoom.common.rect')
 
 ---@class Nyoom.Common
----@field newVector fun(x?: number, y?: number): Nyoom.Vector2 Create a new Vector.
+---@field newVector2 fun(x?: number, y?: number): Nyoom.Vector2 Create a new Vector.
 ---@field newRect fun(x?: number, y?: number, width?: number, height?: number): Nyoom.Rect Create a new Rect.
 local common = {}
 
