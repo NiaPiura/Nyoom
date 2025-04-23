@@ -12,7 +12,9 @@ end
 ---@param customType string|nil
 ---@return string
 local function printTable(list, customType)
-  local message = string.builder():add(('<%s> {\n'):format(customType))
+  local message = string.builder()
+  if customType then message:add(('<%s> {\n'):format(customType))
+  else message:add('{\n') end
 
   for key, value in pairs(list) do
     local valueType, customType = type(value)
@@ -33,7 +35,9 @@ function print(...)
   for i, value in ipairs(values) do
     local valueType, customType = type(value)
     if valueType == 'table' then
-      if #values > 1 then message:add(('<%s> %s'):format(customType or '', tostring(value)))
+      if #values > 1 then
+        if customType then message:add(('<%s> %s'):format(customType, tostring(value)))
+        else message:add(('%s'):format(tostring(value))) end
       else message:add(printTable(value, customType)) end
     else message:add(('%s'):format(tostring(value))) end
   end
