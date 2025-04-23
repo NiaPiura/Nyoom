@@ -7,7 +7,7 @@ local newRect = require('nyoom.common.rect')
 local common = {}
 
 function common.newVector2(x, y)
-  return newVector2(x, y)
+  return newVector2(x or 0, y or 0)
 end
 
 function common.newRect(x, y, width, height)
