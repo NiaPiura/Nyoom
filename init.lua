@@ -3,6 +3,9 @@
 require('nyoom.require')
 require('nyoom.globals')
 
+love.graphics.setDefaultFilter('nearest', 'nearest')
+love.keyboard.setKeyRepeat(true)
+
 ---@class Nyoom
 nyoom = {}
 nyoom.common = require('nyoom.common') ---@type Nyoom.Common
