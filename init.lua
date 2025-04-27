@@ -19,6 +19,7 @@ nyoom.nui = require('nyoom.nui') ---@type Nyoom.Nui
 function nyoom.update(deltaTime)
   nyoom.profiler.start()
   nyoom.timing.update(deltaTime)
+  nyoom.levels.update(deltaTime)
   nyoom.profiler.mark('update:base')
 end
 
@@ -28,6 +29,7 @@ function nyoom.postUpdate(deltaTime)
 end
 
 function nyoom.draw()
+  nyoom.levels.draw()
   nyoom.nui.draw()
   nyoom.profiler.mark('draw:nui')
   nyoom.profiler.draw()
