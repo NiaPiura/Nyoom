@@ -105,7 +105,7 @@ function metamethods.__div(a, b)
 end
 
 function metamethods.__eq(a, b)
-  return a.x == b.x and a.y == b.y
+  return math.abs(a.x - b.x) < 1e-5 and math.abs(a.y - b.y) < 1e-5
 end
 
 return newVector2
