@@ -81,7 +81,7 @@ function metamethods:__unm()
 end
 
 function metamethods:__tostring()
-  return ('(x:%.1f, y:%.1f)'):format(self.x, self.y)
+  return ('(%.1f, %.1f)'):format(self.x, self.y)
 end
 
 function metamethods.__add(a, b)
