@@ -89,9 +89,7 @@ function metamethods.__add(a, b)
 end
 
 function metamethods.__sub(a, b)
-  if type(a) == 'number' then newVector2(a - b.x, a - b.y)
-  elseif type(b) == 'number' then newVector2(a.x - b, a.y - b)
-  else return newVector2(a.x - b.x, a.y - b.y) end
+  return newVector2(a.x - b.x, a.y - b.y)
 end
 
 function metamethods.__mul(a, b)
