@@ -16,23 +16,32 @@ nyoom.levels = require('nyoom.levels') ---@type Nyoom.Levels
 nyoom.profiler = require('nyoom.profiler') ---@type Nyoom.Profiler
 nyoom.nui = require('nyoom.nui') ---@type Nyoom.Nui
 
-function nyoom.update(deltaTime)
-  nyoom.profiler.start()
-  nyoom.timing.update(deltaTime)
-  nyoom.levels.update(deltaTime)
-  nyoom.profiler.mark('update:base')
+---Load and initialize game data.
+---You can provide `update(deltaTime)` and `draw()` functions to be iterated along with Nyoom.
+---@param game table
+function nyoom:loadGame(game)
+  gameUpdate = game.update or function(deltaTime) end
+  gameDraw = game.draw or function() end
+
+  function love.update(deltaTime)
+    nyoom.profiler.start()
+    nyoom.timing.update(deltaTime)
+    nyoom.levels.update(deltaTime)
+    gameUpdate(deltaTime)
+    nyoom.nui.update(deltaTime)
+    nyoom.profiler.mark('nyoom.update')
+  end
+
+  function love.draw()
+    nyoom.levels.draw()
+    gameDraw()
+    nyoom.nui.draw()
+    nyoom.profiler.mark('nyoom.draw')
+    nyoom.profiler.draw()
+  end
 end
 
-function nyoom.postUpdate(deltaTime)
-  nyoom.nui.update(deltaTime)
-  nyoom.profiler.mark('update:nui')
-end
-
-function nyoom.draw()
-  nyoom.levels.draw()
-  nyoom.nui.draw()
-  nyoom.profiler.mark('draw:nui')
-  nyoom.profiler.draw()
-end
-
+--TEMP
 nyoom.events.listen('love.keypressed', function(key) if key == '/' then nyoom.profiler.toggle() end end)
+
+return nyoom
