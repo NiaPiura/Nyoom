@@ -7,11 +7,13 @@
 local nui = {
   newElement = require('nyoom.nui.element'),
   root = nil, ---@type Nyoom.Element
+  prefabs = nil, ---@type Nyoom.NuiPrefabs
   focused = nil, ---@type Nyoom.Element?
   topmost = nil, ---@type Nyoom.Element
 }
 
 nui.root = nui.newElement('root', 0, 0, love.graphics.getDimensions())
+nui.prefabs = require('nyoom.nui.prefabs')
 nui.topmost = nui.root
 function nui.root:onResize(dimensions) self.size = dimensions end
 
