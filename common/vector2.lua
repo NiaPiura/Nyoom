@@ -12,6 +12,7 @@
 ---@operator mul(number | Nyoom.Vector2): Nyoom.Vector2
 ---@operator div(number): Nyoom.Vector2
 ---
+---@field getComponents fun(self: Nyoom.Vector2): number, number
 ---@field magnitude fun(self: Nyoom.Vector2): number Returns the magnitude of the vector.
 ---@field sqrMagnitude fun(self: Nyoom.Vector2): number Returns the squared magnitude of the vector.
 ---@field normalized fun(self: Nyoom.Vector2): Nyoom.Vector2 Returns a normalized version of this vector.
@@ -31,7 +32,7 @@ end
 
 -- Methods
 
-function methods:get()
+function methods:getComponents()
   return self[1], self[2]
 end
 
