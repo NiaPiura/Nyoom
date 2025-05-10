@@ -4,6 +4,7 @@ local newLevel = require('nyoom.levels.level')
 ---@field update fun(deltaTime: number)
 ---@field draw fun()
 ---@field setActive fun(name: string)
+---@field setActive fun(level: Nyoom.Level)
 ---@field newLevel fun(name: string): Nyoom.Level
 local levels = {
   loadedLevels = {}, ---@type Nyoom.Level[]
@@ -18,8 +19,8 @@ function levels.draw()
   if levels.activeLevel then levels.activeLevel:draw() end
 end
 
-function levels.setActive(name)
-  local level = table.find(levels.loadedLevels, function(v) return v.name == name end)
+function levels.setActive(level)
+  if type(level) == 'string' then level = table.find(levels.loadedLevels, function(v) return v.name == level end) end
   if level then levels.activeLevel = level end
 end
 
