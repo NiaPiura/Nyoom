@@ -39,6 +39,7 @@ end
 
 function methods:addTileLayer(name, width, height)
   local tileLayer = newTileLayer(name, width, height)
+  tileLayer.parent = self
   table.insert(self.layers, tileLayer)
   return tileLayer
 end

@@ -1,5 +1,6 @@
 ---@class Nyoom.TileLayer
 ---@field name string
+---@field parent Nyoom.Level
 ---@field offset Nyoom.Vector2
 ---@field tileMap number[]
 ---@field tileSet Nyoom.TileSet?
