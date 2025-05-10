@@ -7,7 +7,7 @@ local newTileLayer = require('nyoom.levels.layers.tileLayer')
 ---@field update fun(self: Nyoom.Level, deltaTime: number)
 ---@field draw fun(self: Nyoom.Level)
 ---@field addTileLayer fun(self: Nyoom.Level, name: string, width: number, height: number): Nyoom.TileLayer
----@field getLayer fun(self: Nyoom.Level, name: string): Nyoom.LayerTypes|nil
+---@field findLayer fun(self: Nyoom.Level, name: string): Nyoom.LayerTypes|nil
 
 ---@alias Nyoom.LayerTypes Nyoom.TileLayer
 
