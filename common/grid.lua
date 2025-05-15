@@ -3,15 +3,15 @@
 ---@field size Nyoom.Vector2
 ---@field width integer
 ---@field height integer
----@field defaultValue number
----@field map number[]
+---@field defaultValue any
+---@field map any[]
 ---
 ---@field getPosition fun(self: Nyoom.Grid, index: integer): Nyoom.Vector2? Gets the index in the map that correlates to the given position, or nil if out of bounds.
 ---@field getIndex fun(self: Nyoom.Grid, x: integer, y: integer): integer? Gets the index in the map that correlates to the given position, or nil if out of bounds.
----@field setValue fun(self: Nyoom.Grid, x: integer, y: integer, value: number): Nyoom.Grid Sets a value mapped to given position. Can be chained.
----@field getValue fun(self: Nyoom.Grid, x: integer, y: integer): number? Gets a value mapped to given position, or nil if out of bounds.
+---@field setValue fun(self: Nyoom.Grid, x: integer, y: integer, value: any): Nyoom.Grid Sets a value mapped to given position. Can be chained.
+---@field getValue fun(self: Nyoom.Grid, x: integer, y: integer): any Gets a value mapped to given position, or nil if out of bounds.
 ---@field setSize fun(self: Nyoom.Grid, width: integer, height: integer) Resizes the grid.
----@field clear fun(self: Nyoom.Grid, value?: number) Clear the grid, replacing values with either given value, or `defaultValue`.
+---@field clear fun(self: Nyoom.Grid, value: any) Clear the grid, replacing values with either given value, or `defaultValue`.
 
 local methods, metamethods = {}, { __name = 'Nyoom.Grid' }
 
