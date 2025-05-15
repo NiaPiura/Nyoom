@@ -6,7 +6,7 @@ local newTileLayer = require('nyoom.levels.layers.tileLayer')
 ---
 ---@field update fun(self: Nyoom.Level, deltaTime: number)
 ---@field draw fun(self: Nyoom.Level)
----@field addTileLayer fun(self: Nyoom.Level, name: string, width: number, height: number): Nyoom.TileLayer
+---@field addTileLayer fun(self: Nyoom.Level, name: string, tileGrid: Nyoom.TileGrid, offsetX?: integer, offsetY?: integer): Nyoom.TileLayer
 ---@field findLayer fun(self: Nyoom.Level, name: string): Nyoom.LayerTypes|nil
 
 ---@alias Nyoom.LayerTypes Nyoom.TileLayer
@@ -37,8 +37,8 @@ function methods:draw()
   end
 end
 
-function methods:addTileLayer(name, width, height)
-  local tileLayer = newTileLayer(name, width, height)
+function methods:addTileLayer(name, tileGrid, offsetX, offsetY)
+  local tileLayer = newTileLayer(name, tileGrid, offsetX, offsetY)
   tileLayer.parent = self
   table.insert(self.layers, tileLayer)
   return tileLayer
