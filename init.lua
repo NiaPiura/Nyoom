@@ -14,7 +14,7 @@ nyoom.timing = require('nyoom.timing') ---@type Nyoom.Timing
 nyoom.events = require('nyoom.events') ---@type Nyoom.Events
 nyoom.levels = require('nyoom.levels') ---@type Nyoom.Levels
 nyoom.profiler = require('nyoom.profiler') ---@type Nyoom.Profiler
-nyoom.nui = require('nyoom.nui') ---@type Nyoom.Nui
+nyoom.ui = require('nyoom.nui') ---@type Nyoom.Nui
 
 ---Load and initialize game data.
 ---You can provide `update(deltaTime)` and `draw()` functions to be iterated along with Nyoom.
@@ -28,14 +28,14 @@ function nyoom:loadGame(game)
     nyoom.timing.update(deltaTime)
     nyoom.levels.update(deltaTime)
     gameUpdate(deltaTime)
-    nyoom.nui.update(deltaTime)
+    nyoom.ui.update(deltaTime)
     nyoom.profiler.mark('nyoom.update')
   end
 
   function love.draw()
     nyoom.levels.draw()
     gameDraw()
-    nyoom.nui.draw()
+    nyoom.ui.draw()
     nyoom.profiler.mark('nyoom.draw')
     nyoom.profiler.draw()
   end
