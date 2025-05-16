@@ -23,6 +23,14 @@ end
 
 -- Methods
 
+function methods:setPosition(x, y)
+  self.position = nyoom.common.newVector2(x, y)
+end
+
+function methods:setSize(width, height)
+  self.size = nyoom.common.newVector2(width, height)
+end
+
 function methods:getCenter()
   return self.position + self.size / 2
 end
@@ -46,7 +54,12 @@ function metamethods:__index(key)
   return methods[key]
 end
 
-function metamethods:__newindex() end
+function metamethods:__newindex(key, value)
+  if key == 'x' then self:setPosition(value, self.y)
+  elseif key == 'y' then self:setPosition(self.x, value)
+  elseif key == 'width' then self:setSize(value, self.height)
+  elseif key == 'height' then self:setSize(self.width, value) end
+end
 
 function metamethods:__tostring()
   return ('p%s s%s'):format(tostring(self.position), tostring(self.size))
