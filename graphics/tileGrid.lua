@@ -30,14 +30,14 @@ local function repopulateSpriteBatch(self)
 end
 
 ---@param tileSet Nyoom.TileSet
----@param width integer
----@param height integer
+---@param width? integer
+---@param height? integer
 ---@return Nyoom.TileGrid
 local function newTileGrid(tileSet, width, height)
   local tileGrid = {
     tileSet = tileSet,
-    tileMap = nyoom.common.newGrid(width, height),
-    spriteMap = nyoom.common.newGrid(width, height),
+    tileMap = nyoom.common.newGrid(width or 0, height or 0),
+    spriteMap = nyoom.common.newGrid(width or 0, height or 0),
     spriteBatch = love.graphics.newSpriteBatch(tileSet.image)
   }
 

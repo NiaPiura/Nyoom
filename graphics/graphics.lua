@@ -7,7 +7,7 @@ local newTileGrid = require('nyoom.graphics.tileGrid')
 ---@field newColor fun(r: number, g: number, b: number, a?: number): Nyoom.Color Creates an object representing a color.
 ---@field newText fun(string: string, x: number, y: number, width: number, height: number): Nyoom.Text Creates an object representing a color.
 ---@field newTileSet fun(image: love.Image, tileWidth: number, tileHeight: number): Nyoom.TileSet
----@field newTileGrid fun(tileSet: Nyoom.TileSet, width: integer, height: integer): Nyoom.TileGrid
+---@field newTileGrid fun(tileSet: Nyoom.TileSet, width?: integer, height?: integer): Nyoom.TileGrid
 local graphics = {}
 
 function graphics.newColor(r, g, b, a)
