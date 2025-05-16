@@ -3,6 +3,10 @@
 ---@class Nyoom.Element
 ---@field id string
 ---@field offset Nyoom.Vector2 Read-only
+---@field x number
+---@field y number
+---@field width number
+---@field height number
 ---@field position Nyoom.Vector2
 ---@field size Nyoom.Vector2
 ---@field rect Nyoom.Rect read-only
@@ -35,7 +39,8 @@
 ---@field getChild fun(self: Nyoom.Element, id: string): Nyoom.Element
 ---@field setPosition fun(self: Nyoom.Element, x: number, y: number)
 ---@field setPosition fun(self: Nyoom.Element, position: Nyoom.Vector2)
----@field setSize fun(self: Nyoom.Element, width: number|Nyoom.Vector2, height: number|nil)
+---@field setSize fun(self: Nyoom.Element, width: number, height: number)
+---@field setSize fun(self: Nyoom.Element, size: Nyoom.Vector2)
 ---@field updateScreenPosition fun(self: Nyoom.Element)
 ---@field getRelativeMousePosition fun(self: Nyoom.Element): Nyoom.Vector2
 ---
@@ -235,13 +240,21 @@ end
 -- Metamethods
 
 function metamethods:__index(key)
+  if key == 'x' then return self.rect.x end
+  if key == 'y' then return self.rect.y end
+  if key == 'width' then return self.rect.width end
+  if key == 'height' then return self.rect.height end
   if key == 'position' then return self.rect.position end
   if key == 'size' then return self.rect.size end
   return methods[key]
 end
 
 function metamethods:__newindex(key, value)
-  if key == 'position' then self.rect.position = value
+  if key == 'x' then self.rect.x = value
+  elseif key == 'y' then self.rect.y = value
+  elseif key == 'width' then self.rect.width = value
+  elseif key == 'height' then self.rect.height = value
+  elseif key == 'position' then self.rect.position = value
   elseif key == 'size' then self.rect.size = value
   else rawset(self, key, value) end
 end
