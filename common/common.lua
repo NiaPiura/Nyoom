@@ -5,7 +5,7 @@ local newGrid = require('nyoom.common.grid')
 ---@class Nyoom.Common
 ---@field newVector2 fun(x?: number, y?: number): Nyoom.Vector2
 ---@field newRect fun(x?: number, y?: number, width?: number, height?: number): Nyoom.Rect
----@field newGrid fun(width: number, height: number, defaultValue?: number): Nyoom.Grid
+---@field newGrid fun(width?: integer, height?: integer, defaultValue?: any): Nyoom.Grid
 local common = {}
 
 function common.newVector2(x, y)

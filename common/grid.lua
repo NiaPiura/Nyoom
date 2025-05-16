@@ -27,13 +27,13 @@ local function clampDimensions(width, height)
   return math.max(width, 0), math.max(height, 0)
 end
 
----@param width integer
----@param height integer
+---@param width? integer
+---@param height? integer
 ---@param defaultValue? number
 ---@return Nyoom.Grid
 local function newGrid(width, height, defaultValue)
   local grid = {
-    size = nyoom.common.newVector2(clampDimensions(width, height));
+    size = nyoom.common.newVector2(clampDimensions(width or 0, height or 0));
     defaultValue = defaultValue or 1,
     map = {}
   }
