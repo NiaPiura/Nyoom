@@ -9,7 +9,8 @@
 ---@field spriteBatch love.SpriteBatch
 ---
 ---@field setSize fun(self: Nyoom.TileGrid, width: integer, height: integer): Nyoom.TileGrid Resizes the tilegrid.
----@field setTile fun(self: Nyoom.TileGrid, width: integer, height: integer, id: integer): Nyoom.TileGrid
+---@field getTile fun(self: Nyoom.TileGrid, x: integer, y: integer): integer
+---@field setTile fun(self: Nyoom.TileGrid, x: integer, y: integer, id: integer): Nyoom.TileGrid
 ---@field setTileSet fun(self: Nyoom.TileGrid, tileSet: Nyoom.TileSet): Nyoom.TileGrid
 ---@field getTilePosition fun(self: Nyoom.TileGrid, index: integer): Nyoom.Vector2?
 
@@ -56,6 +57,10 @@ function methods:setSize(width, height)
   repopulateSpriteBatch(self)
 
   return self
+end
+
+function methods:getTile(x, y)
+  return self.tileMap:getValue(x, y)
 end
 
 function methods:setTile(x, y, id)
