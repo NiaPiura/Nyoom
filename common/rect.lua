@@ -62,7 +62,7 @@ function metamethods:__newindex(key, value)
 end
 
 function metamethods:__tostring()
-  return ('p%s s%s'):format(tostring(self.position), tostring(self.size))
+  return ('%s, %s'):format(tostring(self.position), tostring(self.size))
 end
 
 return newRect
