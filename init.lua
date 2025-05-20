@@ -17,7 +17,7 @@ nyoom.profiler = require('nyoom.profiler') ---@type Nyoom.Profiler
 nyoom.ui = require('nyoom.nui') ---@type Nyoom.Nui
 
 ---Load and initialize game data.
----You can provide `update(deltaTime)` and `draw()` functions to be iterated along with Nyoom.
+---You can provide `update(deltaTime)` and `draw()` functions within your game data to be iterated along with Nyoom's update and draw cycle, which are called before the UI.
 ---@param game table
 function nyoom:loadGame(game)
   gameUpdate = game.update or function(deltaTime) end
