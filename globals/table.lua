@@ -78,7 +78,10 @@ function table.clone(original)
     for originalKey, originalValue in next, original, nil do
       copy[table.clone(originalKey)] = table.clone(originalValue)
     end
-    setmetatable(copy, table.clone(getmetatable(original)))
+    local metatable = getmetatable(original)
+    -- Only make a copy of the metatable if the metatable does not represent a custom type, as designated by the __name property. Otherwise reuse it.
+    if metatable.__name then setmetatable(copy, metatable)
+    else setmetatable(copy, table.clone(metatable)) end
   else
     copy = original
   end
