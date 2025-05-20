@@ -2,24 +2,24 @@
 
 ---@class Nyoom.Element
 ---@field id string
----@field offset Nyoom.Vector2 Read-only
+---@field offset Nyoom.Vector2
 ---@field x number
 ---@field y number
 ---@field width number
 ---@field height number
 ---@field position Nyoom.Vector2
 ---@field size Nyoom.Vector2
----@field rect Nyoom.Rect read-only
----@field parent Nyoom.Element? Read-only
----@field children Nyoom.Element[] Read-only
+---@field rect Nyoom.Rect
+---@field parent Nyoom.Element?
+---@field children Nyoom.Element[]
 ---
----@field isVisible boolean Read-only
----@field isEnabled boolean Read-only
----@field isIgnored boolean Read-only
----@field isTopmost boolean Read-only
----@field isPressed boolean Read-only
----@field isHovered boolean Read-only
----@field isFocused boolean Read-only
+---@field isVisible boolean
+---@field isEnabled boolean
+---@field isIgnored boolean
+---@field isTopmost boolean
+---@field isPressed boolean
+---@field isHovered boolean
+---@field isFocused boolean
 ---
 ---@field private update fun(self: Nyoom.Element, deltaTime: number)
 ---@field private draw fun(self: Nyoom.Element)
