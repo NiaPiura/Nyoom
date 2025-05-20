@@ -81,10 +81,6 @@ function metamethods:__unm()
   return newVector2(-self.x, -self.y)
 end
 
-function metamethods:__tostring()
-  return ('(%.1f, %.1f)'):format(self.x, self.y)
-end
-
 function metamethods.__add(a, b)
   return newVector2(a.x + b.x, a.y + b.y)
 end
@@ -105,6 +101,10 @@ end
 
 function metamethods.__eq(a, b)
   return math.abs(a.x - b.x) < 1e-5 and math.abs(a.y - b.y) < 1e-5
+end
+
+function metamethods:__tostring()
+  return ('(%.1f, %.1f)'):format(self.x, self.y)
 end
 
 return newVector2
