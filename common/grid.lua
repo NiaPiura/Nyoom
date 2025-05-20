@@ -106,4 +106,8 @@ function metamethods:__newindex(key, value)
   else rawset(self, key, value) end
 end
 
+function metamethods:__tostring()
+  return ('%d x %d'):format(self.width, self.height)
+end
+
 return newGrid
