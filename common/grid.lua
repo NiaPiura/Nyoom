@@ -1,4 +1,4 @@
---- A 2D grid of values. Positions are 0-indexed while `map` is 1-indexed
+---A 2D grid of values. Positions are 0-indexed while `map` is 1-indexed
 ---@class Nyoom.Grid
 ---@field width integer The width of the grid.
 ---@field height integer The height of the grid.
@@ -9,7 +9,9 @@
 ---@field getPosition fun(self: Nyoom.Grid, index: integer): Nyoom.Vector2? Returns the position in the map that correlates to the given index, or nil if out of bounds.
 ---@field getIndex fun(self: Nyoom.Grid, x: integer, y: integer): integer? Returns the index in the map that correlates to the given position, or nil if out of bounds.
 ---@field getValue fun(self: Nyoom.Grid, x: integer, y: integer): any Returns a value mapped to given position, or nil if out of bounds.
+---@field getValue fun(self: Nyoom.Grid, index: integer): any Returns a value mapped to a given index, or nil if out of bounds.
 ---@field setValue fun(self: Nyoom.Grid, x: integer, y: integer, value: any): Nyoom.Grid Sets a value mapped to given position. Can be chained.
+---@field setValue fun(self: Nyoom.Grid, value: any, index: integer): Nyoom.Grid Sets a value mapped to given index. Can be chained.
 ---@field setSize fun(self: Nyoom.Grid, width: integer, height: integer): Nyoom.Grid Non-destructively resizes the grid.
 ---@field clear fun(self: Nyoom.Grid, value: any): Nyoom.Grid Clear the grid, replacing values with either given value, or `defaultValue`.
 
@@ -25,6 +27,11 @@ end
 
 local function clampDimensions(width, height)
   return math.max(width, 0), math.max(height, 0)
+end
+
+-- If y is defined, use x/y coordinates, otherwise treat x as index.
+local function indexOrCoords(self, x, y)
+  return y and self:getIndex(x, y) or x
 end
 
 ---@param width? integer
@@ -57,15 +64,15 @@ function methods:getIndex(x, y)
   return positionToIndex(x, y, self.width)
 end
 
-function methods:setValue(x, y, value)
-  local index = self:getIndex(x, y)
-  if index then self.map[index] = value end
-  return self
+function methods:getValue(x, y)
+  local index = indexOrCoords(self, x, y)
+  return self.map[index]
 end
 
-function methods:getValue(x, y)
-  local index = self:getIndex(x, y)
-  return self.map[index]
+function methods:setValue(value, x, y)
+  local index = indexOrCoords(self, x, y)
+  if index then self.map[index] = value end
+  return self
 end
 
 function methods:setSize(width, height)
