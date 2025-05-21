@@ -1,14 +1,14 @@
 ---An Axis Aligned Bounding Box (AABB), internally represented by two vectors
 ---@class Nyoom.Rect
----@field x number
----@field y number
----@field width number
----@field height number
----@field position Nyoom.Vector2
----@field size Nyoom.Vector2
+---@field x number The rect's x position.
+---@field y number The rect's y position.
+---@field width number The rect's Width.
+---@field height number The rect's height.
+---@field position Nyoom.Vector2 The rect's position (top-left corner).
+---@field size Nyoom.Vector2 The rect's size (bottom-left corner's delta from the position).
 ---
----@field getCenter fun(self: Nyoom.Rect): Nyoom.Vector2
----@field isWithinBounds fun(self: Nyoom.Rect, point: Nyoom.Vector2): boolean
+---@field getCenter fun(self: Nyoom.Rect): Nyoom.Vector2 Returns a vector representing the center of the rect.
+---@field isWithinBounds fun(self: Nyoom.Rect, point: Nyoom.Vector2): boolean Returns whether a given position is within the rect's bounds.
 
 local methods, metamethods = {}, { __name = 'Nyoom.Rect' }
 

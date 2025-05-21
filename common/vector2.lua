@@ -1,9 +1,9 @@
 ---A two-dimensional vector, consisting of x and y components.
 ---@class Nyoom.Vector2
----@field x number
----@field y number
----@field width number
----@field height number
+---@field x number A reference to the vector's first component.
+---@field y number A reference to the vector's second component.
+---@field width number A reference to the vector's first component.
+---@field height number A reference to the vector's second component.
 ---
 ----@operator call: number, number
 ---@operator unm: Nyoom.Vector2
@@ -12,7 +12,7 @@
 ---@operator mul(number | Nyoom.Vector2): Nyoom.Vector2
 ---@operator div(number): Nyoom.Vector2
 ---
----@field getComponents fun(self: Nyoom.Vector2): number, number
+---@field getComponents fun(self: Nyoom.Vector2): number, number Returns the vector's components seperately.
 ---@field magnitude fun(self: Nyoom.Vector2): number Returns the magnitude of the vector.
 ---@field sqrMagnitude fun(self: Nyoom.Vector2): number Returns the squared magnitude of the vector.
 ---@field normalized fun(self: Nyoom.Vector2): Nyoom.Vector2 Returns a normalized version of this vector.

@@ -1,12 +1,12 @@
 --- A renderable `Nyoom.Grid` using `love.SpriteBatch` and `Nyoom.TileSet` to determine how and what to render. 
 ---@class Nyoom.TileGrid
----@field width integer
----@field height integer
----@field size Nyoom.Vector2
----@field tileSet Nyoom.TileSet
----@field tileMap Nyoom.Grid
----@field spriteMap Nyoom.Grid
----@field spriteBatch love.SpriteBatch
+---@field width integer The tileGrid's width in tiles.
+---@field height integer The tileGrid's height in tiles.
+---@field size Nyoom.Vector2 the tileGrid's size in tiles.
+---@field tileSet Nyoom.TileSet the tileSet used.
+---@field tileMap Nyoom.Grid The underlying grid containing tile IDs.
+---@field spriteMap Nyoom.Grid A grid of sprite indexes used to update the spriteBatch.
+---@field spriteBatch love.SpriteBatch The drawable Love2D object that allows the tileGrid to be rendered.
 ---
 ---@field setSize fun(self: Nyoom.TileGrid, width: integer, height: integer): Nyoom.TileGrid Resizes the tilegrid.
 ---@field getTile fun(self: Nyoom.TileGrid, x: integer, y: integer): integer

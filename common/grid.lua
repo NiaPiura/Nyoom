@@ -1,16 +1,16 @@
 --- A 2D grid of values. Positions are 0-indexed while `map` is 1-indexed
 ---@class Nyoom.Grid
----@field width integer
----@field height integer
----@field size Nyoom.Vector2
----@field defaultValue any
----@field map any[]
+---@field width integer The width of the grid.
+---@field height integer The height of the grid.
+---@field size Nyoom.Vector2 The size of the grid.
+---@field defaultValue any The default value the grid uses to populate itself.
+---@field map any[] The linear array representing the grid's values.
 ---
----@field getPosition fun(self: Nyoom.Grid, index: integer): Nyoom.Vector2? Gets the index in the map that correlates to the given position, or nil if out of bounds.
----@field getIndex fun(self: Nyoom.Grid, x: integer, y: integer): integer? Gets the index in the map that correlates to the given position, or nil if out of bounds.
----@field getValue fun(self: Nyoom.Grid, x: integer, y: integer): any Gets a value mapped to given position, or nil if out of bounds.
+---@field getPosition fun(self: Nyoom.Grid, index: integer): Nyoom.Vector2? Returns the position in the map that correlates to the given index, or nil if out of bounds.
+---@field getIndex fun(self: Nyoom.Grid, x: integer, y: integer): integer? Returns the index in the map that correlates to the given position, or nil if out of bounds.
+---@field getValue fun(self: Nyoom.Grid, x: integer, y: integer): any Returns a value mapped to given position, or nil if out of bounds.
 ---@field setValue fun(self: Nyoom.Grid, x: integer, y: integer, value: any): Nyoom.Grid Sets a value mapped to given position. Can be chained.
----@field setSize fun(self: Nyoom.Grid, width: integer, height: integer): Nyoom.Grid Resizes the grid.
+---@field setSize fun(self: Nyoom.Grid, width: integer, height: integer): Nyoom.Grid Non-destructively resizes the grid.
 ---@field clear fun(self: Nyoom.Grid, value: any): Nyoom.Grid Clear the grid, replacing values with either given value, or `defaultValue`.
 
 local methods, metamethods = {}, { __name = 'Nyoom.Grid' }
