@@ -21,6 +21,8 @@
 ---@field isHovered boolean
 ---@field isFocused boolean
 ---
+---@field private _isResizing boolean Prevents infinite loops by halting resize triggers during a resize trigger.
+---
 ---@field private update fun(self: Nyoom.Element, deltaTime: number)
 ---@field private draw fun(self: Nyoom.Element)
 ---@field private click fun(self: Nyoom.Element, position: Nyoom.Vector2, button: number, presses: number)
@@ -180,8 +182,12 @@ end
 
 ---@param self Nyoom.Element
 function methods:resize(dimensions)
-  if self.onResize then self:onResize(dimensions) end
+  if not self._isResizing and self.onResize then
+    self._isResizing = true
+    self:onResize(dimensions)
+  end
   for _, e in ipairs(self.children) do e:resize(dimensions) end
+  self._isResizing = false
 end
 
 -- Hierarchy manipulation / tooling
@@ -216,25 +222,25 @@ end
 
 ---@param self Nyoom.Element
 function methods:setSize(width, height)
-  if type(width) == 'number' then self.size = nyoom.common.newVector2(width, height)
-  else self.size = width end
-  self:resize(self.size)
+  if type(width) == 'number' then self.rect.size = nyoom.common.newVector2(width, height)
+  else self.rect.size = width end
+  self:resize(self.rect.size)
 end
 
 ---@param self Nyoom.Element
 function methods:updateScreenPosition()
   if self.parent then
-    self.position = self.parent.position + self.offset
+    self.rect.position = self.parent.rect.position + self.offset
     for _, child in ipairs(self.children) do child:updateScreenPosition() end
   else
-    self.position = self.offset
+    self.rect.position = self.offset
   end
 end
 
 ---@param self Nyoom.Element
 function methods:getRelativeMousePosition()
   local mousePosition = nyoom.common.newVector2(love.mouse.getPosition())
-  return mousePosition - self.position
+  return mousePosition - self.rect.position
 end
 
 -- Metamethods
@@ -249,13 +255,14 @@ function metamethods:__index(key)
   return methods[key]
 end
 
+---@param self Nyoom.Element
 function metamethods:__newindex(key, value)
-  if key == 'x' then self.rect.x = value
-  elseif key == 'y' then self.rect.y = value
-  elseif key == 'width' then self.rect.width = value
-  elseif key == 'height' then self.rect.height = value
-  elseif key == 'position' then self.rect.position = value
-  elseif key == 'size' then self.rect.size = value
+  if key == 'x' then self:setPosition(value, self.y)
+  elseif key == 'y' then self:setPosition(self.x, value)
+  elseif key == 'width' then self:setSize(value, self.height)
+  elseif key == 'height' then self:setSize(self.width, value)
+  elseif key == 'position' then self:setPosition(value)
+  elseif key == 'size' then self:setSize(value)
   else rawset(self, key, value) end
 end
 
