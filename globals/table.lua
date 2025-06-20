@@ -87,3 +87,12 @@ function table.clone(original)
   end
   return copy
 end
+
+---Shallow-copies over all of a table's fields to another target table
+---@param target table
+---@param list table
+function table.apply(target, list)
+  for k, v in pairs(list) do
+    target[k] = v
+  end
+end
