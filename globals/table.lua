@@ -29,21 +29,22 @@ end
 ---Returns the first value in arbitrary order that returns true on the matching function provided, or nil if nothing matched. 
 ---@param list table
 ---@param func function
----@return any
+---@return any, any
 function table.find(list, func)
-  for _, v in pairs(list) do
-    if func(v) then return v end
+  for key, value in pairs(list) do
+    if func(value) then return value, key end
   end
 end
 
 ---Returns the first value in order of index that returns true on the matching function provided, or nil if nothing matched.
 ---@param list table
 ---@param func function
----@return any
+---@return any, integer
 function table.ifind(list, func)
-  for _, v in ipairs(list) do
-    if func(v) then return v end
+  for index, value in ipairs(list) do
+    if func(value) then return value, index end
   end
+  return nil, -1
 end
 
 ---Returns an indexed table containing the keys of the provided table
