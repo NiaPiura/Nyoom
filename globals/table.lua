@@ -1,70 +1,74 @@
----Returns the key of the given value, or nil if missing
+---Returns the key of `searchValue` in `list`, or nil if missing.
 ---@param list table
----@param value any
----@return any
-function table.keyOf(list, value)
-  for k, v in pairs(list) do
-    if v == value then return k end
+---@param searchValue any
+---@return any key
+function table.keyOf(list, searchValue)
+  for key, value in pairs(list) do
+    if value == searchValue then return key end
   end
 end
 
----Returns the index of the gven value, or nil if missing
+---Returns the index of `searchValue` in `list`, or nil if missing.
 ---@param list table
----@param value any
----@return integer | nil
-function table.indexOf(list, value)
-  for i, v in ipairs(list) do
-    if v == value then return i end
+---@param searchValue any
+---@return integer? index
+function table.indexOf(list, searchValue)
+  for index, value in ipairs(list) do
+    if value == searchValue then return index end
   end
 end
 
----Removed a value from the table
+---Removes `searchValue` from the table, returning `true` if successful.
 ---@param list table
----@param value any
-function table.removeValue(list, value)
-  local index = table.indexOf(list, value)
-  if index then table.remove(list, index) end
+---@param searchValue any
+---@return boolean success
+function table.removeValue(list, searchValue)
+  local index = table.indexOf(list, searchValue)
+  if index then
+    table.remove(list, index)
+    return true
+  else return false end
 end
 
----Returns the first value in arbitrary order that returns true on the matching function provided, or nil if nothing matched. 
+---Finds the first match in `list` (in arbitrary order) where `func` returns `true`, returning both its value and key or `nil, nil` if no matches were found. 
 ---@param list table
----@param func function
----@return any, any
+---@param func fun(value: any): boolean
+---@return any value, any key
 function table.find(list, func)
   for key, value in pairs(list) do
     if func(value) then return value, key end
   end
 end
 
----Returns the first value in order of index that returns true on the matching function provided, or nil if nothing matched.
+---Finds the first element in `list` (in order of index) where `func` returns `true`, returning both its value and index or `nil, 0` if no matches were found.
 ---@param list table
----@param func function
----@return any, integer
+---@param func fun(value: any): boolean
+---@return any value, integer index
 function table.ifind(list, func)
   for index, value in ipairs(list) do
     if func(value) then return value, index end
   end
-  return nil, -1
+  return nil, 0
 end
 
----Returns an indexed table containing the keys of the provided table
+---Returns an indexed table containing the keys of `list`.
 ---@param list table
----@return string[]
+---@return string[] keys
 function table.keys(list)
   local keys = {}
-  for k, _ in pairs(list) do
-    keys[#keys+1] = k
+  for key, _ in pairs(list) do
+    table.insert(keys, key)
   end
   return keys
 end
 
----Returns an indexed table containing the values of the provided table
+---Returns an indexed table containing the values of `list`.
 ---@param list table
----@return any[]
+---@return any[] values
 function table.values(list)
   local values = {}
-  for _, v in pairs(list) do
-    values[#values+1] = v
+  for _, value in pairs(list) do
+    table.insert(values, value)
   end
   return values
 end

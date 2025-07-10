@@ -9,7 +9,7 @@ local function getLength(list)
 end
 
 ---@param list table
----@param customType string|nil
+---@param customType string?
 ---@return string
 local function printTable(list, customType)
   local message = string.builder()
@@ -27,6 +27,7 @@ local function printTable(list, customType)
   return message:add('}'):build()
 end
 
+---In the case the only argument is a table, the table will have its keys/indexes and values printed.
 ---@param ... any
 function print(...)
   local message = string.builder()

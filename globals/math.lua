@@ -1,4 +1,4 @@
----Clamps value between `min` and `max`.
+---Clamps `value` between `min` and `max`.
 ---@param value number
 ---@param min number
 ---@param max number
@@ -9,18 +9,18 @@ function math.clamp(value, min, max)
   else return value end
 end
 
----Returns the value's sign.
+---Returns the sign of `value`.
 ---@param value number
----@return integer 1 for positive values, -1 for negative values. 0 is treated as positive.
+---@return integer `1` for positive values, `-1` for negative values. The value `0` is treated as positive.
 function math.sign(value)
   if (value >= 0) then return 1
   else return -1 end
 end
 
----Rounds the given value to the nearest integer.
+---Rounds the given value to the nearest integer. `0.5` is rounded up
 ---@param value number
 ---@return integer
 function math.round(value)
-  if value >= 0 then return math.floor(value)
-  else return math.ceil(value) end
+  if value >= 0.5 then return math.ceil(value)
+  else return math.floor(value) end
 end
