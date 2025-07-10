@@ -73,6 +73,17 @@ function table.values(list)
   return values
 end
 
+---Returns a new indexed table that contains the elements of `list` where `func` returns `true`.
+---@param list table
+---@param func fun(value: any): boolean
+function table.filter(list, func)
+  local filtered = {}
+  for _, value in pairs(list) do
+    if func(value) then table.insert(filtered, value) end
+  end
+  return filtered
+end
+
 ---Creates a deep copy of a table, including metatables
 ---@param original table
 ---@return table
