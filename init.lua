@@ -42,6 +42,6 @@ function nyoom:loadGame(game)
 end
 
 --TEMP
-nyoom.events.listen('love.keypressed', function(key) if key == '/' then nyoom.profiler.toggle() end end)
+nyoom.events.keyPressed:addListener(function(key) if key == '/' then nyoom.profiler.toggle() end end)
 
 return nyoom

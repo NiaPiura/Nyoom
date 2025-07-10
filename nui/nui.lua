@@ -109,10 +109,10 @@ local function resize(width, height)
 end
 
 -- Love event hooks
-nyoom.events.listen('love.mousemoved', mouseMoved)
-nyoom.events.listen('love.mousepressed', mousePressed)
-nyoom.events.listen('love.mousereleased', mouseReleased)
-nyoom.events.listen('love.wheelmoved', wheelMoved)
-nyoom.events.listen('love.resize', resize)
+nyoom.events.mouseMoved:addListener(mouseMoved)
+nyoom.events.mousePressed:addListener(mousePressed)
+nyoom.events.mouseReleased:addListener(mouseReleased)
+nyoom.events.wheelMoved:addListener(wheelMoved)
+nyoom.events.resize:addListener(resize)
 
 return nui
