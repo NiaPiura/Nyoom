@@ -29,14 +29,8 @@ function nui.draw()
   nui.root:draw()
 end
 
----@param mouseX number
----@param mouseY number
-local function mouseMoved(mouseX, mouseY)
-  local mousePosition = nyoom.common.newVector2(mouseX, mouseY)
-  for _, element in ipairs(hoverStack) do
-    if not element.rect:isWithinBounds(mousePosition) then element:unhover() end
-  end
-
+---@param mousePosition Nyoom.Vector2
+local function regenerateHoverStack(mousePosition)
   hoverStack = {}
   local searchQueue = { nui.root }
 
@@ -46,6 +40,17 @@ local function mouseMoved(mouseX, mouseY)
     for _, child in ipairs(element.children) do table.insert(searchQueue, child) end
     table.remove(searchQueue, 1)
   end
+end
+
+---@param mouseX number
+---@param mouseY number
+local function mouseMoved(mouseX, mouseY)
+  local mousePosition = nyoom.common.newVector2(mouseX, mouseY)
+  for _, element in ipairs(hoverStack) do
+    if not element.rect:isWithinBounds(mousePosition) then element:unhover() end
+  end
+
+  regenerateHoverStack(mousePosition)
 
   if nui.topmost ~= hoverStack[#hoverStack] then
     nui.topmost.isTopmost = false
