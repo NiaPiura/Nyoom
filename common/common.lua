@@ -20,5 +20,4 @@ function common.newGrid(width, height, defaultValue)
   return newGrid(width, height, defaultValue)
 end
 
-
 return common
