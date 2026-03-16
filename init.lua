@@ -12,6 +12,7 @@ nyoom.common = require('nyoom.common') ---@type Nyoom.Common
 nyoom.graphics = require('nyoom.graphics') ---@type Nyoom.Graphics
 nyoom.timing = require('nyoom.timing') ---@type Nyoom.Timing
 nyoom.events = require('nyoom.events') ---@type Nyoom.Events
+nyoom.input = require('nyoom.input') ---@type Nyoom.Input
 nyoom.levels = require('nyoom.levels') ---@type Nyoom.Levels
 nyoom.profiler = require('nyoom.profiler') ---@type Nyoom.Profiler
 nyoom.ui = require('nyoom.nui') ---@type Nyoom.Nui
@@ -42,6 +43,6 @@ function nyoom:loadGame(game)
 end
 
 --TEMP
-nyoom.events.keyPressed:addListener(function(key) if key == '/' then nyoom.profiler.toggle() end end)
+--nyoom.events.keyPressed:addListener(function(key) if key == '/' then nyoom.profiler.toggle() end end)
 
 return nyoom
