@@ -1,4 +1,4 @@
--- Nyoom Framework (c) 2025 Nia Piura
+-- Nyoom Framework (c) 2026 Nia Piura
 
 require('nyoom.require')
 require('nyoom.globals')
@@ -16,6 +16,9 @@ nyoom.input = require('nyoom.input') ---@type Nyoom.Input
 nyoom.levels = require('nyoom.levels') ---@type Nyoom.Levels
 nyoom.profiler = require('nyoom.profiler') ---@type Nyoom.Profiler
 nyoom.ui = require('nyoom.nui') ---@type Nyoom.Nui
+
+-- If Nytor is in the root directory, load it and switch to editor mode.
+if love.filesystem.getInfo('nytor') then require('nytor') end
 
 ---Load and initialize game data.
 ---You can provide `update(deltaTime)` and `draw()` functions within your game data to be iterated along with Nyoom's update and draw cycle, which are called before the UI.
@@ -41,9 +44,5 @@ function nyoom:loadGame(game)
     nyoom.profiler.draw()
   end
 end
-
-nyoom.input.registerAction('nyoom.profiler', 'lalt+`', function() nyoom.profiler.toggle() end)
-nyoom.input.registerAction('nyoom.console', 'lctrl+`', function() nyoom.profiler.toggle() end)
-nyoom.input.registerAction('nyoom.quit', 'lalt+escape', function() love.event.quit() end)
 
 return nyoom
