@@ -1,7 +1,7 @@
 ---@class Nyoom.InputAction
----@field name string
----@field sequence string[]
----@field callback function
+---@field name string The name of the Input Action.
+---@field sequence string[] The sequence of inputs required to trigger the Input Action.
+---@field callback function The callback function executed when the Input Action is triggered.
 
 local methods, metamethods = {}, { __name = 'Nyoom.InputAction' }
 
@@ -26,8 +26,8 @@ end
 
 
 ---@class Nyoom.Input
----@field states { [string]: number }
----@field actions Nyoom.InputAction[]
+---@field states { [string]: number } List of all currently relevant input states that Nyoom can track.
+---@field actions Nyoom.InputAction[] List of all currently registered Input Actions.
 local input = {
   states = {},
   actions = {}
