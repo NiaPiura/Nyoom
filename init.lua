@@ -42,7 +42,8 @@ function nyoom:loadGame(game)
   end
 end
 
---TEMP
---nyoom.events.keyPressed:addListener(function(key) if key == '/' then nyoom.profiler.toggle() end end)
+nyoom.input.registerAction('nyoom.profiler', 'lalt+`', function() nyoom.profiler.toggle() end)
+nyoom.input.registerAction('nyoom.console', 'lctrl+`', function() nyoom.profiler.toggle() end)
+nyoom.input.registerAction('nyoom.quit', 'lalt+escape', function() love.event.quit() end)
 
 return nyoom
