@@ -53,7 +53,7 @@ function methods:finish()
   self.position = self.duration
 
   self:stop()
-  self:onFinish()
+  self:onFinish(self)
   return self
 end
 
