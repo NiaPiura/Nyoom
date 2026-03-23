@@ -18,8 +18,6 @@ local methods, metamethods = {}, { __name = 'Nyoom.InputAction' }
 local function newInputAction(name, sequence, callback, options)
   if type(sequence) == 'string' then sequence = string.split(string.lower(sequence), '+') end
 
-  options.useRepeatDelay = options.useRepeatDelay or false
-
   local inputAction = {
     name = name,
     sequence = sequence,
@@ -106,6 +104,9 @@ end
 ---@param options? nyoom.InputActionOptions
 function input.registerAction(name, sequence, callback, options)
   if input.getAction(name) then return end
+  
+  options = options or {}
+  options.useRepeatDelay = options.useRepeatDelay or false
 
   local action = newInputAction(name, sequence, callback, options)
   table.insert(input.actions, action)
