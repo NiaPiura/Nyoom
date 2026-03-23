@@ -33,8 +33,7 @@ function methods:update(deltaTime) end
 ---@param self Nyoom.TileLayer
 function methods:draw()
   love.graphics.setColor(1, 1, 1)
-  --TEMP: scale 4 to make tilemaps better visible during development, must be replaced with camera rendering/scaling later
-  love.graphics.draw(self.tileGrid.spriteBatch, self.offset.x, self.offset.y, 0, 4, 4)
+  love.graphics.draw(self.tileGrid.spriteBatch, self.offset.x, self.offset.y)
 end
 
 -- Metamethods
