@@ -17,6 +17,8 @@ nyoom.levels = require('nyoom.levels') ---@type Nyoom.Levels
 nyoom.profiler = require('nyoom.profiler') ---@type Nyoom.Profiler
 nyoom.ui = require('nyoom.nui') ---@type Nyoom.Nui
 
+nyoom.mainCamera = nyoom.graphics.newCamera()
+
 -- If Nytor is in the root directory, load it and switch to editor mode.
 if love.filesystem.getInfo('nytor') then require('nytor') end
 
@@ -38,12 +40,21 @@ function nyoom:loadGame(game)
   end
 
   function love.draw()
+    nyoom.mainCamera:setActive()
     nyoom.levels.draw()
     gameDraw()
+    nyoom.mainCamera:draw()
     nyoom.ui.draw()
     nyoom.profiler.mark('nyoom.draw')
     nyoom.profiler.draw()
   end
 end
+
+local function resize(width, height)
+  nyoom.mainCamera.target = love.graphics.newCanvas(width, height)
+  nyoom.mainCamera:setActive()
+end
+
+nyoom.events.resize:addListener(resize)
 
 return nyoom

@@ -2,6 +2,7 @@ local newColor = require('nyoom.graphics.color')
 local newText = require('nyoom.graphics.text')
 local newTileSet = require('nyoom.graphics.tileSet')
 local newTileGrid = require('nyoom.graphics.tileGrid')
+local newCamera = require('nyoom.graphics.camera')
 
 ---@class Nyoom.Graphics
 ---@field newColor fun(r: number, g: number, b: number, a?: number): Nyoom.Color Creates an object representing a color.
@@ -24,6 +25,10 @@ end
 
 function graphics.newTileGrid(tileSet, width, height)
   return newTileGrid(tileSet, width, height)
+end
+
+function graphics.newCamera()
+  return newCamera()
 end
 
 return graphics
