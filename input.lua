@@ -39,7 +39,7 @@ end
 ---@field states { [string]: Nyoom.InputState } List of all currently relevant input states that Nyoom can track.
 ---@field actions Nyoom.InputAction[] List of all currently registered Input Actions.
 local input = {
-  repeatDelay = 0.3,
+  repeatDelay = 0.4,
   states = {},
   actions = {}
 }
@@ -104,7 +104,7 @@ end
 ---@param options? nyoom.InputActionOptions
 function input.registerAction(name, sequence, callback, options)
   if input.getAction(name) then return end
-  
+
   options = options or {}
   options.useRepeatDelay = options.useRepeatDelay or false
 
