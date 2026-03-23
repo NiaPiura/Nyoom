@@ -1,5 +1,6 @@
 ---@class nyoom.InputActionOptions
----@field useRepeatDelay boolean
+---@field useRepeatDelay boolean?
+---@field customDelay number?
 
 ---@class Nyoom.InputAction
 ---@field name string The name of the Input Action.
@@ -76,8 +77,14 @@ function input.update(dt)
   for _, action in ipairs(input.actions) do
     if checkSequence(action.sequence) then
       local state = input.states[action.sequence[#action.sequence]]
+      local delay = state.timestamp + input.repeatDelay
+
+      if action.options.customDelay > 0 then
+        delay = state.timestamp + action.options.customDelay
+      end
+
       if state.firstFrame or not action.options.useRepeatDelay or
-      (action.options.useRepeatDelay and timestamp >= state.timestamp + input.repeatDelay) then
+      (action.options.useRepeatDelay and timestamp >= delay) then
         action.callback()
       end
     end
@@ -107,6 +114,7 @@ function input.registerAction(name, sequence, callback, options)
 
   options = options or {}
   options.useRepeatDelay = options.useRepeatDelay or false
+  options.customDelay = options.customDelay or 0
 
   local action = newInputAction(name, sequence, callback, options)
   table.insert(input.actions, action)
