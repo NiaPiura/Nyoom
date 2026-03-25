@@ -2,6 +2,9 @@
 ---@field position Nyoom.Vector2
 ---@field renderScale number
 ---@field target love.Canvas
+---@field size Nyoom.Vector2
+---@field rotation number
+---
 ---@field setActive fun(self: Nyoom.Camera)
 ---@field draw fun(self: Nyoom.Camera)
 
@@ -15,7 +18,8 @@ local function newCamera(size)
   local camera = {
     position = nyoom.common.newVector2(),
     renderScale = 1,
-    target = love.graphics.newCanvas(size.width, size.height)
+    target = love.graphics.newCanvas(size.width, size.height),
+    size = size
   }
 
   setmetatable(camera, metamethods)
@@ -29,9 +33,18 @@ function methods:setActive()
   love.graphics.setCanvas(self.target)
 end
 
+---@param self Nyoom.Camera
 function methods:draw()
+  local renderScaleOffset = self.size * 0.5 * (self.renderScale - 1)
+
   love.graphics.setCanvas()
-  love.graphics.draw(self.target, 0 - self.position.x, 0 - self.position.y, 0, self.renderScale, self.renderScale)
+  love.graphics.draw(
+  self.target,
+  -self.position.x * self.renderScale - renderScaleOffset.x,
+  -self.position.y * self.renderScale - renderScaleOffset.y,
+  0,
+  self.renderScale
+)
 end
 
 -- Metamethods
