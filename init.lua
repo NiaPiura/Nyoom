@@ -40,21 +40,14 @@ function nyoom:loadGame(game)
   end
 
   function love.draw()
-    nyoom.mainCamera:setActive()
+    nyoom.mainCamera:activate()
     nyoom.levels.draw()
     gameDraw()
-    nyoom.mainCamera:draw()
+    nyoom.mainCamera:deactivate()
     nyoom.ui.draw()
     nyoom.profiler.mark('nyoom.draw')
     nyoom.profiler.draw()
   end
 end
-
-local function resize(width, height)
-  nyoom.mainCamera.target = love.graphics.newCanvas(width, height)
-  nyoom.mainCamera:setActive()
-end
-
-nyoom.events.resize:addListener(resize)
 
 return nyoom

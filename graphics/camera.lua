@@ -1,11 +1,10 @@
 ---@class Nyoom.Camera
 ---@field position Nyoom.Vector2
----@field renderScale number
----@field target love.Canvas
 ---@field size Nyoom.Vector2
----@field rotation number
+---@field renderScale number
 ---
----@field setActive fun(self: Nyoom.Camera)
+---@field activate fun(self: Nyoom.Camera)
+---@field deactivate fun(self: Nyoom.Camera)
 ---@field draw fun(self: Nyoom.Camera)
 
 local methods, metamethods = {}, { __name = 'Nyoom.Camera' }
@@ -14,12 +13,10 @@ local methods, metamethods = {}, { __name = 'Nyoom.Camera' }
 ---@return Nyoom.Camera
 ---@param size? Nyoom.Vector2
 local function newCamera(size)
-  size = size or nyoom.common.newVector2(love.graphics.getWidth(), love.graphics.getHeight())
   local camera = {
     position = nyoom.common.newVector2(),
+    size = size or nyoom.common.newVector2(love.graphics.getWidth(), love.graphics.getHeight()),
     renderScale = 1,
-    target = love.graphics.newCanvas(size.width, size.height),
-    size = size
   }
 
   setmetatable(camera, metamethods)
@@ -29,22 +26,22 @@ end
 
 -- Methods
 
-function methods:setActive()
-  love.graphics.setCanvas(self.target)
+---@param self Nyoom.Camera
+function methods:activate()
+  local renderScaleOffset = self.size * 0.5 * (self.renderScale - 1)
+
+  love.graphics.push()
+  love.graphics.translate(
+    -self.position.x * self.renderScale - renderScaleOffset.x,
+    -self.position.y * self.renderScale - renderScaleOffset.y
+  )
+  love.graphics.scale(self.renderScale)
 end
 
 ---@param self Nyoom.Camera
-function methods:draw()
-  local renderScaleOffset = self.size * 0.5 * (self.renderScale - 1)
+function methods:deactivate()
 
-  love.graphics.setCanvas()
-  love.graphics.draw(
-  self.target,
-  -self.position.x * self.renderScale - renderScaleOffset.x,
-  -self.position.y * self.renderScale - renderScaleOffset.y,
-  0,
-  self.renderScale
-)
+  love.graphics.pop()
 end
 
 -- Metamethods
