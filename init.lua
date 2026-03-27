@@ -9,7 +9,7 @@ love.keyboard.setKeyRepeat(true)
 ---@class Nyoom
 nyoom = {}
 nyoom.common = require('nyoom.common') ---@type Nyoom.Common
-nyoom.graphics = require('nyoom.graphics') ---@type Nyoom.Graphics
+nyoom.objects = require('nyoom.objects') ---@type Nyoom.Objects
 nyoom.timing = require('nyoom.timing') ---@type Nyoom.Timing
 nyoom.events = require('nyoom.events') ---@type Nyoom.Events
 nyoom.input = require('nyoom.input') ---@type Nyoom.Input
@@ -17,7 +17,7 @@ nyoom.levels = require('nyoom.levels') ---@type Nyoom.Levels
 nyoom.profiler = require('nyoom.profiler') ---@type Nyoom.Profiler
 nyoom.ui = require('nyoom.nui') ---@type Nyoom.Nui
 
-nyoom.mainCamera = nyoom.graphics.newCamera()
+nyoom.mainCamera = nyoom.objects.newCamera()
 
 -- If Nytor is in the root directory, load it and switch to editor mode.
 if love.filesystem.getInfo('nytor') then require('nytor') end

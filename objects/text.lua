@@ -1,4 +1,4 @@
-local newColor = require('nyoom.graphics.color')
+local newColor = require('nyoom.objects.color')
 
 ---@class Nyoom.Text
 ---@field string string
