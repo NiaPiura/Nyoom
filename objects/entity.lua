@@ -31,7 +31,6 @@ end
 ---@param self Nyoom.Entity
 function methods:update(deltaTime)
   for _, component in ipairs(self.components) do
-    print('test')
     if component.update then component:update(deltaTime) end
   end
 end
