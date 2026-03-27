@@ -3,6 +3,7 @@ local newText = require('nyoom.objects.text')
 local newTileSet = require('nyoom.objects.tileSet')
 local newTileGrid = require('nyoom.objects.tileGrid')
 local newCamera = require('nyoom.objects.camera')
+local newEntity = require('nyoom.objects.entity')
 
 ---@class Nyoom.Objects
 ---@field newColor fun(red: number, green: number, blue: number, alpha?: number): Nyoom.Color Creates an object representing a color.
@@ -30,6 +31,10 @@ end
 
 function objects.newCamera(size)
   return newCamera(size)
+end
+
+function objects.newEntity()
+  return newEntity()
 end
 
 return objects
