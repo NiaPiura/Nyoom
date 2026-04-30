@@ -1,4 +1,5 @@
 ---@class nyoom.InputActionOptions
+---@field noRepeat boolean?
 ---@field useRepeatDelay boolean?
 ---@field customDelay number?
 
@@ -69,6 +70,21 @@ local function onKeyUp(key)
   input.states[key] = nil
 end
 
+local function shouldActionTrigger(state, action, timestamp)
+  if state.firstFrame then return true
+  elseif action.options.noRepeat then return false
+  elseif not action.options.useRepeatDelay then return true end
+
+  local delay = state.timestamp + input.repeatDelay
+
+  if action.options.customDelay > 0 then
+    delay = state.timestamp + action.options.customDelay
+  end
+
+  if timestamp >= delay then return true
+  else return false end
+end
+
 nyoom.events.keyPressed:addListener(onKeyDown)
 nyoom.events.keyReleased:addListener(onKeyUp)
 
@@ -77,14 +93,8 @@ function input.update(dt)
   for _, action in ipairs(input.actions) do
     if checkSequence(action.sequence) then
       local state = input.states[action.sequence[#action.sequence]]
-      local delay = state.timestamp + input.repeatDelay
 
-      if action.options.customDelay > 0 then
-        delay = state.timestamp + action.options.customDelay
-      end
-
-      if state.firstFrame or not action.options.useRepeatDelay or
-      (action.options.useRepeatDelay and timestamp >= delay) then
+      if shouldActionTrigger(state, action, timestamp) then
         action.callback()
       end
     end
