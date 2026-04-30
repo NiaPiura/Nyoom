@@ -13,6 +13,7 @@
 ---@field setValue fun(self: Nyoom.Grid, x: integer, y: integer, value: any): Nyoom.Grid Sets a value mapped to given position. Can be chained.
 ---@field setValue fun(self: Nyoom.Grid, value: any, index: integer): Nyoom.Grid Sets a value mapped to given index. Can be chained.
 ---@field setSize fun(self: Nyoom.Grid, width: integer, height: integer): Nyoom.Grid Non-destructively resizes the grid.
+---@field isCoordsOnGrid fun(self: Nyoom.Grid, x: integer, y: integer): boolean
 ---@field clear fun(self: Nyoom.Grid, value: any): Nyoom.Grid Clear the grid, replacing values with either given value, or `defaultValue`.
 
 local methods, metamethods = {}, { __name = 'Nyoom.Grid' }
@@ -89,6 +90,10 @@ function methods:setSize(width, height)
   self.size = nyoom.common.newVector2(width, height)
   self.map = map
   return self
+end
+
+function methods:isCoordsOnGrid(x, y)
+  return x >= 0 and x < self.width and y >= 0 and y < self.height
 end
 
 function methods:clear(value)
