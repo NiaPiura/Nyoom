@@ -5,7 +5,8 @@
 ---
 ---@field activate fun(self: Nyoom.Camera)
 ---@field deactivate fun(self: Nyoom.Camera)
----@field draw fun(self: Nyoom.Camera)
+---@field screenToWorld fun(self: Nyoom.Camera, point: Nyoom.Vector2)
+---@field worldToScreen fun(self: Nyoom.Camera, point: Nyoom.Vector2)
 
 local methods, metamethods = {}, { __name = 'Nyoom.Camera' }
 
@@ -42,6 +43,20 @@ end
 function methods:deactivate()
 
   love.graphics.pop()
+end
+
+
+---@param self Nyoom.Camera
+function methods:screenToWorld(point)
+  local scaledPoint = (point - self.size * 0.5) / self.renderScale
+  local position = self.position + self.size * 0.5
+  return position + scaledPoint
+end
+
+---@param self Nyoom.Camera
+function methods:worldToScreen(point)
+
+  return nyoom.common.newVector2()
 end
 
 -- Metamethods
