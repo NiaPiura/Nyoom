@@ -96,7 +96,9 @@ function metamethods.__mul(a, b)
 end
 
 function metamethods.__div(a, b)
-  return newVector2(a.x / b, a.y / b)
+  if type(a) == 'number' then error('Cannot devide number by vector')
+  elseif type(b) == 'number' then return newVector2(a.x / b, a.y / b)
+  else return newVector2(a.x / b.x, a.y / b.y) end
 end
 
 function metamethods.__eq(a, b)
