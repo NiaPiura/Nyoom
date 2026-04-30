@@ -87,8 +87,8 @@ local function newElement(id, x, y, width, height, parent, state)
     offset = nyoom.common.newVector2(x, y),
     rect = nyoom.common.newRect(x, y, width, height),
 
-    isVisible = (state and state.isVisible) or true,
-    isEnabled = (state and state.isEnabled) or true,
+    isVisible = true,
+    isEnabled = true,
     isIgnored = (state and state.isIgnored) or false,
     isTopmost = (state and state.isTopmost) or false,
     isPressed = (state and state.isPressed) or false,
@@ -98,6 +98,9 @@ local function newElement(id, x, y, width, height, parent, state)
     parent = nil,
     children = {}
   }
+
+  if state and state.isVisible == false then element.isVisible = false end
+  if state and state.isEnabled == false then element.isEnabled = false end
 
   setmetatable(element, metamethods)
 
