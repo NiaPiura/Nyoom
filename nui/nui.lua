@@ -41,7 +41,9 @@ local function regenerateHoverStack(mousePosition)
 
   while #searchQueue > 0 do
     local element = searchQueue[1]
-    if not element.isIgnored and element.rect:isWithinBounds(mousePosition) then table.insert(hoverStack, element) end
+    if not element.isIgnored and element.isVisible and element.rect:isWithinBounds(mousePosition) then
+      table.insert(hoverStack, element)
+    end
     for _, child in ipairs(element.children) do table.insert(searchQueue, child) end
     table.remove(searchQueue, 1)
   end
