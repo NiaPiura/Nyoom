@@ -4,6 +4,7 @@
 ---@class Nyoom.Nui
 ---@field update fun(deltaTime: number)
 ---@field draw fun()
+---@field isUIHovered fun(): boolean
 local nui = {
   newElement = require('nyoom.nui.element'),
   root = nil, ---@type Nyoom.Element
@@ -27,6 +28,10 @@ end
 function nui.draw()
   love.graphics.setColor(1, 1, 1, 1)
   nui.root:draw()
+end
+
+function nui.isUIHovered()
+  return nyoom.ui.topmost ~= nyoom.ui.root
 end
 
 ---@param mousePosition Nyoom.Vector2
