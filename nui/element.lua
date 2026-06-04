@@ -114,18 +114,20 @@ end
 
 ---@param self Nyoom.Element
 function methods:update(deltaTime)
-  if self.isEnabled and self.onUpdate then self:onUpdate(deltaTime) end
+  if not self.isEnabled then return end
+  if self.onUpdate then self:onUpdate(deltaTime) end
   for _, e in ipairs(self.children) do e:update(deltaTime) end
-  if self.isEnabled and self.onPostUpdate then self:onPostUpdate() end
+  if self.onPostUpdate then self:onPostUpdate() end
 end
 
 ---@param self Nyoom.Element
 function methods:draw()
+  if not self.isVisible then return end
   love.graphics.push()
   love.graphics.translate(self.offset.x, self.offset.y)
-  if self.isVisible and self.onDraw then self:onDraw() end
+  if self.onDraw then self:onDraw() end
   for _, e in ipairs(self.children) do e:draw() end
-  if self.isVisible and self.onPostDraw then self:onPostDraw() end
+  if self.onPostDraw then self:onPostDraw() end
   love.graphics.pop()
 end
 
