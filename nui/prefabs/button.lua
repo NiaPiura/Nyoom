@@ -6,6 +6,15 @@ local function setColor(element, color)
   else color:setActive() end
 end
 
+---@param text string
+---@param x integer
+---@param y integer
+---@param width integer
+---@param height integer
+---@param parent Nyoom.Element
+---@param buttonColor Nyoom.Color
+---@param textColor Nyoom.Color
+---@return Nyoom.Element
 local function newButton(text, x, y, width, height, parent, buttonColor, textColor)
   local element = nyoom.ui.newElement('button' .. text, x, y, width, height, parent)
   local textObject = nyoom.objects.newText(text, 0, 0, width, height):setAlignments('center', 'center'):setColor(textColor or nyoom.objects.newColor(1, 1, 1))
