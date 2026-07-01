@@ -8,8 +8,8 @@
 ---@param height number
 ---@return Nyoom.Layer
 local function newLayer(id, opacity, width, height)
-  local definedWidth = width == 0
-  local definedHeight = height == 0
+  local definedWidth = width ~= 0
+  local definedHeight = height ~= 0
 
   if not definedWidth then width = love.graphics.getWidth() end
   if not definedHeight then height = love.graphics.getHeight() end
