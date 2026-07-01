@@ -1,8 +1,19 @@
 ---@class Nyoom.Layer : Nyoom.Element
 ---@field setOpacity fun(self: Nyoom.Layer, opacity: number)
 
-local function newLayer(id, opacity)
-  local width, height = love.graphics.getDimensions()
+
+---@param id string
+---@param opacity number
+---@param width number
+---@param height number
+---@return Nyoom.Layer
+local function newLayer(id, opacity, width, height)
+  local definedWidth = width == 0
+  local definedHeight = height == 0
+
+  if not definedWidth then width = love.graphics.getWidth() end
+  if not definedHeight then height = love.graphics.getHeight() end
+
   local canvas = love.graphics.newCanvas(width, height)
   local layer = nyoom.ui.newElement(id, 0, 0, width, height, nyoom.ui.root, { isIgnored = true }) --[[@as Nyoom.Layer]]
 
@@ -21,7 +32,9 @@ local function newLayer(id, opacity)
   end
 
   function layer:onResize()
-    width, height = love.graphics.getDimensions()
+    if not definedWidth then width = love.graphics.getWidth() end
+    if not definedHeight then height = love.graphics.getHeight() end
+
     canvas = love.graphics.newCanvas(width, height)
     layer:setSize(width, height)
   end
@@ -34,4 +47,3 @@ local function newLayer(id, opacity)
 end
 
 return newLayer
-
