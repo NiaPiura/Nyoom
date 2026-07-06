@@ -1,5 +1,7 @@
 ---@diagnostic disable: invisible
 
+---@alias Orientation 'vertical' | 'horizontal'
+
 ---A cute, minimalistic event-driven UI system
 ---@class Nyoom.Nui
 ---@field update fun(deltaTime: number)
@@ -7,10 +9,10 @@
 ---@field isUIHovered fun(): boolean
 local nui = {
   newElement = require('nyoom.nui.element'),
-  root = nil, ---@type Nyoom.Element
+  root = nil, ---@type Nyoom.UIElement
   prefabs = nil, ---@type Nyoom.NuiPrefabs
-  focused = nil, ---@type Nyoom.Element?
-  topmost = nil, ---@type Nyoom.Element
+  focused = nil, ---@type Nyoom.UIElement?
+  topmost = nil, ---@type Nyoom.UIElement
 }
 
 nui.root = nui.newElement('root', 0, 0, love.graphics.getDimensions())
@@ -18,8 +20,8 @@ nui.prefabs = require('nyoom.nui.prefabs')
 nui.topmost = nui.root
 function nui.root:onResize(dimensions) self.size = dimensions end
 
-local hoverStack = {} ---@type Nyoom.Element[]
-local clickCache = {} ---@type table<number, Nyoom.Element[]>
+local hoverStack = {} ---@type Nyoom.UIElement[]
+local clickCache = {} ---@type table<number, Nyoom.UIElement[]>
 
 function nui.update(deltaTime)
   nui.root:update(deltaTime)

@@ -10,10 +10,10 @@ local prefabs = {}
 ---@param y integer The position along the Y axis.
 ---@param width integer The width of the button.
 ---@param height integer The height of the button.
----@param parent Nyoom.Element The parent element for the button.
+---@param parent Nyoom.UIElement The parent element for the button.
 ---@param buttonColor? Nyoom.Color The background color that the button should render with.
 ---@param textColor? Nyoom.Color The text color that the button should render with.
----@return Nyoom.Element
+---@return Nyoom.UIElement
 function prefabs.newButton(text, x, y, width, height, parent, buttonColor, textColor)
   buttonColor = buttonColor or nyoom.objects.newColor(0.4, 0.4, 0.4)
   textColor = textColor or nyoom.objects.newColor(0.9, 0.9, 0.9)
@@ -27,7 +27,7 @@ end
 ---@param y? integer The position of the layer on screen along the Y axis.
 ---@param width? integer The width of the layer. If 0, the window's width is used.
 ---@param height? integer The height of the layer. If 0, the window's height is used.
----@return Nyoom.Layer
+---@return Nyoom.UILayer
 function prefabs.newLayer(id, opacity, x, y, width, height)
   opacity = opacity or 1
   x = x or 0

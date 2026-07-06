@@ -1,4 +1,4 @@
----@param element Nyoom.Element
+---@param element Nyoom.UIElement
 ---@param color Nyoom.Color
 local function setColor(element, color)
   if element.isPressed then color:multiply(0.9):setActive()
@@ -11,10 +11,10 @@ end
 ---@param y integer
 ---@param width integer
 ---@param height integer
----@param parent Nyoom.Element
+---@param parent Nyoom.UIElement
 ---@param buttonColor Nyoom.Color
 ---@param textColor Nyoom.Color
----@return Nyoom.Element
+---@return Nyoom.UIElement
 local function newButton(text, x, y, width, height, parent, buttonColor, textColor)
   local element = nyoom.ui.newElement('button' .. text, x, y, width, height, parent)
   local textObject = nyoom.objects.newText(text, 0, 0, width, height):setAlignments('center', 'center'):setColor(textColor or nyoom.objects.newColor(1, 1, 1))

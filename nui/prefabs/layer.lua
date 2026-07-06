@@ -1,5 +1,5 @@
----@class Nyoom.Layer : Nyoom.Element
----@field setOpacity fun(self: Nyoom.Layer, opacity: number)
+---@class Nyoom.UILayer : Nyoom.UIElement
+---@field setOpacity fun(self: Nyoom.UILayer, opacity: number)
 
 ---@param id string
 ---@param opacity number
@@ -7,7 +7,7 @@
 ---@param y integer
 ---@param width integer
 ---@param height integer
----@return Nyoom.Layer
+---@return Nyoom.UILayer
 local function newLayer(id, opacity, x, y, width, height)
   local definedWidth = width ~= 0
   local definedHeight = height ~= 0
@@ -16,7 +16,7 @@ local function newLayer(id, opacity, x, y, width, height)
   if not definedHeight then height = love.graphics.getHeight() end
 
   local canvas = love.graphics.newCanvas(width, height)
-  local layer = nyoom.ui.newElement(id, x, y, width, height, nyoom.ui.root, { isIgnored = true }) --[[@as Nyoom.Layer]]
+  local layer = nyoom.ui.newElement(id, x, y, width, height, nyoom.ui.root, { isIgnored = true }) --[[@as Nyoom.UILayer]]
 
   local returnCanvas
 
