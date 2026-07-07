@@ -7,34 +7,23 @@
 ---@field update fun(deltaTime: number)
 ---@field draw fun()
 ---@field isUIHovered fun(): boolean
+---@field defaults Nyoom.NuiDefaults
+---@field prefabs Nyoom.NuiPrefabs
 local nui = {
   newElement = require('nyoom.nui.element'),
   root = nil, ---@type Nyoom.UIElement
-  prefabs = nil, ---@type Nyoom.NuiPrefabs
   focused = nil, ---@type Nyoom.UIElement?
   topmost = nil, ---@type Nyoom.UIElement
 }
 
 nui.root = nui.newElement('root', 0, 0, love.graphics.getDimensions())
+nui.defaults = require('nyoom.nui.defaults')
 nui.prefabs = require('nyoom.nui.prefabs')
 nui.topmost = nui.root
 function nui.root:onResize(dimensions) self.size = dimensions end
 
 local hoverStack = {} ---@type Nyoom.UIElement[]
 local clickCache = {} ---@type table<number, Nyoom.UIElement[]>
-
-function nui.update(deltaTime)
-  nui.root:update(deltaTime)
-end
-
-function nui.draw()
-  love.graphics.setColor(1, 1, 1, 1)
-  nui.root:draw()
-end
-
-function nui.isUIHovered()
-  return nyoom.ui.topmost ~= nyoom.ui.root
-end
 
 ---@param mousePosition Nyoom.Vector2
 local function regenerateHoverStack(mousePosition)
@@ -120,6 +109,21 @@ end
 ---@param height number
 local function resize(width, height)
   nui.root:resize(nyoom.common.newVector2(width, height))
+end
+
+function nui.update(deltaTime)
+  local mouseX, mouseY = love.mouse.getPosition()
+  --mouseMoved(mouseX, mouseY)
+  nui.root:update(deltaTime)
+end
+
+function nui.draw()
+  love.graphics.setColor(1, 1, 1, 1)
+  nui.root:draw()
+end
+
+function nui.isUIHovered()
+  return nyoom.ui.topmost ~= nyoom.ui.root
 end
 
 -- Love event hooks
