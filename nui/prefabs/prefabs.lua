@@ -1,5 +1,6 @@
 local newButton = require('nyoom.nui.prefabs.button')
 local newLayer = require('nyoom.nui.prefabs.layer')
+local newSlider = require('nyoom.nui.prefabs.slider')
 
 ---@class Nyoom.NuiPrefabs
 local prefabs = {}
@@ -35,6 +36,18 @@ function prefabs.newLayer(id, opacity, x, y, width, height)
   width = width or 0
   height = height or 0
   return newLayer(id, opacity, x, y, width, height)
+end
+
+---A UI Slider, which can also be used as a scrollbar.
+---@param x integer The position of the layer on screen along the X axis.
+---@param y integer The position of the layer on screen along the Y axis.
+---@param orientation Orientation The orientation of the slider.
+---@param railLength integer The length of the slider's rail; the space the slider can move along.
+---@param barLength integer The length of the Slider's bar; the draggable element that moves along the rail. If 0, NUI defaults are used.
+---@param parent Nyoom.UIElement The parent element for the slider.
+---@return Nyoom.UISlider
+function prefabs.newSlider(x, y, orientation, railLength, barLength, parent)
+  return newSlider(x, y, orientation, railLength, barLength, parent)
 end
 
 return prefabs
