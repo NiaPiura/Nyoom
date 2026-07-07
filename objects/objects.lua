@@ -6,7 +6,7 @@ local newCamera = require('nyoom.objects.camera')
 local newEntity = require('nyoom.objects.entity')
 
 ---@class Nyoom.Objects
----@field newColor fun(red: number, green: number, blue: number, alpha?: number): Nyoom.Color Creates an object representing a color.
+---@field newColor fun(red: number, green: number?, blue: number?, alpha?: number): Nyoom.Color Creates an object representing a color.
 ---@field newText fun(string: string, x: number, y: number, width: number, height: number): Nyoom.Text Creates an object representing a color.
 ---@field newTileSet fun(image: love.Image, tileWidth: number, tileHeight: number): Nyoom.TileSet
 ---@field newTileGrid fun(tileSet: Nyoom.TileSet, width?: integer, height?: integer): Nyoom.TileGrid
