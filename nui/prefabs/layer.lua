@@ -23,6 +23,7 @@ local function newLayer(id, opacity, x, y, width, height)
   function layer:onDraw()
     returnCanvas = love.graphics.getCanvas()
     love.graphics.setCanvas(canvas)
+    love.graphics.clear()
   end
 
   function layer:onPostDraw()
