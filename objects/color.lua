@@ -14,12 +14,12 @@
 local methods, metamethods = {}, { __name = 'Nyoom.Color' }
 
 ---@param red number
----@param green number
----@param blue number
+---@param green? number
+---@param blue? number
 ---@param alpha? number
 ---@return Nyoom.Color
 local function newColor(red, green, blue, alpha)
-  return setmetatable({ red, green, blue, alpha or 1 }, metamethods)
+  return setmetatable({ red, green or red, blue or red, alpha or 1 }, metamethods)
 end
 
 -- Methods
@@ -61,10 +61,10 @@ end
 
 ---@param key string
 function metamethods:__index(key)
-  if key == 'red' then return self[1] end
-  if key == 'green' then return self[2] end
-  if key == 'blue' then return self[3] end
-  if key == 'alpha' then return self[4] end
+  if key == 'r' then return self[1] end
+  if key == 'g' then return self[2] end
+  if key == 'b' then return self[3] end
+  if key == 'a' then return self[4] end
   return methods[key]
 end
 
