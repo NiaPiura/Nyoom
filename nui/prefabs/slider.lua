@@ -31,6 +31,22 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
   local mouseOffset = 0
   local slider = nyoom.ui.newElement('slider', x, y, railWidth, railHeight, parent) --[[@as Nyoom.UISlider]]
 
+  ---@param position number
+  local function moveBar(position)
+    local clampedPosition = math.clamp(position, 0, railLength - barLength)
+    slider:setValue(clampedPosition / (railLength - barLength))
+  end
+
+  local function setBarPosition()
+    barPosition = math.round((railLength - barLength) * (value / 1)) --TODO: Support specified max value?
+  end
+
+  ---@param mousePosition Nyoom.Vector2
+  ---@return number
+  local function getMouseAxis(mousePosition)
+    return orientation == 'vertical' and mousePosition.y or mousePosition.x
+  end
+
   function slider:onDraw()
     love.graphics.setColor(defaults.railColor)
     love.graphics.rectangle('fill', 0, 0, self.width, self.height)
@@ -43,30 +59,24 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
     love.graphics.rectangle('fill', orientation == 'horizontal' and barPosition or 0, orientation == 'vertical' and barPosition or 0, barWidth, barHeight)
   end
 
-  ---@param position number
-  local function moveBar(position)
-    local clampedPosition = math.clamp(position, 0, railLength - barLength)
-    slider:setValue(clampedPosition / (railLength - barLength))
-  end
-
   function slider:onUpdate()
     if self.isPressed then
       local mousePosition = self:getRelativeMousePosition()
       if self.position ~= mousePosition then
-        local mouseAxisPosition = orientation == 'vertical' and mousePosition.y or mousePosition.x
+        local mouseAxisPosition = getMouseAxis(mousePosition)
         moveBar(mouseAxisPosition - mouseOffset)
       end
     end
 
-    barPosition = math.round((railLength - barLength) * (value / 1)) --TODO: Support specified max value?
+    setBarPosition()
   end
 
   function slider:onPress(mousePosition)
-    local mouseAxisPosition = orientation == 'vertical' and mousePosition.y or mousePosition.x
+    local mouseAxisPosition = getMouseAxis(mousePosition)
 
     if mouseAxisPosition < barPosition or mouseAxisPosition > barPosition + barLength then
       moveBar(mouseAxisPosition - (barLength / 2))
-      barPosition = math.round((railLength - barLength) * (value / 1))
+      setBarPosition()
     end
     
     mouseOffset = mouseAxisPosition - barPosition
