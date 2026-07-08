@@ -1,5 +1,5 @@
 ---@class Nyoom.UISlider : Nyoom.UIElement
----@field value number
+---@field getValue fun(self: Nyoom.UISlider): number
 ---@field setValue fun(self: Nyoom.UISlider, value: number)
 ---@field onValueChange fun(self: Nyoom.UISlider, value: number)
 
@@ -78,6 +78,11 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
 
   function slider:setValue(newValue)
     value = newValue
+    if self.onValueChange then self:onValueChange(value) end
+  end
+
+  function slider:getValue()
+    return value
   end
 
   return slider
