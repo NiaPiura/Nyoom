@@ -1,7 +1,5 @@
 ---@diagnostic disable: invisible
 
----@alias Orientation 'vertical' | 'horizontal'
-
 ---A cute, minimalistic event-driven UI system
 ---@class Nyoom.Nui
 ---@field update fun(deltaTime: number)

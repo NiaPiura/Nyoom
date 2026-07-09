@@ -12,7 +12,8 @@
 ---@operator mul(number | Nyoom.Vector2): Nyoom.Vector2
 ---@operator div(number): Nyoom.Vector2
 ---
----@field getComponents fun(self: Nyoom.Vector2): number, number Returns the vector's components seperately.
+---@field getAxes fun(self: Nyoom.Vector2): number, number Returns the vector's components seperately.
+---@field getRelevantAxis fun(self: Nyoom.Vector2, orientation: Nyoom.Orientation): number
 ---@field magnitude fun(self: Nyoom.Vector2): number Returns the magnitude of the vector.
 ---@field sqrMagnitude fun(self: Nyoom.Vector2): number Returns the squared magnitude of the vector.
 ---@field normalized fun(self: Nyoom.Vector2): Nyoom.Vector2 Returns a normalized version of this vector.
@@ -32,8 +33,12 @@ end
 
 -- Methods
 
-function methods:getComponents()
+function methods:getAxes()
   return self[1], self[2]
+end
+
+function methods:getRelevantAxis(orientation)
+  return orientation == 'horizontal' and self[1] or self[2]
 end
 
 function methods:magnitude()

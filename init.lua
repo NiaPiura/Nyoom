@@ -6,6 +6,8 @@ require('nyoom.globals')
 love.graphics.setDefaultFilter('nearest', 'nearest')
 love.keyboard.setKeyRepeat(true)
 
+---@alias Nyoom.Orientation 'vertical' | 'horizontal'
+
 ---@class Nyoom
 nyoom = {}
 nyoom.common = require('nyoom.common') ---@type Nyoom.Common

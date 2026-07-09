@@ -5,7 +5,7 @@
 
 ---@param x integer
 ---@param y integer
----@param orientation Orientation
+---@param orientation Nyoom.Orientation
 ---@param railLength integer
 ---@param barLength integer
 ---@param parent Nyoom.UIElement
@@ -41,12 +41,6 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
     barPosition = math.round((railLength - barLength) * (value / 1)) --TODO: Support specified max value?
   end
 
-  ---@param mousePosition Nyoom.Vector2
-  ---@return number
-  local function getMouseAxis(mousePosition)
-    return orientation == 'vertical' and mousePosition.y or mousePosition.x
-  end
-
   function slider:onDraw()
     love.graphics.setColor(defaults.railColor)
     love.graphics.rectangle('fill', 0, 0, self.width, self.height)
@@ -63,7 +57,7 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
     if self.isPressed then
       local mousePosition = self:getRelativeMousePosition()
       if self.position ~= mousePosition then
-        local mouseAxisPosition = getMouseAxis(mousePosition)
+        local mouseAxisPosition = mousePosition:getRelevantAxis(orientation)
         moveBar(mouseAxisPosition - mouseOffset)
       end
     end
@@ -72,7 +66,7 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
   end
 
   function slider:onPress(mousePosition)
-    local mouseAxisPosition = getMouseAxis(mousePosition)
+    local mouseAxisPosition = mousePosition:getRelevantAxis(orientation)
 
     if mouseAxisPosition < barPosition or mouseAxisPosition > barPosition + barLength then
       moveBar(mouseAxisPosition - (barLength / 2))

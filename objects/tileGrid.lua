@@ -69,7 +69,7 @@ function methods:setTileId(id, x, y)
   local spriteIndex = self.spriteMap:getValue(index)
 
   self.tileMap:setValue(id, index)
-  self.spriteBatch:set(spriteIndex, self.tileSet.quads[id], self:getTilePixelPosition(index):getComponents())
+  self.spriteBatch:set(spriteIndex, self.tileSet.quads[id], self:getTilePixelPosition(index):getAxes())
   return self
 end
 

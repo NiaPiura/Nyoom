@@ -41,7 +41,7 @@ end
 ---A UI Slider, which can also be used as a scrollbar.
 ---@param x integer The position of the layer on screen along the X axis.
 ---@param y integer The position of the layer on screen along the Y axis.
----@param orientation Orientation The orientation of the slider.
+---@param orientation Nyoom.Orientation The orientation of the slider.
 ---@param railLength integer The length of the slider's rail; the space the slider can move along.
 ---@param barLength integer The length of the Slider's bar; the draggable element that moves along the rail. If 0, NUI defaults are used.
 ---@param parent Nyoom.UIElement The parent element for the slider.
