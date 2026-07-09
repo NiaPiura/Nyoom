@@ -1,6 +1,7 @@
 local newButton = require('nyoom.nui.prefabs.button')
 local newLayer = require('nyoom.nui.prefabs.layer')
 local newSlider = require('nyoom.nui.prefabs.slider')
+local newLayoutGroup = require('nyoom.nui.prefabs.layoutGroup')
 
 ---@class Nyoom.NuiPrefabs
 local prefabs = {}
@@ -48,6 +49,17 @@ end
 ---@return Nyoom.UISlider
 function prefabs.newSlider(x, y, orientation, railLength, barLength, parent)
   return newSlider(x, y, orientation, railLength, barLength, parent)
+end
+
+---An element that automatically aligns elements along given orientation.
+---@param x integer
+---@param y integer
+---@param orientation Nyoom.Orientation
+---@param margin integer
+---@param parent Nyoom.UIElement
+---@return Nyoom.UILayoutGroup
+function prefabs.newLayoutGroup(x, y, orientation, margin, parent)
+  return newLayoutGroup(x, y, orientation, margin, parent)
 end
 
 return prefabs
