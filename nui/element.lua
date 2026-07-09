@@ -38,7 +38,7 @@
 ---
 ---@field addChild fun(self: Nyoom.UIElement, element: Nyoom.UIElement): Nyoom.UIElement
 ---@field removeChild fun(self: Nyoom.UIElement, element: Nyoom.UIElement): Nyoom.UIElement
----@field getChild fun(self: Nyoom.UIElement, id: string): Nyoom.UIElement
+---@field getChild fun(self: Nyoom.UIElement, id: string): Nyoom.UIElement?
 ---@field setPosition fun(self: Nyoom.UIElement, x: number, y: number)
 ---@field setPosition fun(self: Nyoom.UIElement, position: Nyoom.Vector2)
 ---@field setSize fun(self: Nyoom.UIElement, width: number, height: number)
@@ -203,12 +203,14 @@ function methods:addChild(element)
   table.insert(self.children, element)
   element.parent = self
   element:updateScreenPosition()
+  return self
 end
 
 ---@param self Nyoom.UIElement
 function methods:removeChild(element)
   table.removeValue(self.children, element)
   element.parent = nil
+  return self
 end
 
 ---@param self Nyoom.UIElement
