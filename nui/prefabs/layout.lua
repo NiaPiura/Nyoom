@@ -1,17 +1,17 @@
----@class Nyoom.UILayoutGroup : Nyoom.UIElement
----@field updateLayout fun(self: Nyoom.UILayoutGroup)
+---@class Nyoom.UILayout : Nyoom.UIElement
+---@field updateLayout fun(self: Nyoom.UILayout)
 
 ---@param x integer
 ---@param y integer
 ---@param orientation Nyoom.Orientation
 ---@param margin integer
 ---@param parent Nyoom.UIElement
----@return Nyoom.UILayoutGroup
-local function newLayoutGroup(x, y, orientation, margin, parent)
+---@return Nyoom.UILayout
+local function newLayout(x, y, orientation, margin, parent)
 
-  local layoutGroup = nyoom.ui.newElement(orientation .. 'LayoutGroup', x, y, 0, 0, parent) --[[@as Nyoom.UILayoutGroup]]
+  local layout = nyoom.ui.newElement(orientation .. 'LayoutGroup', x, y, 0, 0, parent) --[[@as Nyoom.UILayout]]
 
-  function layoutGroup:updateLayout()
+  function layout:updateLayout()
     local width, height = 0, 0
 
     for index, child in ipairs(self.children) do
@@ -29,8 +29,8 @@ local function newLayoutGroup(x, y, orientation, margin, parent)
     self:setSize(width, height)
   end
 
-  ---@param self Nyoom.UILayoutGroup
-  function layoutGroup:addChild(element)
+  ---@param self Nyoom.UILayout
+  function layout:addChild(element)
     if element.parent then table.removeValue(element.parent.children, element) end
     table.insert(self.children, element)
     element.parent = self
@@ -39,15 +39,15 @@ local function newLayoutGroup(x, y, orientation, margin, parent)
     return self
   end
 
-  ---@param self Nyoom.UILayoutGroup
-  function layoutGroup:removeChild(element)
+  ---@param self Nyoom.UILayout
+  function layout:removeChild(element)
     table.removeValue(self.children, element)
     element.parent = nil
     self:updateLayout()
     return self
   end
 
-  return layoutGroup
+  return layout
 end
 
-return newLayoutGroup
+return newLayout
