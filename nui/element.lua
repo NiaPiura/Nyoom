@@ -253,8 +253,8 @@ end
 -- Metamethods
 
 function metamethods:__index(key)
-  if key == 'x' then return self.rect.x end
-  if key == 'y' then return self.rect.y end
+  if key == 'x' then return self.offset.x end
+  if key == 'y' then return self.offset.y end
   if key == 'width' then return self.rect.width end
   if key == 'height' then return self.rect.height end
   if key == 'position' then return self.rect.position end
@@ -264,8 +264,8 @@ end
 
 ---@param self Nyoom.UIElement
 function metamethods:__newindex(key, value)
-  if key == 'x' then self:setPosition(value, self.y)
-  elseif key == 'y' then self:setPosition(self.x, value)
+  if key == 'x' then self:setPosition(value, self.offset.y)
+  elseif key == 'y' then self:setPosition(self.offset.x, value)
   elseif key == 'width' then self:setSize(value, self.height)
   elseif key == 'height' then self:setSize(self.width, value)
   elseif key == 'position' then self:setPosition(value)
