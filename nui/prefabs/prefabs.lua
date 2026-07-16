@@ -2,6 +2,7 @@ local newButton = require('nyoom.nui.prefabs.button')
 local newLayer = require('nyoom.nui.prefabs.layer')
 local newSlider = require('nyoom.nui.prefabs.slider')
 local newLayoutGroup = require('nyoom.nui.prefabs.layoutGroup')
+local newViewport = require('nyoom.nui.prefabs.viewport')
 
 ---@class Nyoom.NuiPrefabs
 local prefabs = {}
@@ -60,6 +61,10 @@ end
 ---@return Nyoom.UILayoutGroup
 function prefabs.newLayoutGroup(x, y, orientation, margin, parent)
   return newLayoutGroup(x, y, orientation, margin, parent)
+end
+
+function prefabs.newViewport(x, y, width, height, parent)
+  return newViewport(x, y, width, height, parent)
 end
 
 return prefabs
