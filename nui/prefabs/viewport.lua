@@ -10,7 +10,9 @@ local function newViewport(x, y, width, height, parent)
     if scissorX then
       returnScissor = nyoom.common.newRect(scissorX, scissorY, scissorWidth, scissorHeight)
     end
-    love.graphics.setScissor(self.x, self.y, self.width, self.height)
+
+    local position = self.position
+    love.graphics.setScissor(position.x, position.y, self.width, self.height)
   end
 
   function viewport:onPostDraw()
