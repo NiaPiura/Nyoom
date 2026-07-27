@@ -2,6 +2,8 @@
 ---@field getValue fun(self: Nyoom.UISlider): number
 ---@field setValue fun(self: Nyoom.UISlider, value: number)
 ---@field onValueChange fun(self: Nyoom.UISlider, value: number)
+---@field setRailLength fun(self:Nyoom.UISlider, length: integer)
+---@field setBarLength fun(self:Nyoom.UISlider, length: integer)
 
 ---@param x integer
 ---@param y integer
@@ -12,24 +14,13 @@
 ---@return Nyoom.UISlider
 local function newSlider(x, y, orientation, railLength, barLength, parent)
   local defaults = nyoom.ui.defaults.slider
-  local railWidth, railHeight = defaults.railThickness, defaults.railThickness
-  local barWidth, barHeight = defaults.barThickness, defaults.barThickness
-
-  railLength = math.max(defaults.barMinLength, railLength)
-  barLength = math.clamp(barLength, defaults.barMinLength, railLength)
-  
-  if orientation == 'vertical' then
-    railHeight = railLength
-    barHeight = barLength
-  else
-    railWidth = railLength
-    barWidth = barLength
-  end
+  local railWidth, railHeight = 0, 0
+  local barWidth, barHeight = 0, 0
 
   local value = 0
   local barPosition = 0
   local mouseOffset = 0
-  local slider = nyoom.ui.newElement('slider', x, y, railWidth, railHeight, parent) --[[@as Nyoom.UISlider]]
+  local slider = nyoom.ui.newElement('slider', x, y, 0, 0, parent) --[[@as Nyoom.UISlider]]
 
   ---@param position number
   local function moveBar(position)
@@ -62,7 +53,7 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
       end
     end
 
-    setBarPosition()
+    setBarPosition() --TODO: only update bar position when value changes
   end
 
   function slider:onPress(mousePosition)
@@ -80,6 +71,32 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
     mouseOffset = 0
   end
 
+  function slider:setRailLength(length)
+    railLength = math.max(defaults.barMinLength, length)
+
+    if orientation == 'vertical' then
+      railWidth = defaults.railThickness
+      railHeight = railLength
+    else
+      railWidth = railLength
+      railHeight = defaults.railThickness
+    end
+
+    slider:setSize(railWidth, railHeight)
+  end
+
+  function slider:setBarLength()
+    barLength = math.clamp(barLength, defaults.barMinLength, railLength)
+
+    if orientation == 'vertical' then
+      barWidth = defaults.barThickness
+      barHeight = barLength
+    else
+      barWidth = barLength
+      barHeight = defaults.barThickness
+    end
+  end
+
   function slider:setValue(newValue)
     value = newValue
     if self.onValueChange then self:onValueChange(value) end
@@ -88,6 +105,9 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
   function slider:getValue()
     return value
   end
+
+  slider:setRailLength(railLength)
+  slider:setBarLength(barLength)
 
   return slider
 end
