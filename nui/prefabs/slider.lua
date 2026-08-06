@@ -98,7 +98,7 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
   end
 
   function slider:setValue(newValue)
-    value = newValue
+    value = math.clamp(newValue, 0, 1)
     if self.onValueChange then self:onValueChange(value) end
   end
 
