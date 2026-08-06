@@ -85,8 +85,8 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
     slider:setSize(railWidth, railHeight)
   end
 
-  function slider:setBarLength()
-    barLength = math.clamp(barLength, defaults.barMinLength, railLength)
+  function slider:setBarLength(length)
+    barLength = math.clamp(length, defaults.barMinLength, railLength)
 
     if orientation == 'vertical' then
       barWidth = defaults.barThickness
