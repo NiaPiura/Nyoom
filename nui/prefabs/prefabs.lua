@@ -40,7 +40,7 @@ function prefabs.newLayer(id, opacity, x, y, width, height)
   return newLayer(id, opacity, x, y, width, height)
 end
 
----A UI Slider, which can also be used as a scrollbar.
+---A UI element that functions like a slider, which can also be used as a scrollbar.
 ---@param x integer The position of the layer on screen along the X axis.
 ---@param y integer The position of the layer on screen along the Y axis.
 ---@param orientation Nyoom.Orientation The orientation of the slider.
@@ -52,7 +52,7 @@ function prefabs.newSlider(x, y, orientation, railLength, barLength, parent)
   return newSlider(x, y, orientation, railLength, barLength, parent)
 end
 
----An element that automatically aligns elements along given orientation.
+---A UI element that automatically aligns elements along given orientation.
 ---@param x integer
 ---@param y integer
 ---@param orientation Nyoom.Orientation
@@ -63,6 +63,13 @@ function prefabs.newLayout(x, y, orientation, margin, parent)
   return newLayout(x, y, orientation, margin, parent)
 end
 
+---A UI element that only renders contents within it's dimensions.
+---@param x integer
+---@param y integer
+---@param width integer
+---@param height integer
+---@param parent Nyoom.UIElement
+---@return Nyoom.UIViewport
 function prefabs.newViewport(x, y, width, height, parent)
   return newViewport(x, y, width, height, parent)
 end
