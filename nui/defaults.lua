@@ -10,6 +10,9 @@ local defaults = {
     railThickness = 20,
     barThickness = 20,
     barMinLength = 20,
+  },
+  scrollview = {
+    scrollIncrement = 50
   }
 }
 

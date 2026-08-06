@@ -3,6 +3,7 @@ local newLayer = require('nyoom.nui.prefabs.layer')
 local newSlider = require('nyoom.nui.prefabs.slider')
 local newLayout = require('nyoom.nui.prefabs.layout')
 local newViewport = require('nyoom.nui.prefabs.viewport')
+local newScrollview = require('nyoom.nui.prefabs.scrollview')
 
 ---@class Nyoom.NuiPrefabs
 local prefabs = {}
@@ -72,6 +73,17 @@ end
 ---@return Nyoom.UIViewport
 function prefabs.newViewport(x, y, width, height, parent)
   return newViewport(x, y, width, height, parent)
+end
+
+---A UI element that allows content larger than itself to be contained within, and to pan across said content using scrollbars.
+---@param x integer
+---@param y integer
+---@param width integer
+---@param height integer
+---@param parent Nyoom.UIElement
+---@return Nyoom.UIScrollview
+function prefabs.newScrollview(x, y, width, height, parent)
+  return newScrollview(x, y, width, height, parent)
 end
 
 return prefabs
