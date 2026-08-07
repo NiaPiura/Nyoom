@@ -34,7 +34,7 @@
 ---@field private focus fun(self: Nyoom.UIElement)
 ---@field private unfocus fun(self: Nyoom.UIElement)
 ---@field private wheel fun(self: Nyoom.UIElement, delta: Nyoom.Vector2)
----@field private resize fun(self: Nyoom.UIElement, dimentions: Nyoom.Vector2)
+---@field private resize fun(self: Nyoom.UIElement, dimensions: Nyoom.Vector2)
 ---
 ---@field addChild fun(self: Nyoom.UIElement, element: Nyoom.UIElement): Nyoom.UIElement
 ---@field removeChild fun(self: Nyoom.UIElement, element: Nyoom.UIElement): Nyoom.UIElement
@@ -59,7 +59,7 @@
 ---@field onFocus fun(self: Nyoom.UIElement)?
 ---@field onUnfocus fun(self: Nyoom.UIElement)?
 ---@field onWheel fun(self: Nyoom.UIElement, delta: Nyoom.Vector2)?
----@field onResize fun(self: Nyoom.UIElement, dimentions: Nyoom.Vector2)?
+---@field onResize fun(self: Nyoom.UIElement, dimensions: Nyoom.Vector2)?
 
 ---@class ElementStates
 ---@field isVisible boolean?
