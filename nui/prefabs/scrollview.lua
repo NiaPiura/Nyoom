@@ -1,5 +1,7 @@
 ---@class Nyoom.UIScrollview : Nyoom.UIElement
 ---@field container Nyoom.UIElement
+---@field scrollVertical Nyoom.UISlider
+---@field scrollHorizontal Nyoom.UISlider
 
 local function newScrollview(x, y, width, height, parent)
   local scrollview = nyoom.ui.prefabs.newViewport(x, y, width, height, parent) --[[@as Nyoom.UIScrollview]]
@@ -9,6 +11,8 @@ local function newScrollview(x, y, width, height, parent)
 
   scrollview.id = 'scrollview'
   scrollview.container = container
+  scrollview.scrollVertical = scrollVertical
+  scrollview.scrollHorizontal = scrollHorizontal
   scrollVertical.isVisible = false
   scrollHorizontal.isVisible = false
 
