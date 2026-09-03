@@ -22,11 +22,6 @@ local newColor = require('nyoom.objects.color')
 ---@alias TextHorizontalAlignment 'left'|'right'|'center'|'justify'
 ---@alias TextVerticalAlignment 'top'|'bottom'|'center'
 
-local defaults = {
-  color = newColor(1, 1, 1),
-  font = love.graphics.newFont(12)
-}
-
 local methods, metamethods = {}, { __name = 'Nyoom.Text' }
 
 ---@param string string
@@ -39,8 +34,8 @@ local function newText(string, x, y, width, height)
   local text = {
     string = string,
     rect = nyoom.common.newRect(x, y, width, height),
-    font = defaults.font,
-    color = defaults.color,
+    font = nyoom.ui.defaults.font,
+    color = nyoom.ui.defaults.foregroundColor,
     horizontalAlignment = 'left',
     verticalAlignment = 'top',
     offset = 0
