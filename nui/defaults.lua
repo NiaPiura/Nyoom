@@ -4,6 +4,7 @@ local color = nyoom.objects.newColor
 local defaults = {
   backgroundColor = color(0.3),
   foregroundColor = color(0.9),
+  font = love.graphics.newFont(16),
   slider = {
     railColor = color(0.2),
     barColor = color(0.5),
