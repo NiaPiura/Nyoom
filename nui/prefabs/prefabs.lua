@@ -17,7 +17,7 @@ local prefabs = {}
 ---@param parent Nyoom.UIElement The parent element for the button.
 ---@param buttonColor? Nyoom.Color The background color that the button should render with.
 ---@param textColor? Nyoom.Color The text color that the button should render with.
----@return Nyoom.UIElement
+---@return Nyoom.UIButton
 function prefabs.newButton(text, x, y, width, height, parent, buttonColor, textColor)
   buttonColor = buttonColor or nyoom.objects.newColor(0.4, 0.4, 0.4)
   textColor = textColor or nyoom.objects.newColor(0.9, 0.9, 0.9)

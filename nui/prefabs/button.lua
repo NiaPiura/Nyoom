@@ -1,3 +1,7 @@
+---@class Nyoom.UIButton : Nyoom.UIElement
+---@field text Nyoom.Text
+---@field color Nyoom.Color
+
 ---@param element Nyoom.UIElement
 ---@param color Nyoom.Color
 local function setColor(element, color)
@@ -14,19 +18,19 @@ end
 ---@param parent Nyoom.UIElement
 ---@param buttonColor Nyoom.Color
 ---@param textColor Nyoom.Color
----@return Nyoom.UIElement
+---@return Nyoom.UIButton
 local function newButton(text, x, y, width, height, parent, buttonColor, textColor)
-  local element = nyoom.ui.newElement('button' .. text, x, y, width, height, parent)
-  local textObject = nyoom.objects.newText(text, 0, 0, width, height):setAlignments('center', 'center'):setColor(textColor or nyoom.objects.newColor(1, 1, 1))
-  buttonColor = buttonColor or nyoom.objects.newColor(0.3, 0.3, 0.3)
+  local button = nyoom.ui.newElement('button' .. text, x, y, width, height, parent) --[[@as Nyoom.UIButton]]
+  button.text = nyoom.objects.newText(text, 0, 0, width, height):setAlignments('center', 'center'):setColor(textColor or nyoom.objects.newColor(1, 1, 1))
+  button.color = buttonColor or nyoom.objects.newColor(0.3, 0.3, 0.3)
 
-  function element:onDraw()
-    setColor(element, buttonColor)
+  function button:onDraw()
+    setColor(button, button.color)
     love.graphics.rectangle('fill', 0, 0, self.size.width, self.size.height)
-    textObject:draw()
+    button.text:draw()
   end
 
-  return element
+  return button
 end
 
 return newButton
