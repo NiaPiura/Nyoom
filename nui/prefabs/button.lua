@@ -30,6 +30,14 @@ local function newButton(text, x, y, width, height, parent, buttonColor, textCol
     button.text:draw()
   end
 
+  function button:setSize(newWidth, newHeight)
+  if type(newWidth) == 'number' then self.rect.size = nyoom.common.newVector2(newWidth, newHeight)
+  else self.rect.size = newWidth end
+  button.text:setSize(self.rect.size)
+  ---@diagnostic disable-next-line: invisible
+  self:resize(self.rect.size)
+end
+
   return button
 end
 
