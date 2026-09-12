@@ -109,9 +109,12 @@ local function resize(width, height)
   nui.root:resize(nyoom.common.newVector2(width, height))
 end
 
-function nui.update(deltaTime)
+function nui.updateMouse()
   local mouseX, mouseY = love.mouse.getPosition()
-  --mouseMoved(mouseX, mouseY)
+  mouseMoved(mouseX, mouseY)
+end
+
+function nui.updateElements(deltaTime)
   nui.root:update(deltaTime)
 end
 

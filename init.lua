@@ -33,11 +33,12 @@ function nyoom:loadGame(game)
 
   function love.update(deltaTime)
     nyoom.profiler.start()
+    nyoom.ui.updateMouse()
     nyoom.input.update(deltaTime)
     nyoom.timing.update(deltaTime)
     nyoom.levels.update(deltaTime)
     gameUpdate(deltaTime)
-    nyoom.ui.update(deltaTime)
+    nyoom.ui.updateElements(deltaTime)
     nyoom.profiler.mark('nyoom.update')
   end
 
