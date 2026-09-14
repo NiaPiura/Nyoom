@@ -66,36 +66,36 @@ function events.newEvent() return newEvent() end
 -- Register Löve2D callbacks as events.
 -- General
 
-events.quit = newEvent()              function love.quit(...)             events.quit:trigger(...)              end
-events.directoryDropped = newEvent()  function love.directorydropped(...) events.directoryDropped:trigger(...)  end
-events.fileDropped = newEvent()       function love.filedropped(...)      events.fileDropped:trigger(...)       end
-events.focus = newEvent()             function love.focus(...)            events.focus:trigger(...)             end
-events.mouseFocus = newEvent()        function love.mousefocus(...)       events.mouseFocus:trigger(...)        end
-events.resize = newEvent()            function love.resize(...)           events.resize:trigger(...)            end
-events.visible = newEvent()           function love.visible(...)          events.visible:trigger(...)           end
+events.quitEvent = newEvent()              function love.quit(...)             events.quitEvent:trigger(...)              end
+events.directoryDroppedEvent = newEvent()  function love.directorydropped(...) events.directoryDroppedEvent:trigger(...)  end
+events.fileDroppedEvent = newEvent()       function love.filedropped(...)      events.fileDroppedEvent:trigger(...)       end
+events.focusEvent = newEvent()             function love.focus(...)            events.focusEvent:trigger(...)             end
+events.mouseFocusEvent = newEvent()        function love.mousefocus(...)       events.mouseFocusEvent:trigger(...)        end
+events.resizeEvent = newEvent()            function love.resize(...)           events.resizeEvent:trigger(...)            end
+events.visibleEvent = newEvent()           function love.visible(...)          events.visibleEvent:trigger(...)           end
 
 -- Keyboard
 
-events.keyPressed = newEvent()        function love.keypressed(...)       events.keyPressed:trigger(...)        end
-events.keyReleased = newEvent()       function love.keyreleased(...)      events.keyReleased:trigger(...)       end
-events.textEdited = newEvent()        function love.textedited(...)       events.textEdited:trigger(...)        end
-events.textInput = newEvent()         function love.textinput(...)        events.textInput:trigger(...)         end
+events.keyPressedEvent = newEvent()        function love.keypressed(...)       events.keyPressedEvent:trigger(...)        end
+events.keyReleasedEvent = newEvent()       function love.keyreleased(...)      events.keyReleasedEvent:trigger(...)       end
+events.textEditedEvent = newEvent()        function love.textedited(...)       events.textEditedEvent:trigger(...)        end
+events.textInputEvent = newEvent()         function love.textinput(...)        events.textInputEvent:trigger(...)         end
 
 -- Mouse
 
-events.mouseMoved = newEvent()        function love.mousemoved(...)       events.mouseMoved:trigger(...)        end
-events.mousePressed = newEvent()      function love.mousepressed(...)     events.mousePressed:trigger(...)      end
-events.mouseReleased = newEvent()     function love.mousereleased(...)    events.mouseReleased:trigger(...)     end
-events.wheelMoved = newEvent()        function love.wheelmoved(...)       events.wheelMoved:trigger(...)        end
+events.mouseMovedEvent = newEvent()        function love.mousemoved(...)       events.mouseMovedEvent:trigger(...)        end
+events.mousePressedEvent = newEvent()      function love.mousepressed(...)     events.mousePressedEvent:trigger(...)      end
+events.mouseReleasedEvent = newEvent()     function love.mousereleased(...)    events.mouseReleasedEvent:trigger(...)     end
+events.wheelMovedEvent = newEvent()        function love.wheelmoved(...)       events.wheelMovedEvent:trigger(...)        end
 
 -- Joystick
 
-events.gamepadAxis = newEvent()       function love.gamepadaxis(...)      events.gamepadAxis:trigger(...)       end
-events.gamepadPressed = newEvent()    function love.gamepadpressed(...)   events.gamepadPressed:trigger(...)    end
-events.gamepadReleased = newEvent()   function love.gamepadreleased(...)  events.gamepadReleased:trigger(...)   end
-events.joystickAdded = newEvent()     function love.joystickadded(...)    events.joystickAdded:trigger(...)     end
-events.joystickRemoved = newEvent()   function love.joystickremoved(...)  events.joystickRemoved:trigger(...)   end
-events.joystickAxis = newEvent()      function love.joystickaxis(...)     events.joystickAxis:trigger(...)      end
-events.joystickHat = newEvent()       function love.joystickhat(...)      events.joystickHat:trigger(...)       end
+events.gamepadAxisEvent = newEvent()       function love.gamepadaxis(...)      events.gamepadAxisEvent:trigger(...)       end
+events.gamepadPressedEvent = newEvent()    function love.gamepadpressed(...)   events.gamepadPressedEvent:trigger(...)    end
+events.gamepadReleasedEvent = newEvent()   function love.gamepadreleased(...)  events.gamepadReleasedEvent:trigger(...)   end
+events.joystickAddedEvent = newEvent()     function love.joystickadded(...)    events.joystickAddedEvent:trigger(...)     end
+events.joystickRemovedEvent = newEvent()   function love.joystickremoved(...)  events.joystickRemovedEvent:trigger(...)   end
+events.joystickAxisEvent = newEvent()      function love.joystickaxis(...)     events.joystickAxisEvent:trigger(...)      end
+events.joystickHatEvent = newEvent()       function love.joystickhat(...)      events.joystickHatEvent:trigger(...)       end
 
 return events

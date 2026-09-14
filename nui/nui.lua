@@ -128,10 +128,10 @@ function nui.isUIHovered()
 end
 
 -- Love event hooks
-nyoom.events.mouseMoved:addListener(mouseMoved)
-nyoom.events.mousePressed:addListener(mousePressed)
-nyoom.events.mouseReleased:addListener(mouseReleased)
-nyoom.events.wheelMoved:addListener(wheelMoved)
-nyoom.events.resize:addListener(resize)
+nyoom.events.mouseMovedEvent:addListener(mouseMoved)
+nyoom.events.mousePressedEvent:addListener(mousePressed)
+nyoom.events.mouseReleasedEvent:addListener(mouseReleased)
+nyoom.events.wheelMovedEvent:addListener(wheelMoved)
+nyoom.events.resizeEvent:addListener(resize)
 
 return nui

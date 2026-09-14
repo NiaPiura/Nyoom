@@ -85,8 +85,8 @@ local function shouldActionTrigger(state, action, timestamp)
   else return false end
 end
 
-nyoom.events.keyPressed:addListener(onKeyDown)
-nyoom.events.keyReleased:addListener(onKeyUp)
+nyoom.events.keyPressedEvent:addListener(onKeyDown)
+nyoom.events.keyReleasedEvent:addListener(onKeyUp)
 
 function input.update(dt)
   local timestamp = love.timer.getTime()
