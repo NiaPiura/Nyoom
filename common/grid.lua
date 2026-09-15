@@ -17,6 +17,7 @@
 ---@field setValue fun(self: Nyoom.Grid, value: any, index: integer): Nyoom.Grid Sets a value mapped to given index. Can be chained.
 ---@field setSize fun(self: Nyoom.Grid, width: integer, height: integer): Nyoom.Grid Non-destructively resizes the grid.
 ---@field clear fun(self: Nyoom.Grid, value: any): Nyoom.Grid Clear the grid, replacing values with either given value, or `defaultValue`.
+---@field set fun(self: Nyoom.Grid, ...:any): Nyoom.Grid Set values in the Grid's `map`.
 
 local methods, metamethods = {}, { __name = 'Nyoom.Grid' }
 
@@ -102,6 +103,13 @@ function methods:clear(value)
   value = value or self.defaultValue
   for i = 1, self.width * self.height do
     self.map[i] = value
+  end
+  return self
+end
+
+function methods:set(...)
+  for i, v in ipairs({...}) do
+    self.map[i] = v
   end
   return self
 end
