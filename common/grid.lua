@@ -64,20 +64,23 @@ function methods:getPosition(index)
 end
 
 function methods:getIndex(x, y)
-  if type(x) == 'Nyoom.Vector2' then y, x = x.y, x.x end
+  local _, custom = type(x)
+  if custom == 'Nyoom.Vector2' then y, x = x.y, x.x end
 
   if x < 0 or x > self.width - 1 or y < 0 or y > self.height - 1 then return end
   return positionToIndex(x, y, self.width)
 end
 
 function methods:getValue(x, y)
-  if type(x) == 'Nyoom.Vector2' then y, x = x.y, x.x end
+  local _, custom = type(x)
+  if custom == 'Nyoom.Vector2' then y, x = x.y, x.x end
   local index = indexOrCoords(self, x, y)
   return self.map[index]
 end
 
 function methods:setValue(value, x, y)
-  if type(x) == 'Nyoom.Vector2' then y, x = x.y, x.x end
+  local _, custom = type(x)
+  if custom == 'Nyoom.Vector2' then y, x = x.y, x.x end
   local index = indexOrCoords(self, x, y)
   if index then self.map[index] = value end
   return self
