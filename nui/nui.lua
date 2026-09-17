@@ -22,6 +22,7 @@ function nui.root:onResize(dimensions) self.size = dimensions end
 
 local hoverStack = {} ---@type Nyoom.UIElement[]
 local clickCache = {} ---@type table<number, Nyoom.UIElement[]>
+local lastMousePosition = nyoom.common.newVector2()
 
 ---@param mousePosition Nyoom.Vector2
 local function regenerateHoverStack(mousePosition)
@@ -55,9 +56,11 @@ local function mouseMoved(mouseX, mouseY)
   end
 
   for _, element in ipairs(hoverStack) do
-    element:mousemove(mousePosition - element.position)
+    if lastMousePosition ~= mousePosition then element:mousemove(mousePosition - element.position) end
     if not element.isHovered then element:hover() end
   end
+
+  lastMousePosition = mousePosition
 end
 
 ---@param mouseX number
