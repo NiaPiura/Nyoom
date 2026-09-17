@@ -35,7 +35,11 @@ end
 
 -- If y is defined, use x/y coordinates, otherwise treat x as index.
 local function indexOrCoords(self, x, y)
-  return y and self:getIndex(x, y) or x
+  if y then
+    return self:getIndex(x, y)
+  else
+    return x
+  end
 end
 
 ---@param width? integer
