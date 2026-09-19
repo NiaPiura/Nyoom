@@ -38,7 +38,7 @@ end
 
 ---@param self Nyoom.Event
 function methods:removeListener(id)
-  local _, index = table.ifind(self.listeners, function(value) return value == id end)
+  local _, index = table.ifind(self.listeners, function(value) return value.id == id end)
   if index then
     table.remove(self.listeners, index)
     return true
