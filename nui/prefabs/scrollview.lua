@@ -15,6 +15,9 @@ local function newScrollview(x, y, width, height, parent)
   scrollview.scrollHorizontal = scrollHorizontal
   scrollVertical.isVisible = false
   scrollHorizontal.isVisible = false
+  
+  --TEMP: Need a more elegant solution to unrendered content blocking other elements
+  container.isIgnored = true
 
   local function resize()
     local railThickness = nyoom.ui.defaults.slider.railThickness
