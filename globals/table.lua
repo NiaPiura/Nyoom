@@ -84,6 +84,17 @@ function table.filter(list, func)
   return filtered
 end
 
+---Returns a new indexed table where all elements of `list` have been processed by `func`.
+---@param list any
+---@param func any
+function table.map(list, func)
+  local mapped = {}
+  for _, value in pairs(list) do
+    table.insert(mapped, func(value))
+  end
+  return mapped
+end
+
 ---Creates a deep copy of a table, including metatables
 ---@param original table
 ---@return table
