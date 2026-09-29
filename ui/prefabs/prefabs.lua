@@ -1,11 +1,11 @@
-local newButton = require('nyoom.nui.prefabs.button')
-local newLayer = require('nyoom.nui.prefabs.layer')
-local newSlider = require('nyoom.nui.prefabs.slider')
-local newLayout = require('nyoom.nui.prefabs.layout')
-local newViewport = require('nyoom.nui.prefabs.viewport')
-local newScrollview = require('nyoom.nui.prefabs.scrollview')
+local newButton = require('nyoom.ui.prefabs.button')
+local newLayer = require('nyoom.ui.prefabs.layer')
+local newSlider = require('nyoom.ui.prefabs.slider')
+local newLayout = require('nyoom.ui.prefabs.layout')
+local newViewport = require('nyoom.ui.prefabs.viewport')
+local newScrollview = require('nyoom.ui.prefabs.scrollview')
 
----@class Nyoom.NuiPrefabs
+---@class Nyoom.UIPrefabs
 local prefabs = {}
 
 ---A basic button with rudimentary visual feedback.

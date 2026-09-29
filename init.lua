@@ -17,7 +17,7 @@ nyoom.events = require('nyoom.events') ---@type Nyoom.Events
 nyoom.input = require('nyoom.input') ---@type Nyoom.Input
 nyoom.levels = require('nyoom.levels') ---@type Nyoom.Levels
 nyoom.profiler = require('nyoom.profiler') ---@type Nyoom.Profiler
-nyoom.ui = require('nyoom.nui') ---@type Nyoom.Nui
+nyoom.ui = require('nyoom.ui') ---@type Nyoom.UI
 
 nyoom.mainCamera = nyoom.objects.newCamera()
 

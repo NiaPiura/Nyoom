@@ -1,6 +1,6 @@
 local color = nyoom.objects.newColor
 
----@class Nyoom.NuiDefaults
+---@class Nyoom.UIDefaults
 local defaults = {
   backgroundColor = color(0.3),
   foregroundColor = color(0.9),

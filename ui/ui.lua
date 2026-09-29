@@ -1,24 +1,23 @@
 ---@diagnostic disable: invisible
 
----A cute, minimalistic event-driven UI system
----@class Nyoom.Nui
+---@class Nyoom.UI
 ---@field update fun(deltaTime: number)
 ---@field draw fun()
 ---@field isUIHovered fun(): boolean
----@field defaults Nyoom.NuiDefaults
----@field prefabs Nyoom.NuiPrefabs
-local nui = {
-  newElement = require('nyoom.nui.element'),
+---@field defaults Nyoom.UIDefaults
+---@field prefabs Nyoom.UIPrefabs
+local ui = {
+  newElement = require('nyoom.ui.element'),
   root = nil, ---@type Nyoom.UIElement
   focused = nil, ---@type Nyoom.UIElement?
   topmost = nil, ---@type Nyoom.UIElement
 }
 
-nui.root = nui.newElement('root', 0, 0, love.graphics.getDimensions())
-nui.defaults = require('nyoom.nui.defaults')
-nui.prefabs = require('nyoom.nui.prefabs')
-nui.topmost = nui.root
-function nui.root:onResize(dimensions) self.size = dimensions end
+ui.root = ui.newElement('root', 0, 0, love.graphics.getDimensions())
+ui.defaults = require('nyoom.ui.defaults')
+ui.prefabs = require('nyoom.ui.prefabs')
+ui.topmost = ui.root
+function ui.root:onResize(dimensions) self.size = dimensions end
 
 local hoverStack = {} ---@type Nyoom.UIElement[]
 local clickCache = {} ---@type table<number, Nyoom.UIElement[]>
@@ -27,7 +26,7 @@ local lastMousePosition = nyoom.common.newVector2()
 ---@param mousePosition Nyoom.Vector2
 local function regenerateHoverStack(mousePosition)
   hoverStack = {}
-  local searchQueue = { nui.root }
+  local searchQueue = { ui.root }
 
   while #searchQueue > 0 do
     local element = searchQueue[1]
@@ -49,10 +48,10 @@ local function mouseMoved(mouseX, mouseY)
 
   regenerateHoverStack(mousePosition)
 
-  if nui.topmost ~= hoverStack[#hoverStack] then
-    nui.topmost.isTopmost = false
-    nui.topmost = hoverStack[#hoverStack]
-    nui.topmost.isTopmost = true
+  if ui.topmost ~= hoverStack[#hoverStack] then
+    ui.topmost.isTopmost = false
+    ui.topmost = hoverStack[#hoverStack]
+    ui.topmost.isTopmost = true
   end
 
   for _, element in ipairs(hoverStack) do
@@ -83,9 +82,9 @@ end
 ---@param presses number
 local function mouseReleased(mouseX, mouseY, button, _, presses)
   local mousePosition = nyoom.common.newVector2(mouseX, mouseY)
-  if nui.focused and nui.focused ~= clickCache[button][#clickCache[button]] then
-    nui.focused:unfocus()
-    nui.focused = nil
+  if ui.focused and ui.focused ~= clickCache[button][#clickCache[button]] then
+    ui.focused:unfocus()
+    ui.focused = nil
   end
 
   for i, element in ipairs(clickCache[button]) do
@@ -94,7 +93,7 @@ local function mouseReleased(mouseX, mouseY, button, _, presses)
     if element.rect:isWithinBounds(mousePosition) then element:click(delta, button, presses) end
 
     if not element.isFocused and i == #clickCache[button] then
-      nui.focused = element
+      ui.focused = element
       element:focus()
     end
   end
@@ -103,30 +102,30 @@ end
 ---@param deltaX number
 ---@param deltaY number
 local function wheelMoved(deltaX, deltaY)
-  nui.root:wheel(nyoom.common.newVector2(deltaX, deltaY))
+  ui.root:wheel(nyoom.common.newVector2(deltaX, deltaY))
 end
 
 ---@param width number
 ---@param height number
 local function resize(width, height)
-  nui.root:resize(nyoom.common.newVector2(width, height))
+  ui.root:resize(nyoom.common.newVector2(width, height))
 end
 
-function nui.updateMouse()
+function ui.updateMouse()
   local mouseX, mouseY = love.mouse.getPosition()
   mouseMoved(mouseX, mouseY)
 end
 
-function nui.updateElements(deltaTime)
-  nui.root:update(deltaTime)
+function ui.updateElements(deltaTime)
+  ui.root:update(deltaTime)
 end
 
-function nui.draw()
+function ui.draw()
   love.graphics.setColor(1, 1, 1, 1)
-  nui.root:draw()
+  ui.root:draw()
 end
 
-function nui.isUIHovered()
+function ui.isUIHovered()
   return nyoom.ui.topmost ~= nyoom.ui.root
 end
 
@@ -137,4 +136,4 @@ nyoom.events.mouseReleasedEvent:addListener(mouseReleased)
 nyoom.events.wheelMovedEvent:addListener(wheelMoved)
 nyoom.events.resizeEvent:addListener(resize)
 
-return nui
+return ui
