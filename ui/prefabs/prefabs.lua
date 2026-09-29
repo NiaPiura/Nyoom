@@ -58,10 +58,12 @@ end
 ---@param y integer
 ---@param orientation Nyoom.Orientation
 ---@param margin integer
+---@param minWidth integer
+---@param minHeight integer
 ---@param parent Nyoom.UIElement
 ---@return Nyoom.UILayout
-function prefabs.newLayout(x, y, orientation, margin, parent)
-  return newLayout(x, y, orientation, margin, parent)
+function prefabs.newLayout(x, y, orientation, margin, minWidth, minHeight, parent)
+  return newLayout(x, y, orientation, margin, minWidth, minHeight, parent)
 end
 
 ---A UI element that only renders contents within it's dimensions.

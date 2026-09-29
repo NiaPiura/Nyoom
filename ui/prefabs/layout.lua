@@ -4,12 +4,14 @@
 ---@param x integer
 ---@param y integer
 ---@param orientation Nyoom.Orientation
----@param margin integer
+---@param childMargin integer
+---@param minWidth integer
+---@param minHeight integer
 ---@param parent Nyoom.UIElement
 ---@return Nyoom.UILayout
-local function newLayout(x, y, orientation, margin, parent)
-
-  local layout = nyoom.ui.newElement(orientation .. 'LayoutGroup', x, y, 0, 0, parent) --[[@as Nyoom.UILayout]]
+local function newLayout(x, y, orientation, childMargin, minWidth, minHeight, parent)
+  minWidth, minHeight = minWidth or 0, minHeight or 0
+  local layout = nyoom.ui.newElement('layout:' .. orientation, x, y, minWidth, minHeight, parent) --[[@as Nyoom.UILayout]]
 
   function layout:updateLayout()
     local width, height = 0, 0
@@ -17,16 +19,16 @@ local function newLayout(x, y, orientation, margin, parent)
     for index, child in ipairs(self.children) do
       if orientation == 'vertical' then
         child:setPosition(0, height)
-        height = height + child.height + (index ~= #self.children and margin or 0)
+        height = height + child.height + (index ~= #self.children and childMargin or 0)
         width = math.max(width, child.width)
       else
         child:setPosition(width, 0)
-        width = width + child.width + (index ~= #self.children and margin or 0)
+        width = width + child.width + (index ~= #self.children and childMargin or 0)
         height = math.max(height, child.height)
       end
     end
 
-    self:setSize(width, height)
+    self:setSize(math.max(width, minWidth), math.max(height, minHeight))
   end
 
   ---@param self Nyoom.UILayout
