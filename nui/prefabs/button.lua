@@ -21,8 +21,8 @@ end
 ---@return Nyoom.UIButton
 local function newButton(text, x, y, width, height, parent, buttonColor, textColor)
   local button = nyoom.ui.newElement('button' .. text, x, y, width, height, parent) --[[@as Nyoom.UIButton]]
-  button.text = nyoom.objects.newText(text, 0, 0, width, height):setAlignments('center', 'center'):setColor(textColor or nyoom.objects.newColor(1, 1, 1))
-  button.color = buttonColor or nyoom.objects.newColor(0.3, 0.3, 0.3)
+  button.text = nyoom.objects.newText(text, 0, 0, width, height):setAlignments('center', 'center'):setColor(textColor or nyoom.ui.defaults.foregroundColor)
+  button.color = buttonColor or nyoom.ui.defaults.backgroundColor
 
   function button:onDraw()
     setColor(button, button.color)
