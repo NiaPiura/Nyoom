@@ -5,9 +5,9 @@
 ---@param element Nyoom.UIElement
 ---@param color Nyoom.Color
 local function setColor(element, color)
-  if element.isPressed then color:multiply(0.9):setActive()
-  elseif element.isHovered then color:multiply(1.25):setActive()
-  else color:setActive() end
+  if element.isPressed then color:mul(0.9):use()
+  elseif element.isHovered then color:mul(1.25):use()
+  else color:use() end
 end
 
 ---@param text string

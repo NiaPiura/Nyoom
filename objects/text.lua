@@ -50,7 +50,7 @@ end
 
 ---@param self Nyoom.Text
 function methods:draw()
-  love.graphics.setColor(self.color)
+  self.color:use()
   love.graphics.printf(self.string, self.font, self.rect.x, self.rect.y + self.offset, self.rect.width, self.horizontalAlignment)
 end
 

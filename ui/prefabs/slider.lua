@@ -33,14 +33,14 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
   end
 
   function slider:onDraw()
-    love.graphics.setColor(defaults.railColor)
+    defaults.railColor:use()
     love.graphics.rectangle('fill', 0, 0, self.width, self.height)
 
     local colorMultiplier = 1
     if self.isPressed then colorMultiplier = 0.8
     elseif self.isHovered then colorMultiplier = 1.2 end
 
-    love.graphics.setColor(defaults.barColor * colorMultiplier)
+    defaults.barColor:mul(colorMultiplier):use()
     love.graphics.rectangle('fill', orientation == 'horizontal' and barPosition or 0, orientation == 'vertical' and barPosition or 0, barWidth, barHeight)
   end
 

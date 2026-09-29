@@ -1,13 +1,11 @@
-local color = nyoom.objects.newColor
-
 ---@class Nyoom.UIDefaults
 local defaults = {
-  backgroundColor = color(0.3),
-  foregroundColor = color(0.9),
+  backgroundColor = nyoom.objects.newColor(0.3),
+  foregroundColor = nyoom.objects.newColor(0.9),
   font = love.graphics.newFont(16),
   slider = {
-    railColor = color(0.2),
-    barColor = color(0.5),
+    railColor = nyoom.objects.newColor(0.2),
+    barColor = nyoom.objects.newColor(0.5),
     railThickness = 20,
     barThickness = 20,
     barMinLength = 20,

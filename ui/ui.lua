@@ -122,7 +122,7 @@ function ui.updateElements(deltaTime)
 end
 
 function ui.draw()
-  love.graphics.setColor(1, 1, 1, 1)
+  love.graphics.setColor(1, 1, 1)
   ui.root:draw()
 end
 

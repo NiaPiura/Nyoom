@@ -4,9 +4,13 @@
 ---@field b number
 ---@field a number
 ---
----@field setActive fun(self: Nyoom.Color)
+---@field use fun(self: Nyoom.Color)
 ---@field add fun(self: Nyoom.Color, value: Nyoom.Color|number): Nyoom.Color
----@field multiply fun(self: Nyoom.Color, value: number): Nyoom.Color
+---@field mul fun(self: Nyoom.Color, value: number): Nyoom.Color
+---@field red fun(self: Nyoom.Color, value: number): Nyoom.Color
+---@field green fun(self: Nyoom.Color, value: number): Nyoom.Color
+---@field blue fun(self: Nyoom.Color, value: number): Nyoom.Color
+---@field alpha fun(self: Nyoom.Color, value: number): Nyoom.Color
 ---
 ---@operator add(Nyoom.Color|number): Nyoom.Color
 ---@operator mul(number): Nyoom.Color
@@ -24,10 +28,12 @@ end
 
 -- Methods
 
-function methods:setActive()
+---@param self Nyoom.Color
+function methods:use()
   love.graphics.setColor(self)
 end
 
+---@param self Nyoom.Color
 ---@param value Nyoom.Color|number
 function methods:add(value)
   if type(value) == 'number' then
@@ -47,13 +53,55 @@ function methods:add(value)
   end
 end
 
+---@param self Nyoom.Color
 ---@param value number
-function methods:multiply(value)
+function methods:mul(value)
   return newColor(
     math.clamp(self[1] * value, 0, 1),
     math.clamp(self[2] * value, 0, 1),
     math.clamp(self[3] * value, 0, 1),
     math.clamp(self[4] * value, 0, 1)
+  )
+end
+
+---@param self Nyoom.Color
+---@param value number
+function methods:red(value)
+  return newColor(
+    math.clamp(value, 0, 1),
+    self[2],
+    self[3],
+    self[4]
+  )
+end
+---@param self Nyoom.Color
+---@param value number
+function methods:green(value)
+  return newColor(
+    self[1],
+    math.clamp(value, 0, 1),
+    self[3],
+    self[4]
+  )
+end
+---@param self Nyoom.Color
+---@param value number
+function methods:blue(value)
+  return newColor(
+    self[1],
+    self[2],
+    math.clamp(value, 0, 1),
+    self[4]
+  )
+end
+---@param self Nyoom.Color
+---@param value number
+function methods:alpha(value)
+  return newColor(
+    self[1],
+    self[2],
+    self[3],
+    math.clamp(value, 0, 1)
   )
 end
 
@@ -77,7 +125,7 @@ end
 
 ---@param value number
 function metamethods:__mul(value)
-  return self:multiply(value)
+  return self:mul(value)
 end
 
 function metamethods:__tostring()
