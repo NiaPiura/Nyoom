@@ -107,7 +107,7 @@ function table.clone(original)
     end
     local metatable = getmetatable(original)
     -- Only make a copy of the metatable if the metatable does not represent a custom type, as designated by the __name property. Otherwise reuse it.
-    if metatable.__name then setmetatable(copy, metatable)
+    if metatable and metatable.__name then setmetatable(copy, metatable)
     else setmetatable(copy, table.clone(metatable)) end
   else
     copy = original
