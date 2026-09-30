@@ -70,7 +70,7 @@
 ---@field isHovered boolean?
 ---@field isFocused boolean?
 
-local methods, metamethods = {}, { __name = 'Element' }
+local methods, metamethods = {}, { __name = 'Nyoom.UIElement' }
 
 ---Creates a new element.
 ---@param id string
