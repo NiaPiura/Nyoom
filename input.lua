@@ -57,17 +57,17 @@ local function checkSequence(sequence)
     return match
 end
 
-local function onKeyDown(key, _, isRepeat)
-  if not isRepeat then
-    input.states[key] = {
+local function onKeyDown(eventValues)
+  if not eventValues.isRepeat then
+    input.states[eventValues.key] = {
       timestamp = love.timer.getTime(),
       firstFrame = true
     }
   end
 end
 
-local function onKeyUp(key)
-  input.states[key] = nil
+local function onKeyUp(eventValues)
+  input.states[eventValues.key] = nil
 end
 
 local function shouldActionTrigger(state, action, timestamp)
@@ -85,10 +85,10 @@ local function shouldActionTrigger(state, action, timestamp)
   else return false end
 end
 
-nyoom.events.keyPressedEvent:addListener(onKeyDown)
-nyoom.events.keyReleasedEvent:addListener(onKeyUp)
+nyoom.events.eventKeyPressed:addListener(onKeyDown)
+nyoom.events.eventKeyReleased:addListener(onKeyUp)
 
-function input.update(dt)
+function input.update(deltaTime)
   local timestamp = love.timer.getTime()
   for _, action in ipairs(input.actions) do
     if checkSequence(action.sequence) then

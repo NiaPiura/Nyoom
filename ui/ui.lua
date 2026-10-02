@@ -43,15 +43,13 @@ local function regenerateHoverStack(mousePosition)
   end
 end
 
----@param mouseX number
----@param mouseY number
-local function mouseMoved(mouseX, mouseY)
-  local mousePosition = nyoom.common.newVector2(mouseX, mouseY)
+---@param eventValues { position: Nyoom.Vector2 }
+local function mouseMoved(eventValues)
   for _, element in ipairs(hoverStack) do
-    if not element.rect:isWithinBounds(mousePosition) then element:unhover() end
+    if not element.rect:isWithinBounds(eventValues.position) then element:unhover() end
   end
 
-  regenerateHoverStack(mousePosition)
+  regenerateHoverStack(eventValues.position)
 
   if ui.topmost ~= hoverStack[#hoverStack] then
     ui.topmost.isTopmost = false
@@ -60,65 +58,56 @@ local function mouseMoved(mouseX, mouseY)
   end
 
   for _, element in ipairs(hoverStack) do
-    if lastMousePosition ~= mousePosition then element:mousemove(mousePosition - element.position) end
+    if lastMousePosition ~= eventValues.position then element:mousemove(eventValues.position - element.position) end
     if not element.isHovered then element:hover() end
   end
 
-  lastMousePosition = mousePosition
+  lastMousePosition = eventValues.position
 end
 
----@param mouseX number
----@param mouseY number
----@param button number
-local function mousePressed(mouseX, mouseY, button)
-  local mousePosition = nyoom.common.newVector2(mouseX, mouseY)
-  clickCache[button] = {}
+---@param eventValues { position: Nyoom.Vector2, button: number }
+local function mousePressed(eventValues)
+  clickCache[eventValues.button] = {}
   for _, element in ipairs(hoverStack) do
     if not element.isIgnored then
-      element:press(mousePosition - element.position, button)
-      table.insert(clickCache[button], element)
+      element:press(eventValues.position - element.position, eventValues.button)
+      table.insert(clickCache[eventValues.button], element)
     end
   end
 end
 
----@param mouseX number
----@param mouseY number
----@param button number
----@param presses number
-local function mouseReleased(mouseX, mouseY, button, _, presses)
-  local mousePosition = nyoom.common.newVector2(mouseX, mouseY)
-  if ui.focused and ui.focused ~= clickCache[button][#clickCache[button]] then
+---@param eventValues { position: Nyoom.Vector2, button: number, presses: number}
+local function mouseReleased(eventValues)
+  if ui.focused and ui.focused ~= clickCache[eventValues.button][#clickCache[eventValues.button]] then
     ui.focused:unfocus()
     ui.focused = nil
   end
 
-  for i, element in ipairs(clickCache[button]) do
-    local delta = mousePosition - element.position
-    element:release(delta, button)
-    if element.rect:isWithinBounds(mousePosition) then element:click(delta, button, presses) end
+  for i, element in ipairs(clickCache[eventValues.button]) do
+    local delta = eventValues.position - element.position
+    element:release(delta, eventValues.button)
+    if element.rect:isWithinBounds(eventValues.position) then element:click(delta, eventValues.button, eventValues.presses) end
 
-    if not element.isFocused and i == #clickCache[button] then
+    if not element.isFocused and i == #clickCache[eventValues.button] then
       ui.focused = element
       element:focus()
     end
   end
 end
 
----@param deltaX number
----@param deltaY number
-local function wheelMoved(deltaX, deltaY)
-  ui.root:wheel(nyoom.common.newVector2(deltaX, deltaY))
+---@param eventValues { direction: Nyoom.Vector2 }
+local function wheelMoved(eventValues)
+  ui.root:wheel(eventValues.direction)
 end
 
----@param width number
----@param height number
-local function resize(width, height)
-  ui.root:resize(nyoom.common.newVector2(width, height))
+---@param eventValues { dimensions: Nyoom.Vector2 }
+local function resize(eventValues)
+  ui.root:resize(eventValues.dimensions)
 end
 
 function ui.updateMouse()
   local mouseX, mouseY = love.mouse.getPosition()
-  mouseMoved(mouseX, mouseY)
+  mouseMoved({ position = nyoom.common.newVector2(mouseX, mouseY) })
 end
 
 function ui.updateElements(deltaTime)
@@ -135,10 +124,10 @@ function ui.isUIHovered()
 end
 
 -- Love event hooks
-nyoom.events.mouseMovedEvent:addListener(mouseMoved)
-nyoom.events.mousePressedEvent:addListener(mousePressed)
-nyoom.events.mouseReleasedEvent:addListener(mouseReleased)
-nyoom.events.wheelMovedEvent:addListener(wheelMoved)
-nyoom.events.resizeEvent:addListener(resize)
+--nyoom.events.eventMouseMoved:addListener(mouseMoved)
+nyoom.events.eventMousePressed:addListener(mousePressed)
+nyoom.events.eventMouseReleased:addListener(mouseReleased)
+nyoom.events.eventWheelMoved:addListener(wheelMoved)
+nyoom.events.eventResize:addListener(resize)
 
 return ui

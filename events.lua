@@ -66,66 +66,66 @@ function events.newEvent() return newEvent() end
 -- Register Löve2D callbacks as events.
 -- General
 
-events.quitEvent = newEvent()               ---@type Nyoom.Event
-events.directoryDroppedEvent = newEvent()   ---@type Nyoom.Event<{ path: string }>
-events.fileDroppedEvent = newEvent()        ---@type Nyoom.Event<{ file: love.DroppedFile }>
-events.focusEvent = newEvent()              ---@type Nyoom.Event<{ focus: boolean }>
-events.mouseFocusEvent = newEvent()         ---@type Nyoom.Event<{ focus: boolean }>
-events.resizeEvent = newEvent()             ---@type Nyoom.Event<{ dimensions: Nyoom.Vector2 }>
-events.visibleEvent = newEvent()            ---@type Nyoom.Event<{ visible: boolean }>
+events.eventQuit = newEvent()               ---@type Nyoom.Event
+events.eventDirectoryDropped = newEvent()   ---@type Nyoom.Event<{ path: string }>
+events.eventFileDropped = newEvent()        ---@type Nyoom.Event<{ file: love.DroppedFile }>
+events.eventFocus = newEvent()              ---@type Nyoom.Event<{ focus: boolean }>
+events.eventMouseFocus = newEvent()         ---@type Nyoom.Event<{ focus: boolean }>
+events.eventResize = newEvent()             ---@type Nyoom.Event<{ dimensions: Nyoom.Vector2 }>
+events.eventVisible = newEvent()            ---@type Nyoom.Event<{ visible: boolean }>
 
-function love.quit()                        events.quitEvent:trigger() end
-function love.directorydropped(a)           events.directoryDroppedEvent:trigger({ path = a }) end
-function love.filedropped(a)                events.fileDroppedEvent:trigger({ file = a }) end
-function love.focus(a)                      events.focusEvent:trigger({ focus = a }) end
-function love.mousefocus(a)                 events.mouseFocusEvent:trigger({ focus = a }) end
-function love.resize(a, b)                  events.resizeEvent:trigger({ dimensions = nyoom.common.newVector2(a, b) }) end
-function love.visible(a)                    events.visibleEvent:trigger({ visible = a }) end
+function love.quit()                        events.eventQuit:trigger() end
+function love.directorydropped(a)           events.eventDirectoryDropped:trigger({ path = a }) end
+function love.filedropped(a)                events.eventFileDropped:trigger({ file = a }) end
+function love.focus(a)                      events.eventFocus:trigger({ focus = a }) end
+function love.mousefocus(a)                 events.eventMouseFocus:trigger({ focus = a }) end
+function love.resize(a, b)                  events.eventResize:trigger({ dimensions = nyoom.common.newVector2(a, b) }) end
+function love.visible(a)                    events.eventVisible:trigger({ visible = a }) end
 
 -- Keyboard
 
-events.keyPressedEvent = newEvent()         ---@type Nyoom.Event<{ key: love.KeyConstant, scancode: love.Scancode, isRepeat: boolean }>
-events.keyReleasedEvent = newEvent()        ---@type Nyoom.Event<{ key: love.KeyConstant, scancode: love.Scancode }>
-events.textEditedEvent = newEvent()         ---@type Nyoom.Event<{ text: string, start: number, length: number }>
-events.textInputEvent = newEvent()          ---@type Nyoom.Event<{ text: string }>
+events.eventKeyPressed = newEvent()         ---@type Nyoom.Event<{ key: love.KeyConstant, scancode: love.Scancode, isRepeat: boolean }>
+events.eventKeyReleased = newEvent()        ---@type Nyoom.Event<{ key: love.KeyConstant, scancode: love.Scancode }>
+events.eventTextEdited = newEvent()         ---@type Nyoom.Event<{ text: string, start: number, length: number }>
+events.eventTextInput = newEvent()          ---@type Nyoom.Event<{ text: string }>
 
-function love.keypressed(a, b, c)           events.keyPressedEvent:trigger({ key = a, scancode = b, isRepeat = c }) end
-function love.keyreleased(a, b)             events.keyReleasedEvent:trigger({ key = a, scancode = b }) end
-function love.textedited(a, b, c)           events.textEditedEvent:trigger({ text = a, start = b, length = c }) end
-function love.textinput(a)                  events.textInputEvent:trigger({ text = a }) end
+function love.keypressed(a, b, c)           events.eventKeyPressed:trigger({ key = a, scancode = b, isRepeat = c }) end
+function love.keyreleased(a, b)             events.eventKeyReleased:trigger({ key = a, scancode = b }) end
+function love.textedited(a, b, c)           events.eventTextEdited:trigger({ text = a, start = b, length = c }) end
+function love.textinput(a)                  events.eventTextInput:trigger({ text = a }) end
 
 -- Mouse
 
-events.mouseMovedEvent = newEvent()         ---@type Nyoom.Event<{ position: Nyoom.Vector2, delta: Nyoom.Vector2 }>
-events.mousePressedEvent = newEvent()       ---@type Nyoom.Event<{ position: Nyoom.Vector2, button: number, presses: number }>
-events.mouseReleasedEvent = newEvent()      ---@type Nyoom.Event<{ position: Nyoom.Vector2, button: number, presses: number }>
-events.wheelMovedEvent = newEvent()         ---@type Nyoom.Event<{ direction: Nyoom.Vector2 }>
+events.eventMouseMoved = newEvent()         ---@type Nyoom.Event<{ position: Nyoom.Vector2, delta: Nyoom.Vector2 }>
+events.eventMousePressed = newEvent()       ---@type Nyoom.Event<{ position: Nyoom.Vector2, button: number, presses: number }>
+events.eventMouseReleased = newEvent()      ---@type Nyoom.Event<{ position: Nyoom.Vector2, button: number, presses: number }>
+events.eventWheelMoved = newEvent()         ---@type Nyoom.Event<{ direction: Nyoom.Vector2 }>
 
-function love.mousemoved(a, b, c, d)        events.mouseMovedEvent:trigger({ position = nyoom.common.newVector2(a, b), delta = nyoom.common.newVector2(c, d)}) end
-function love.mousepressed(a, b, c, _, d)   events.mousePressedEvent:trigger({ position = nyoom.common.newVector2(a, b), button = c, presses = d }) end
-function love.mousereleased(a, b, c, _, d)  events.mouseReleasedEvent:trigger({ position = nyoom.common.newVector2(a, b), button = c, presses = d }) end
-function love.wheelmoved(a, b)              events.wheelMovedEvent:trigger({ direction = nyoom.common.newVector2(a, b) }) end
+function love.mousemoved(a, b, c, d)        events.eventMouseMoved:trigger({ position = nyoom.common.newVector2(a, b), delta = nyoom.common.newVector2(c, d)}) end
+function love.mousepressed(a, b, c, _, d)   events.eventMousePressed:trigger({ position = nyoom.common.newVector2(a, b), button = c, presses = d }) end
+function love.mousereleased(a, b, c, _, d)  events.eventMouseReleased:trigger({ position = nyoom.common.newVector2(a, b), button = c, presses = d }) end
+function love.wheelmoved(a, b)              events.eventWheelMoved:trigger({ direction = nyoom.common.newVector2(a, b) }) end
 
 -- Joystick
 
-events.gamepadAxisEvent = newEvent()        ---@type Nyoom.Event<{ joystick: love.Joystick, axis: love.GamepadAxis, value: number }>
-events.gamepadPressedEvent = newEvent()     ---@type Nyoom.Event<{ joystick: love.Joystick, value: number }>
-events.gamepadReleasedEvent = newEvent()    ---@type Nyoom.Event<{ joystick: love.Joystick, value: number }>
-events.joystickPressedEvent = newEvent()    ---@type Nyoom.Event<{ joystick: love.Joystick, value: number }>
-events.joystickReleasedEvent = newEvent()   ---@type Nyoom.Event<{ joystick: love.Joystick, value: number }>
-events.joystickAxisEvent = newEvent()       ---@type Nyoom.Event<{ joystick: love.Joystick, axis: love.GamepadAxis, value: number }>
-events.joystickHatEvent = newEvent()        ---@type Nyoom.Event<{ joystick: love.Joystick, hat: number, direction: love.JoystickHat }>
-events.joystickAddedEvent = newEvent()      ---@type Nyoom.Event<{ joystick: love.Joystick }>
-events.joystickRemovedEvent = newEvent()    ---@type Nyoom.Event<{ joystick: love.Joystick }>
+events.eventGamepadAxis = newEvent()        ---@type Nyoom.Event<{ joystick: love.Joystick, axis: love.GamepadAxis, value: number }>
+events.eventGamepadPressed = newEvent()     ---@type Nyoom.Event<{ joystick: love.Joystick, value: number }>
+events.eventGamepadReleased = newEvent()    ---@type Nyoom.Event<{ joystick: love.Joystick, value: number }>
+events.eventJoystickPressed = newEvent()    ---@type Nyoom.Event<{ joystick: love.Joystick, value: number }>
+events.eventJoystickReleased = newEvent()   ---@type Nyoom.Event<{ joystick: love.Joystick, value: number }>
+events.eventJoystickAxis = newEvent()       ---@type Nyoom.Event<{ joystick: love.Joystick, axis: love.GamepadAxis, value: number }>
+events.eventJoystickHat = newEvent()        ---@type Nyoom.Event<{ joystick: love.Joystick, hat: number, direction: love.JoystickHat }>
+events.eventJoystickAdded = newEvent()      ---@type Nyoom.Event<{ joystick: love.Joystick }>
+events.eventJoystickRemoved = newEvent()    ---@type Nyoom.Event<{ joystick: love.Joystick }>
 
-function love.gamepadaxis(a, b, c)          events.gamepadAxisEvent:trigger({ joystick = a, axis = b, value = c }) end
-function love.gamepadpressed(a, b)          events.gamepadPressedEvent:trigger({ joystick = a, value = b }) end
-function love.gamepadreleased(a, b)         events.gamepadReleasedEvent:trigger({ joystick = a, value = b }) end
-function love.joystickpressed(a, b)         events.joystickPressedEvent:trigger({ joystick = a, value = b }) end
-function love.joystickReleased(a, b)        events.joystickReleasedEvent:trigger({ joystick = a, value = b }) end
-function love.joystickaxis(a, b, c)         events.joystickAxisEvent:trigger({ joystick = a, axis = b, value = c }) end
-function love.joystickhat(a, b, c)          events.joystickHatEvent:trigger({ joystick = a, hat = b, direction = c }) end
-function love.joystickadded(a)              events.joystickAddedEvent:trigger({ joystick = a }) end
-function love.joystickremoved(a)            events.joystickRemovedEvent:trigger({ joystick = a }) end
+function love.gamepadaxis(a, b, c)          events.eventGamepadAxis:trigger({ joystick = a, axis = b, value = c }) end
+function love.gamepadpressed(a, b)          events.eventGamepadPressed:trigger({ joystick = a, value = b }) end
+function love.gamepadreleased(a, b)         events.eventGamepadReleased:trigger({ joystick = a, value = b }) end
+function love.joystickpressed(a, b)         events.eventJoystickPressed:trigger({ joystick = a, value = b }) end
+function love.joystickReleased(a, b)        events.eventJoystickReleased:trigger({ joystick = a, value = b }) end
+function love.joystickaxis(a, b, c)         events.eventJoystickAxis:trigger({ joystick = a, axis = b, value = c }) end
+function love.joystickhat(a, b, c)          events.eventJoystickHat:trigger({ joystick = a, hat = b, direction = c }) end
+function love.joystickadded(a)              events.eventJoystickAdded:trigger({ joystick = a }) end
+function love.joystickremoved(a)            events.eventJoystickRemoved:trigger({ joystick = a }) end
 
 return events

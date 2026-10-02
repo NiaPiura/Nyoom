@@ -50,16 +50,17 @@
 ---@field onPostUpdate fun(self: Nyoom.UIElement)?
 ---@field onDraw fun(self: Nyoom.UIElement)?
 ---@field onPostDraw fun(self: Nyoom.UIElement)?
----@field onClick fun(self: Nyoom.UIElement, position: Nyoom.Vector2, button: number, presses: number)?
----@field onPress fun(self: Nyoom.UIElement, position: Nyoom.Vector2, button: number)?
----@field onRelease fun(self: Nyoom.UIElement, position: Nyoom.Vector2, button: number)?
----@field onMouseMove fun(self: Nyoom.UIElement, position: Nyoom.Vector2)?
----@field onHover fun(self: Nyoom.UIElement)?
----@field onUnhover fun(self: Nyoom.UIElement)?
----@field onFocus fun(self: Nyoom.UIElement)?
----@field onUnfocus fun(self: Nyoom.UIElement)?
----@field onWheel fun(self: Nyoom.UIElement, delta: Nyoom.Vector2)?
----@field onResize fun(self: Nyoom.UIElement, dimensions: Nyoom.Vector2)?
+---
+---@field eventMouseClick Nyoom.Event<{ position: Nyoom.Vector2, button: number, presses: number }>
+---@field eventMousePress Nyoom.Event<{ position: Nyoom.Vector2, button: number}>
+---@field eventMouseRelease Nyoom.Event<{ position: Nyoom.Vector2, button: number}>
+---@field eventMouseMove Nyoom.Event<{ position: Nyoom.Vector2 }>
+---@field eventHover Nyoom.Event
+---@field eventUnhover Nyoom.Event
+---@field eventFocus Nyoom.Event
+---@field eventUnfocus Nyoom.Event
+---@field eventMouseWheel Nyoom.Event<{ delta: Nyoom.Vector2 }>
+---@field eventResize Nyoom.Event<{ dimensions: Nyoom.Vector2 }>
 
 ---@class ElementStates
 ---@field isVisible boolean?
@@ -94,6 +95,17 @@ local function newElement(id, x, y, width, height, parent, state)
     isPressed = (state and state.isPressed) or false,
     isHovered = (state and state.isHovered) or false,
     isFocused = (state and state.isFocused) or false,
+
+    eventMouseClick = nyoom.events.newEvent(),
+    eventMousePress = nyoom.events.newEvent(),
+    eventMouseRelease = nyoom.events.newEvent(),
+    eventMouseMove = nyoom.events.newEvent(),
+    eventHover = nyoom.events.newEvent(),
+    eventUnhover = nyoom.events.newEvent(),
+    eventFocus = nyoom.events.newEvent(),
+    eventUnfocus = nyoom.events.newEvent(),
+    eventMouseWheel = nyoom.events.newEvent(),
+    eventResize = nyoom.events.newEvent(),
 
     parent = nil,
     children = {}
@@ -135,61 +147,61 @@ end
 
 ---@param self Nyoom.UIElement
 function methods:click(position, button, presses)
-  if self.onClick then self:onClick(position, button, presses) end
+  self.eventMouseClick:trigger({ position = position, button = button, presses = presses })
 end
 
 ---@param self Nyoom.UIElement
 function methods:press(position, button)
   self.isPressed = true
-  if self.onPress then self:onPress(position, button) end
+  self.eventMousePress:trigger({ position = position, button = button })
 end
 
 ---@param self Nyoom.UIElement
 function methods:release(position, button)
   self.isPressed = false
-  if self.onRelease then self:onRelease(position, button) end
+  self.eventMouseRelease:trigger({ position = position, button = button })
 end
 
 ---@param self Nyoom.UIElement
 function methods:mousemove(position)
-  if self.onMouseMove then self:onMouseMove(position) end
+  self.eventMouseMove:trigger({ position = position })
 end
 
 ---@param self Nyoom.UIElement
 function methods:hover()
   self.isHovered = true
-  if self.onHover then self:onHover() end
+  self.eventHover:trigger()
 end
 
 ---@param self Nyoom.UIElement
 function methods:unhover()
   self.isHovered = false
-  if self.onUnhover then self:onUnhover() end
+  self.eventUnhover:trigger()
 end
 
 ---@param self Nyoom.UIElement
 function methods:focus()
   self.isFocused = true
-  if self.onFocus then self:onFocus() end
+  self.eventFocus:trigger()
 end
 
 ---@param self Nyoom.UIElement
 function methods:unfocus()
   self.isFocused = false
-  if self.onUnfocus then self:onUnfocus() end
+  self.eventUnfocus:trigger()
 end
 
 ---@param self Nyoom.UIElement
 function methods:wheel(delta)
-  if self.onWheel then self:onWheel(delta) end
+  self.eventMouseWheel:trigger({ delta = delta })
   for _, e in ipairs(self.children) do e:wheel(delta) end
 end
 
 ---@param self Nyoom.UIElement
 function methods:resize(dimensions)
-  if not self._isResizing and self.onResize then
+  if not self._isResizing then
     self._isResizing = true
-    self:onResize(dimensions)
+    self.eventResize:trigger(dimensions)
   end
   for _, e in ipairs(self.children) do e:resize(dimensions) end
   self._isResizing = false
