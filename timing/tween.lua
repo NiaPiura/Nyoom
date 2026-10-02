@@ -35,7 +35,7 @@ local methods, metamethods = {}, { __name = 'Nyoom.Tween' }
 ---A simple tweening Library.
 ---@class Nyoom.Tweens
 ---@field update fun(deltaTime: number)
----@field newTween fun(duration: number, object: table, target: table): Nyoom.Tween
+---@field newTween fun(duration: number, object?: table, target?: table): Nyoom.Tween
 local tweens = {
   activeTweens = {} ---@type Nyoom.Tween[]
 }
@@ -60,12 +60,13 @@ function tweens.newTween(duration, object, target)
     value = 0,
     power = 1,
 
-    object = object,
-    target = target,
-    origin = matchFields(object,target),
+    object = object or {},
+    target = target or {},
 
     isReversed = false
   }
+
+  tween.origin = matchFields(tween.object, tween.target)
 
   return setmetatable(tween, metamethods)
 end

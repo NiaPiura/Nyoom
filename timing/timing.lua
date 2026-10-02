@@ -3,7 +3,7 @@ local delay = require('nyoom.timing.delay')
 
 ---@class Nyoom.Timing
 ---@field update fun(deltaTime: number)
----@field newTween fun(duration: number, object: table, target: table): Nyoom.Tween Create a new Tween
+---@field newTween fun(duration: number, object?: table, target?: table): Nyoom.Tween Create a new Tween
 ---@field newDelay fun(duration: number, onFinish: fun(self: Nyoom.Delay) ): Nyoom.Delay Create a new Delay and automatically starts it.
 local timing = {}
 
