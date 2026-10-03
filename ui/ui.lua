@@ -43,13 +43,13 @@ local function regenerateHoverStack(mousePosition)
   end
 end
 
----@param eventValues { position: Nyoom.Vector2 }
-local function mouseMoved(eventValues)
+---@param eventData { position: Nyoom.Vector2 }
+local function mouseMoved(eventData)
   for _, element in ipairs(hoverStack) do
-    if not element.rect:isWithinBounds(eventValues.position) then element:unhover() end
+    if not element.rect:isWithinBounds(eventData.position) then element:unhover() end
   end
 
-  regenerateHoverStack(eventValues.position)
+  regenerateHoverStack(eventData.position)
 
   if ui.topmost ~= hoverStack[#hoverStack] then
     ui.topmost.isTopmost = false
@@ -58,51 +58,51 @@ local function mouseMoved(eventValues)
   end
 
   for _, element in ipairs(hoverStack) do
-    if lastMousePosition ~= eventValues.position then element:mousemove(eventValues.position - element.position) end
+    if lastMousePosition ~= eventData.position then element:mousemove(eventData.position - element.position) end
     if not element.isHovered then element:hover() end
   end
 
-  lastMousePosition = eventValues.position
+  lastMousePosition = eventData.position
 end
 
----@param eventValues { position: Nyoom.Vector2, button: number }
-local function mousePressed(eventValues)
-  clickCache[eventValues.button] = {}
+---@param eventData { position: Nyoom.Vector2, button: number }
+local function mousePressed(eventData)
+  clickCache[eventData.button] = {}
   for _, element in ipairs(hoverStack) do
     if not element.isIgnored then
-      element:press(eventValues.position - element.position, eventValues.button)
-      table.insert(clickCache[eventValues.button], element)
+      element:press(eventData.position - element.position, eventData.button)
+      table.insert(clickCache[eventData.button], element)
     end
   end
 end
 
----@param eventValues { position: Nyoom.Vector2, button: number, presses: number}
-local function mouseReleased(eventValues)
-  if ui.focused and ui.focused ~= clickCache[eventValues.button][#clickCache[eventValues.button]] then
+---@param eventData { position: Nyoom.Vector2, button: number, presses: number}
+local function mouseReleased(eventData)
+  if ui.focused and ui.focused ~= clickCache[eventData.button][#clickCache[eventData.button]] then
     ui.focused:unfocus()
     ui.focused = nil
   end
 
-  for i, element in ipairs(clickCache[eventValues.button]) do
-    local delta = eventValues.position - element.position
-    element:release(delta, eventValues.button)
-    if element.rect:isWithinBounds(eventValues.position) then element:click(delta, eventValues.button, eventValues.presses) end
+  for i, element in ipairs(clickCache[eventData.button]) do
+    local delta = eventData.position - element.position
+    element:release(delta, eventData.button)
+    if element.rect:isWithinBounds(eventData.position) then element:click(delta, eventData.button, eventData.presses) end
 
-    if not element.isFocused and i == #clickCache[eventValues.button] then
+    if not element.isFocused and i == #clickCache[eventData.button] then
       ui.focused = element
       element:focus()
     end
   end
 end
 
----@param eventValues { direction: Nyoom.Vector2 }
-local function wheelMoved(eventValues)
-  ui.root:wheel(eventValues.direction)
+---@param eventData { direction: Nyoom.Vector2 }
+local function wheelMoved(eventData)
+  ui.root:wheel(eventData.direction)
 end
 
----@param eventValues { dimensions: Nyoom.Vector2 }
-local function resize(eventValues)
-  ui.root:resize(eventValues.dimensions)
+---@param eventData { dimensions: Nyoom.Vector2 }
+local function resize(eventData)
+  ui.root:resize(eventData.dimensions)
 end
 
 function ui.updateMouse()

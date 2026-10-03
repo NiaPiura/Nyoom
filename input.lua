@@ -57,17 +57,17 @@ local function checkSequence(sequence)
     return match
 end
 
-local function onKeyDown(eventValues)
-  if not eventValues.isRepeat then
-    input.states[eventValues.key] = {
+local function onKeyDown(eventData)
+  if not eventData.isRepeat then
+    input.states[eventData.key] = {
       timestamp = love.timer.getTime(),
       firstFrame = true
     }
   end
 end
 
-local function onKeyUp(eventValues)
-  input.states[eventValues.key] = nil
+local function onKeyUp(eventData)
+  input.states[eventData.key] = nil
 end
 
 local function shouldActionTrigger(state, action, timestamp)

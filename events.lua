@@ -4,7 +4,7 @@
 ---@field private idIndex integer The internal rolling id to assign to added listeners, such that they can be referred to again.
 ---@field private listeners Nyoom.EventListener[] List of listeners with their assigned rolling id.
 ---
----@field addListener fun(self: Nyoom.Event, func: fun(eventValues: T)): integer Add a listener; A function that gets callen when this event is triggered.
+---@field addListener fun(self: Nyoom.Event, func: fun(eventData: T)): integer Add a listener; A function that gets callen when this event is triggered.
 ---@field removeListener fun(self: Nyoom.Event, id: integer): boolean Remove a listener using the id given when adding said listener.
 ---@field trigger fun(self: Nyoom.Event, ...: any) Trigger the event, passing any arguments to all listeners.
 
