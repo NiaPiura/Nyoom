@@ -33,13 +33,13 @@ local function newLayer(id, opacity, x, y, width, height)
     love.graphics.draw(canvas, 0, 0)
   end
 
-  function layer:onResize()
+  layer.eventResize:addListener(function()
     if not definedWidth then width = love.graphics.getWidth() end
     if not definedHeight then height = love.graphics.getHeight() end
 
     canvas = love.graphics.newCanvas(width, height)
     layer:setSize(width, height)
-  end
+  end)
 
   function layer:setOpacity(newOpacity)
     opacity = newOpacity

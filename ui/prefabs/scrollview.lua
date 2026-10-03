@@ -61,23 +61,23 @@ local function newScrollview(x, y, width, height, parent)
     container.y = elementDelta * -value
   end
 
-  function scrollview:onWheel(wheelDelta)
+  scrollview.eventMouseWheel:addListener(function(eventData)
     local mousePosition = scrollview:getRelativeMousePosition()
     if mousePosition.x < 0 or mousePosition.x > scrollview.width or mousePosition.y < 0 or mousePosition.y > scrollview.height then return end
 
-    if wheelDelta.x ~= 0 then
+    if eventData.delta.x ~= 0 then
       local stepSize = nyoom.ui.defaults.scrollview.scrollIncrement / container.width
-      scrollHorizontal:setValue(scrollHorizontal:getValue() + (stepSize * -wheelDelta.x))
+      scrollHorizontal:setValue(scrollHorizontal:getValue() + (stepSize * -eventData.delta.x))
     end
 
-    if wheelDelta.y ~= 0 then
+    if eventData.delta.y ~= 0 then
       local stepSize = nyoom.ui.defaults.scrollview.scrollIncrement / container.height
-      scrollVertical:setValue(scrollVertical:getValue() + (stepSize * -wheelDelta.y))
+      scrollVertical:setValue(scrollVertical:getValue() + (stepSize * -eventData.delta.y))
     end
-  end
+  end)
 
-  function scrollview:onResize() resize() end
-  function container:onResize() resize() end
+  scrollview.eventResize:addListener(resize)
+  container.eventResize:addListener(resize)
 
   container:setSize(width, height)
 

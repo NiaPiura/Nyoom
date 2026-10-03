@@ -56,8 +56,8 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
     setBarPosition() --TODO: only update bar position when value changes
   end
 
-  function slider:onPress(mousePosition)
-    local mouseAxisPosition = mousePosition:getRelevantAxis(orientation)
+  slider.eventMousePress:addListener(function(eventValues)
+    local mouseAxisPosition = eventValues.position:getRelevantAxis(orientation)
 
     if mouseAxisPosition < barPosition or mouseAxisPosition > barPosition + barLength then
       moveBar(mouseAxisPosition - (barLength / 2))
@@ -65,11 +65,11 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
     end
     
     mouseOffset = mouseAxisPosition - barPosition
-  end
+  end)
 
-  function slider:onRelease()
+  slider.eventMouseRelease:addListener(function()
     mouseOffset = 0
-  end
+  end)
 
   function slider:setRailLength(length)
     railLength = math.max(defaults.barMinLength, length)
