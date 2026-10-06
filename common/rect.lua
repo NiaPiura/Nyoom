@@ -7,6 +7,10 @@
 ---@field position Nyoom.Vector2 The rect's position (top-left corner).
 ---@field size Nyoom.Vector2 The rect's size (bottom-left corner's delta from the position).
 ---
+---@field setPosition fun(self: Nyoom.Rect, x: number, y: number)
+---@field setPosition fun(self: Nyoom.Rect, position: Nyoom.Vector2)
+---@field setSize fun(self: Nyoom.Rect, width: number, height: number)
+---@field setSize fun(self: Nyoom.Rect, size: Nyoom.Vector2)
 ---@field getCenter fun(self: Nyoom.Rect): Nyoom.Vector2 Returns a vector representing the center of the rect.
 ---@field isWithinBounds fun(self: Nyoom.Rect, point: Nyoom.Vector2): boolean Returns whether a given position is within the rect's bounds.
 
@@ -24,11 +28,13 @@ end
 -- Methods
 
 function methods:setPosition(x, y)
-  self.position = nyoom.common.newVector2(x, y)
+  if type(x) == 'number' then self.position = nyoom.common.newVector2(x, y)
+  else self.position = nyoom.common.newVector2(x.x, x.y) end
 end
 
 function methods:setSize(width, height)
-  self.size = nyoom.common.newVector2(width, height)
+  if type(width) == 'number' then self.size = nyoom.common.newVector2(width, height)
+  else self.size = nyoom.common.newVector2(width.x, width.y) end
 end
 
 function methods:getCenter()
