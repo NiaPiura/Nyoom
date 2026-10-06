@@ -35,8 +35,10 @@ local function regenerateHoverStack(mousePosition)
       table.insert(hoverStack, element)
     end
 
-    if element.isVisible then
-      for _, child in ipairs(element.children) do table.insert(searchQueue, child) end
+    if element.isVisible and element.boundingBox:isWithinBounds(mousePosition)then
+      for _, child in ipairs(element.children) do
+        table.insert(searchQueue, child)
+      end
     end
 
     table.remove(searchQueue, 1)
