@@ -31,7 +31,7 @@ local function regenerateHoverStack(mousePosition)
   while #searchQueue > 0 do
     local element = searchQueue[1]
     if element.isIgnored and element.isHovered then element:unhover() end
-    if not element.isIgnored and element.isVisible and element.rect:isWithinBounds(mousePosition) then
+    if not element.isIgnored and element.isVisible and element.boundingBox:isWithinBounds(mousePosition) then
       table.insert(hoverStack, element)
     end
 
@@ -46,7 +46,7 @@ end
 ---@param eventData { position: Nyoom.Vector2 }
 local function mouseMoved(eventData)
   for _, element in ipairs(hoverStack) do
-    if not element.rect:isWithinBounds(eventData.position) then element:unhover() end
+    if not element.boundingBox:isWithinBounds(eventData.position) then element:unhover() end
   end
 
   regenerateHoverStack(eventData.position)
@@ -86,7 +86,7 @@ local function mouseReleased(eventData)
   for i, element in ipairs(clickCache[eventData.button]) do
     local delta = eventData.position - element.position
     element:release(delta, eventData.button)
-    if element.rect:isWithinBounds(eventData.position) then element:click(delta, eventData.button, eventData.presses) end
+    if element.boundingBox:isWithinBounds(eventData.position) then element:click(delta, eventData.button, eventData.presses) end
 
     if not element.isFocused and i == #clickCache[eventData.button] then
       ui.focused = element

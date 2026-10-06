@@ -10,6 +10,7 @@
 ---@field position Nyoom.Vector2
 ---@field size Nyoom.Vector2
 ---@field rect Nyoom.Rect
+---@field boundingBox Nyoom.Rect
 ---@field parent Nyoom.UIElement?
 ---@field children Nyoom.UIElement[]
 ---
@@ -88,6 +89,7 @@ local function newElement(id, x, y, width, height, parent, state)
     id = id or '',
     offset = nyoom.common.newVector2(x, y),
     rect = nyoom.common.newRect(x, y, width, height),
+    boundingBox = nyoom.common.newRect(x, y, width, height),
 
     isVisible = true,
     isEnabled = true,
@@ -242,19 +244,25 @@ end
 
 ---@param self Nyoom.UIElement
 function methods:setSize(width, height)
-  if type(width) == 'number' then self.rect.size = nyoom.common.newVector2(width, height)
-  else self.rect.size = width end
+  if type(width) == 'number' then self.rect:setSize(width, height)
+  else self.rect:setSize(width) end
+
+  self.boundingBox:setPosition(self.offset)
+  self.boundingBox:setSize(self.rect.size)
+
   self:resize(self.rect.size)
 end
 
 ---@param self Nyoom.UIElement
 function methods:updateScreenPosition()
   if self.parent then
-    self.rect.position = self.parent.rect.position + self.offset
+    self.rect:setPosition(self.parent.rect.position + self.offset)
     for _, child in ipairs(self.children) do child:updateScreenPosition() end
   else
-    self.rect.position = self.offset
+    self.rect:setPosition(self.offset)
   end
+
+  self.boundingBox:setPosition(self.rect.position)
 end
 
 ---@param self Nyoom.UIElement
