@@ -117,6 +117,13 @@ end
 function ui.draw()
   love.graphics.setColor(1, 1, 1)
   ui.root:draw()
+
+  if ui.topmost.onTooltip then
+    love.graphics.push()
+    love.graphics.translate(ui.topmost.rect.x, ui.topmost.rect.y)
+    ui.topmost:onTooltip()
+    love.graphics.pop()
+  end
 end
 
 function ui.isUIHovered()

@@ -50,6 +50,7 @@
 ---@field onPostUpdate fun(self: Nyoom.UIElement)?
 ---@field onDraw fun(self: Nyoom.UIElement)?
 ---@field onPostDraw fun(self: Nyoom.UIElement)?
+---@field onTooltip fun(self: Nyoom.UIElement)?
 ---
 ---@field eventMouseClick Nyoom.Event<{ position: Nyoom.Vector2, button: number, presses: number }>
 ---@field eventMousePress Nyoom.Event<{ position: Nyoom.Vector2, button: number}>
