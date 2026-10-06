@@ -15,9 +15,6 @@ local function newScrollview(x, y, width, height, parent)
   scrollview.scrollHorizontal = scrollHorizontal
   scrollVertical.isVisible = false
   scrollHorizontal.isVisible = false
-  
-  --TEMP: Need a more elegant solution to unrendered content blocking other elements
-  container.isIgnored = true
 
   local function resize()
     local railThickness = nyoom.ui.defaults.slider.railThickness
@@ -49,16 +46,20 @@ local function newScrollview(x, y, width, height, parent)
     else 
       scrollVertical.isVisible = false
     end
+
+    container.boundingBox:setSize(scrollview.size)
   end
 
   function scrollHorizontal:onValueChange(value)
     local elementDelta = container.width - scrollview.width
     container.x = elementDelta * -value
+    container.boundingBox.x = container.rect.x - container.x
   end
 
   function scrollVertical:onValueChange(value)
     local elementDelta = container.height - scrollview.height
     container.y = elementDelta * -value
+    container.boundingBox.y = container.rect.y - container.y
   end
 
   scrollview.eventMouseWheel:addListener(function(eventData)
