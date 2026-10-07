@@ -3,7 +3,7 @@
 ---@field cornerSize integer
 ---@field quads love.Quad[]
 ---
----@field getSpriteBatch fun(self: Nyoom.NineSplice, width: integer, height: integer)
+---@field getSpriteBatch fun(self: Nyoom.NineSplice, width: integer, height: integer, isCenterSize?: boolean)
 
 local methods, metamethods = {}, { __name = "Nyoom.NineSplice" }
 
@@ -40,12 +40,12 @@ local function newNineSplice(texture, cornerSize)
 end
 
 ---@param self Nyoom.NineSplice
-function methods:getSpriteBatch(width, height)
+function methods:getSpriteBatch(width, height, isCenterSize)
   local cornerSize = self.cornerSize
   local sideLength = self.texture:getDimensions() - (cornerSize * 2)
 
-  local contentWidth = width - (cornerSize * 2)
-  local contentHeight = height - (cornerSize * 2)
+  local contentWidth = width - (isCenterSize and 0 or (cornerSize * 2))
+  local contentHeight = height - (isCenterSize and 0 or (cornerSize * 2))
   local scaleWidth = contentWidth / sideLength
   local scaleHeight = contentHeight / sideLength
 
