@@ -63,6 +63,24 @@ local function newScrollview(x, y, width, height, parent)
   end
 
   scrollview.eventMouseWheel:addListener(function(eventData)
+    local hasTopMostElement = false
+    local searchQueue = { scrollview }
+
+    while #searchQueue > 0 do
+      local element = searchQueue[1]
+
+      if element.isTopmost then hasTopMostElement = true
+      else
+        for _, child in ipairs(element.children) do
+          table.insert(searchQueue, child)
+        end
+      end
+      
+      table.remove(searchQueue, 1)
+    end
+
+    if not hasTopMostElement then return end
+
     local mousePosition = scrollview:getRelativeMousePosition()
     if mousePosition.x < 0 or mousePosition.x > scrollview.width or mousePosition.y < 0 or mousePosition.y > scrollview.height then return end
 

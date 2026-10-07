@@ -19,7 +19,7 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
 
   local value = 0
   local barPosition = 0
-  local mouseOffset = 0
+  local mouseOffset = nil
   local slider = nyoom.ui.newElement('slider', x, y, 0, 0, parent) --[[@as Nyoom.UISlider]]
 
   ---@param position number
@@ -37,15 +37,15 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
     love.graphics.rectangle('fill', 0, 0, self.width, self.height)
 
     local colorMultiplier = 1
-    if self.isPressed then colorMultiplier = 0.8
-    elseif self.isHovered then colorMultiplier = 1.2 end
+    if mouseOffset then colorMultiplier = 0.8
+    elseif self.isTopmost then colorMultiplier = 1.2 end
 
     defaults.barColor:mul(colorMultiplier):use()
     love.graphics.rectangle('fill', orientation == 'horizontal' and barPosition or 0, orientation == 'vertical' and barPosition or 0, barWidth, barHeight)
   end
 
   function slider:onUpdate()
-    if self.isPressed then
+    if mouseOffset then
       local mousePosition = self:getRelativeMousePosition()
       if self.position ~= mousePosition then
         local mouseAxisPosition = mousePosition:getRelevantAxis(orientation)
@@ -57,6 +57,8 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
   end
 
   slider.eventMousePress:addListener(function(eventData)
+    if not slider.isTopmost then return end
+    print('Pressed')
     local mouseAxisPosition = eventData.position:getRelevantAxis(orientation)
 
     if mouseAxisPosition < barPosition or mouseAxisPosition > barPosition + barLength then
@@ -68,7 +70,7 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
   end)
 
   slider.eventMouseRelease:addListener(function()
-    mouseOffset = 0
+    mouseOffset = nil
   end)
 
   function slider:setRailLength(length)
