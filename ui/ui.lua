@@ -145,14 +145,6 @@ function ui.draw()
     ui.topmost:onTooltip()
     love.graphics.pop()
   end
-
-  --TEMP
-  love.graphics.setColor(0, 0, 0, 1)
-  love.graphics.rectangle('fill', 10, 10, 200, 10 + #hoverStack * 10)
-  love.graphics.setColor(1, 1, 1)
-  for i, element in ipairs(hoverStack) do
-    love.graphics.print(element.id, 10, (10 * i))
-  end
 end
 
 function ui.isUIHovered()
