@@ -23,8 +23,8 @@ local hoverStack = {} ---@type Nyoom.UIElement[]
 local clickCache = {} ---@type table<number, Nyoom.UIElement[]>
 local lastMousePosition = nyoom.common.newVector2()
 
----@param mousePosition Nyoom.Vector2
-local function regenerateHoverStack(mousePosition)
+----@param mousePosition Nyoom.Vector2
+--[[ local function regenerateHoverStack(mousePosition)
   hoverStack = {}
   local searchQueue = { ui.root }
 
@@ -43,6 +43,25 @@ local function regenerateHoverStack(mousePosition)
 
     table.remove(searchQueue, 1)
   end
+end ]]
+
+---@param mousePosition Nyoom.Vector2
+local function checkHoverStackRecursive(mousePosition, element)
+  if element.isIgnored and element.isHovered then element:unhover() end
+  if not element.isIgnored and element.isVisible and element.boundingBox:isWithinBounds(mousePosition) then
+    table.insert(hoverStack, element)
+  end
+
+  if element.isVisible and element.boundingBox:isWithinBounds(mousePosition)then
+    for _, child in ipairs(element.children) do
+      checkHoverStackRecursive(mousePosition, child)
+    end
+  end
+end
+
+local function regenerateHoverStack(mousePosition)
+  hoverStack = {}
+  checkHoverStackRecursive(mousePosition, ui.root)
 end
 
 ---@param eventData { position: Nyoom.Vector2 }
@@ -125,6 +144,14 @@ function ui.draw()
     love.graphics.translate(ui.topmost.rect.x, ui.topmost.rect.y)
     ui.topmost:onTooltip()
     love.graphics.pop()
+  end
+
+  --TEMP
+  love.graphics.setColor(0, 0, 0, 1)
+  love.graphics.rectangle('fill', 10, 10, 200, 10 + #hoverStack * 10)
+  love.graphics.setColor(1, 1, 1)
+  for i, element in ipairs(hoverStack) do
+    love.graphics.print(element.id, 10, (10 * i))
   end
 end
 
