@@ -4,6 +4,7 @@ local newColoredText = require('nyoom.objects.coloredText')
 local newTileSet = require('nyoom.objects.tileSet')
 local newTileGrid = require('nyoom.objects.tileGrid')
 local newCamera = require('nyoom.objects.camera')
+local newNineSplice = require('nyoom.objects.nineSplice')
 local newEntity = require('nyoom.objects.entity')
 
 ---@class Nyoom.Objects
@@ -13,6 +14,7 @@ local newEntity = require('nyoom.objects.entity')
 ---@field newTileSet fun(image: love.Image, tileWidth: number, tileHeight: number): Nyoom.TileSet
 ---@field newTileGrid fun(tileSet: Nyoom.TileSet, width?: integer, height?: integer): Nyoom.TileGrid
 ---@field newCamera fun(size?: Nyoom.Vector2): Nyoom.Camera
+---@field newNineSplice fun(texture: love.Texture, cornerSize: integer): Nyoom.NineSplice
 local objects = {}
 
 function objects.newColor(red, green, blue, alpha)
@@ -37,6 +39,10 @@ end
 
 function objects.newCamera(size)
   return newCamera(size)
+end
+
+function objects.newNineSplice(texture, cornerSize)
+  return newNineSplice(texture, cornerSize)
 end
 
 function objects.newEntity()
