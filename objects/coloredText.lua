@@ -4,6 +4,7 @@
 ---
 ---@field addSection fun(self: Nyoom.ColoredText, text: string, color: Nyoom.Color): Nyoom.ColoredText
 ---@field newLine fun(self: Nyoom.ColoredText): Nyoom.ColoredText
+---@field merge fun(self: Nyoom.ColoredText, coloredText: Nyoom.ColoredText): Nyoom.ColoredText
 ---@field build fun(self: Nyoom.ColoredText): table
 ---@field buildString fun(self: Nyoom.ColoredText): string
 ---@field getDimensions fun(self: Nyoom.ColoredText, font: love.Font): Nyoom.Vector2
@@ -30,6 +31,14 @@ end
 ---@param self Nyoom.ColoredText
 function methods:newLine()
   table.insert(self.sections, { text = ' \n', color = nyoom.ui.defaults.foregroundColor })
+  return self
+end
+
+---@param self Nyoom.ColoredText
+function methods:merge(coloredText)
+  for _, section in ipairs(coloredText.sections) do
+    table.insert(self.sections, section)
+  end
   return self
 end
 
