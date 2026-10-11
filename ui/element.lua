@@ -2,7 +2,7 @@
 
 ---@class Nyoom.UIElement
 ---@field id string
----@field offset Nyoom.Vector2
+---@field relativePosition Nyoom.Vector2
 ---@field x number
 ---@field y number
 ---@field width number
@@ -87,7 +87,7 @@ local methods, metamethods = {}, { __name = 'Nyoom.UIElement' }
 local function newElement(id, x, y, width, height, parent, state)
   local element = {
     id = id or '',
-    offset = nyoom.common.newVector2(x, y),
+    relativePosition = nyoom.common.newVector2(x, y),
     rect = nyoom.common.newRect(x, y, width, height),
     boundingBox = nyoom.common.newRect(x, y, width, height),
 
@@ -139,7 +139,7 @@ end
 function methods:draw()
   if not self.isVisible then return end
   love.graphics.push()
-  love.graphics.translate(self.offset.x, self.offset.y)
+  love.graphics.translate(self.relativePosition.x, self.relativePosition.y)
   if self.onDraw then self:onDraw() end
   for _, e in ipairs(self.children) do e:draw() end
   if self.onPostDraw then self:onPostDraw() end
@@ -237,8 +237,8 @@ end
 
 ---@param self Nyoom.UIElement
 function methods:setPosition(x, y)
-  if type(x) == 'number' then self.offset = nyoom.common.newVector2(x, y)
-  else self.offset = x end
+  if type(x) == 'number' then self.relativePosition = nyoom.common.newVector2(x, y)
+  else self.relativePosition = x end
   self:updateScreenPosition()
 end
 
@@ -255,10 +255,10 @@ end
 ---@param self Nyoom.UIElement
 function methods:updateScreenPosition()
   if self.parent then
-    self.rect:setPosition(self.parent.rect.position + self.offset)
+    self.rect:setPosition(self.parent.rect.position + self.relativePosition)
     for _, child in ipairs(self.children) do child:updateScreenPosition() end
   else
-    self.rect:setPosition(self.offset)
+    self.rect:setPosition(self.relativePosition)
   end
 
   self.boundingBox:setPosition(self.rect.position)
@@ -273,8 +273,8 @@ end
 -- Metamethods
 
 function metamethods:__index(key)
-  if key == 'x' then return self.offset.x end
-  if key == 'y' then return self.offset.y end
+  if key == 'x' then return self.relativePosition.x end
+  if key == 'y' then return self.relativePosition.y end
   if key == 'width' then return self.rect.width end
   if key == 'height' then return self.rect.height end
   if key == 'position' then return self.rect.position end
@@ -284,8 +284,8 @@ end
 
 ---@param self Nyoom.UIElement
 function metamethods:__newindex(key, value)
-  if key == 'x' then self:setPosition(value, self.offset.y)
-  elseif key == 'y' then self:setPosition(self.offset.x, value)
+  if key == 'x' then self:setPosition(value, self.relativePosition.y)
+  elseif key == 'y' then self:setPosition(self.relativePosition.x, value)
   elseif key == 'width' then self:setSize(value, self.height)
   elseif key == 'height' then self:setSize(self.width, value)
   elseif key == 'position' then self:setPosition(value)
