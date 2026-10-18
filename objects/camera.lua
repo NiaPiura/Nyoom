@@ -1,22 +1,23 @@
----@class Nyoom.Camera
----@field position Nyoom.Vector2
----@field size Nyoom.Vector2
+---(WIP)
+---@class nyoom.Camera
+---@field position nyoom.Vector2
+---@field size nyoom.Vector2
 ---@field renderScale number
 ---
----@field activate fun(self: Nyoom.Camera)
----@field deactivate fun(self: Nyoom.Camera)
----@field screenToWorld fun(self: Nyoom.Camera, point: Nyoom.Vector2)
----@field worldToScreen fun(self: Nyoom.Camera, point: Nyoom.Vector2)
+---@field activate fun(self: nyoom.Camera)
+---@field deactivate fun(self: nyoom.Camera)
+---@field screenToWorld fun(self: nyoom.Camera, point: nyoom.Vector2)
+---@field worldToScreen fun(self: nyoom.Camera, point: nyoom.Vector2)
 
-local methods, metamethods = {}, { __name = 'Nyoom.Camera' }
+local methods, metamethods = {}, { __name = 'nyoom.Camera' }
 
----Creates a new Camera
----@return Nyoom.Camera
----@param size? Nyoom.Vector2
-local function newCamera(size)
+---Create a new Camera.
+---@return nyoom.Camera
+---@param size? nyoom.Vector2 The size of thecamera's viewport. Defaults to the window's dimensions.
+function nyoom.objects.newCamera(size)
   local camera = {
-    position = nyoom.common.newVector2(),
-    size = size or nyoom.common.newVector2(love.graphics.getWidth(), love.graphics.getHeight()),
+    position = nyoom.objects.newVector2(),
+    size = size or nyoom.objects.newVector2(love.graphics.getWidth(), love.graphics.getHeight()),
     renderScale = 1,
   }
 
@@ -27,7 +28,7 @@ end
 
 -- Methods
 
----@param self Nyoom.Camera
+---@param self nyoom.Camera
 function methods:activate()
   local renderScaleOffset = self.size * 0.5 * (self.renderScale - 1)
 
@@ -39,24 +40,24 @@ function methods:activate()
   love.graphics.scale(self.renderScale)
 end
 
----@param self Nyoom.Camera
+---@param self nyoom.Camera
 function methods:deactivate()
 
   love.graphics.pop()
 end
 
 
----@param self Nyoom.Camera
+---@param self nyoom.Camera
 function methods:screenToWorld(point)
   local scaledPoint = (point - self.size * 0.5) / self.renderScale
   local position = self.position + self.size * 0.5
   return position + scaledPoint
 end
 
----@param self Nyoom.Camera
+---@param self nyoom.Camera
 function methods:worldToScreen(point)
 
-  return nyoom.common.newVector2()
+  return nyoom.objects.newVector2()
 end
 
 -- Metamethods
@@ -64,5 +65,3 @@ end
 function metamethods:__index(key)
   return methods[key]
 end
-
-return newCamera

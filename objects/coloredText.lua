@@ -1,17 +1,20 @@
----@class Nyoom.ColoredText
+---@class nyoom.ColoredText
 ---@field separator string
----@field sections { text: string, color: Nyoom.Color }[]
+---@field sections { text: string, color: nyoom.Color }[]
 ---
----@field addSection fun(self: Nyoom.ColoredText, text: string, color: Nyoom.Color): Nyoom.ColoredText
----@field newLine fun(self: Nyoom.ColoredText): Nyoom.ColoredText
----@field merge fun(self: Nyoom.ColoredText, coloredText: Nyoom.ColoredText): Nyoom.ColoredText
----@field build fun(self: Nyoom.ColoredText): table
----@field buildString fun(self: Nyoom.ColoredText): string
----@field getDimensions fun(self: Nyoom.ColoredText, font: love.Font): Nyoom.Vector2
+---@field addSection fun(self: nyoom.ColoredText, text: string, color: nyoom.Color): nyoom.ColoredText
+---@field newLine fun(self: nyoom.ColoredText): nyoom.ColoredText
+---@field merge fun(self: nyoom.ColoredText, coloredText: nyoom.ColoredText): nyoom.ColoredText
+---@field build fun(self: nyoom.ColoredText): table
+---@field buildString fun(self: nyoom.ColoredText): string
+---@field getDimensions fun(self: nyoom.ColoredText, font: love.Font): nyoom.Vector2
 
-local methods, metamethods = {}, { __name = "Nyoom.ColoredText" }
+local methods, metamethods = {}, { __name = "nyoom.ColoredText" }
 
-local function newColoredText(separator)
+---Create a new ColoredText.
+---@param separator? string The character to place between sections when concatenating. Defaults to empty space (` `).
+---@return nyoom.ColoredText
+function nyoom.objects.newColoredText(separator)
   local coloredText = {
     sections = {},
     separator = separator or ' '
@@ -22,19 +25,19 @@ local function newColoredText(separator)
   return coloredText
 end
 
----@param self Nyoom.ColoredText
+---@param self nyoom.ColoredText
 function methods:addSection(text, color)
-  table.insert(self.sections, { text = text, color = color or nyoom.ui.defaults.foregroundColor })
+  table.insert(self.sections, { text = text, color = color or nyoom.defaults.foregroundColor })
   return self
 end
 
----@param self Nyoom.ColoredText
+---@param self nyoom.ColoredText
 function methods:newLine()
-  table.insert(self.sections, { text = ' \n', color = nyoom.ui.defaults.foregroundColor })
+  table.insert(self.sections, { text = ' \n', color = nyoom.defaults.foregroundColor })
   return self
 end
 
----@param self Nyoom.ColoredText
+---@param self nyoom.ColoredText
 function methods:merge(coloredText)
   for _, section in ipairs(coloredText.sections) do
     table.insert(self.sections, section)
@@ -42,7 +45,7 @@ function methods:merge(coloredText)
   return self
 end
 
----@param self Nyoom.ColoredText
+---@param self nyoom.ColoredText
 function methods:build()
   local coloredText = {}
 
@@ -54,7 +57,7 @@ function methods:build()
   return coloredText
 end
 
----@param self Nyoom.ColoredText
+---@param self nyoom.ColoredText
 function methods:buildString()
   local text = ''
 
@@ -65,17 +68,15 @@ function methods:buildString()
   return text
 end
 
----@param self Nyoom.ColoredText
+---@param self nyoom.ColoredText
 ---@param font love.Font
 function methods:getDimensions(font)
   local text = self:buildString()
   local lines = #text:split('\n')
 
-  return nyoom.common.newVector2(font:getWidth(text), font:getHeight() * lines)
+  return nyoom.objects.newVector2(font:getWidth(text), font:getHeight() * lines)
 end
 
 function metamethods:__index(key)
   return methods[key]
 end
-
-return newColoredText

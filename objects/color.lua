@@ -1,50 +1,53 @@
----@class Nyoom.Color
+---A table of color channel components ranging in value between 0 and 1, that also implements color manipulation methods.
+---Can be used directly as an argument in `love.graphics.setColor()`.
+---@class nyoom.Color
 ---@field r number
 ---@field g number
 ---@field b number
 ---@field a number
 ---
----@field use fun(self: Nyoom.Color)
----@field add fun(self: Nyoom.Color, value: Nyoom.Color|number): Nyoom.Color
----@field mul fun(self: Nyoom.Color, value: number): Nyoom.Color
----@field red fun(self: Nyoom.Color, value: number): Nyoom.Color
----@field green fun(self: Nyoom.Color, value: number): Nyoom.Color
----@field blue fun(self: Nyoom.Color, value: number): Nyoom.Color
----@field alpha fun(self: Nyoom.Color, value: number): Nyoom.Color
+---@field use fun(self: nyoom.Color)
+---@field add fun(self: nyoom.Color, value: nyoom.Color|number): nyoom.Color
+---@field mul fun(self: nyoom.Color, value: number): nyoom.Color
+---@field red fun(self: nyoom.Color, value: number): nyoom.Color
+---@field green fun(self: nyoom.Color, value: number): nyoom.Color
+---@field blue fun(self: nyoom.Color, value: number): nyoom.Color
+---@field alpha fun(self: nyoom.Color, value: number): nyoom.Color
 ---
----@operator add(Nyoom.Color|number): Nyoom.Color
----@operator mul(number): Nyoom.Color
+---@operator add(nyoom.Color | number): nyoom.Color
+---@operator mul(number): nyoom.Color
 
-local methods, metamethods = {}, { __name = 'Nyoom.Color' }
+local methods, metamethods = {}, { __name = 'nyoom.Color' }
 
----@param red number
----@param green? number
----@param blue? number
----@param alpha? number
----@return Nyoom.Color
-local function newColor(red, green, blue, alpha)
+---Create a new Color.
+---@param red number The red component of this color.
+---@param green? number The green component of this color. If `nil`, uses `red`.
+---@param blue? number The blue component of this color. If `nil`, uses `red`.
+---@param alpha? number The alpha component of this color. Defaults to `1`.
+---@return nyoom.Color
+function nyoom.objects.newColor(red, green, blue, alpha)
   return setmetatable({ red, green or red, blue or red, alpha or 1 }, metamethods)
 end
 
 -- Methods
 
----@param self Nyoom.Color
+---@param self nyoom.Color
 function methods:use()
   love.graphics.setColor(self)
 end
 
----@param self Nyoom.Color
----@param value Nyoom.Color|number
+---@param self nyoom.Color
+---@param value nyoom.Color | number
 function methods:add(value)
   if type(value) == 'number' then
-    return newColor(
+    return nyoom.objects.newColor(
       math.clamp(self[1] + value, 0, 1),
       math.clamp(self[2] + value, 0, 1),
       math.clamp(self[3] + value, 0, 1),
       math.clamp(self[4] + value, 0, 1)
     )
   else
-    return newColor(
+    return nyoom.objects.newColor(
       math.clamp(self[1] + value[1], 0, 1),
       math.clamp(self[2] + value[2], 0, 1),
       math.clamp(self[3] + value[3], 0, 1),
@@ -53,10 +56,10 @@ function methods:add(value)
   end
 end
 
----@param self Nyoom.Color
+---@param self nyoom.Color
 ---@param value number
 function methods:mul(value)
-  return newColor(
+  return nyoom.objects.newColor(
     math.clamp(self[1] * value, 0, 1),
     math.clamp(self[2] * value, 0, 1),
     math.clamp(self[3] * value, 0, 1),
@@ -64,40 +67,40 @@ function methods:mul(value)
   )
 end
 
----@param self Nyoom.Color
+---@param self nyoom.Color
 ---@param value number
 function methods:red(value)
-  return newColor(
+  return nyoom.objects.newColor(
     math.clamp(value, 0, 1),
     self[2],
     self[3],
     self[4]
   )
 end
----@param self Nyoom.Color
+---@param self nyoom.Color
 ---@param value number
 function methods:green(value)
-  return newColor(
+  return nyoom.objects.newColor(
     self[1],
     math.clamp(value, 0, 1),
     self[3],
     self[4]
   )
 end
----@param self Nyoom.Color
+---@param self nyoom.Color
 ---@param value number
 function methods:blue(value)
-  return newColor(
+  return nyoom.objects.newColor(
     self[1],
     self[2],
     math.clamp(value, 0, 1),
     self[4]
   )
 end
----@param self Nyoom.Color
+---@param self nyoom.Color
 ---@param value number
 function methods:alpha(value)
-  return newColor(
+  return nyoom.objects.newColor(
     self[1],
     self[2],
     self[3],
@@ -118,7 +121,7 @@ end
 
 function metamethods:__newindex() end
 
----@param value Nyoom.Color|number
+---@param value nyoom.Color | number
 function metamethods:__add(value)
   return self:add(value)
 end
@@ -131,5 +134,3 @@ end
 function metamethods:__tostring()
   return ('(%.2f, %.2f, %.2f, %.2f)'):format(self[1], self[2], self[3], self[4])
 end
-
-return newColor

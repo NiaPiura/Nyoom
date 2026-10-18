@@ -1,25 +1,25 @@
----A renderable `Nyoom.Grid` using `love.SpriteBatch` and `Nyoom.TileSet` to determine how and what to render. 
----@class Nyoom.TileGrid
+---A renderable `nyoom.Grid` using `love.SpriteBatch` and `nyoom.TileSet` to determine how and what to render. 
+---@class nyoom.TileGrid
 ---@field width integer The tileGrid's width in tiles.
 ---@field height integer The tileGrid's height in tiles.
----@field size Nyoom.Vector2 the tileGrid's size in tiles.
----@field tileSet Nyoom.TileSet the tileSet used.
----@field tileMap Nyoom.Grid The underlying grid containing tile IDs.
----@field spriteMap Nyoom.Grid A grid of sprite indexes used to update the spriteBatch.
+---@field size nyoom.Vector2 the tileGrid's size in tiles.
+---@field tileSet nyoom.TileSet the tileSet used.
+---@field tileMap nyoom.Grid The underlying grid containing tile IDs.
+---@field spriteMap nyoom.Grid A grid of sprite indexes used to update the spriteBatch.
 ---@field spriteBatch love.SpriteBatch The drawable Love2D object that allows the tileGrid to be rendered.
 ---
----@field getTileId fun(self: Nyoom.TileGrid, x: integer, y: integer): integer? Returns the tile ID at the given position, or nil if out of bounds.
----@field getTileId fun(self: Nyoom.TileGrid, index: integer): integer? Returns the tile ID at the given index, or nil if out of bounds.
----@field setTileId fun(self: Nyoom.TileGrid, x: integer, y: integer, id: integer): Nyoom.TileGrid Sets the tileID at the given position.
----@field setTileId fun(self: Nyoom.TileGrid, index: integer, id: integer): Nyoom.TileGrid Sets the tileID at the given index.
----@field getTilePixelPosition fun(self: Nyoom.TileGrid, x: integer, y: integer): Nyoom.Vector2? Returns the pixel coordinates of the tile at the given index.
----@field getTilePixelPosition fun(self: Nyoom.TileGrid, index: integer): Nyoom.Vector2? Returns the pixel coordinates of the tile at the given index.
----@field setTileSet fun(self: Nyoom.TileGrid, tileSet: Nyoom.TileSet): Nyoom.TileGrid Changes the used tileSet.
----@field setGridSize fun(self: Nyoom.TileGrid, width: integer, height: integer): Nyoom.TileGrid Resizes the tilegrid.
+---@field getTileId fun(self: nyoom.TileGrid, x: integer, y: integer): integer? Returns the tile ID at the given position, or nil if out of bounds.
+---@field getTileId fun(self: nyoom.TileGrid, index: integer): integer? Returns the tile ID at the given index, or nil if out of bounds.
+---@field setTileId fun(self: nyoom.TileGrid, x: integer, y: integer, id: integer): nyoom.TileGrid Sets the tileID at the given position.
+---@field setTileId fun(self: nyoom.TileGrid, index: integer, id: integer): nyoom.TileGrid Sets the tileID at the given index.
+---@field getTilePixelPosition fun(self: nyoom.TileGrid, x: integer, y: integer): nyoom.Vector2? Returns the pixel coordinates of the tile at the given index.
+---@field getTilePixelPosition fun(self: nyoom.TileGrid, index: integer): nyoom.Vector2? Returns the pixel coordinates of the tile at the given index.
+---@field setTileSet fun(self: nyoom.TileGrid, tileSet: nyoom.TileSet): nyoom.TileGrid Changes the used tileSet.
+---@field setGridSize fun(self: nyoom.TileGrid, width: integer, height: integer): nyoom.TileGrid Resizes the tilegrid.
 
-local methods, metamethods = {}, { __name = 'Nyoom.TileGrid' }
+local methods, metamethods = {}, { __name = 'nyoom.TileGrid' }
 
----@param self Nyoom.TileGrid
+---@param self nyoom.TileGrid
 local function repopulateSpriteBatch(self)
   self.spriteMap:clear()
   self.spriteBatch:clear()
@@ -37,15 +37,16 @@ local function indexOrCoords(self, x, y)
   return y and self.tileMap:getIndex(x, y) or x
 end
 
----@param tileSet Nyoom.TileSet
----@param width? integer
----@param height? integer
----@return Nyoom.TileGrid
-local function newTileGrid(tileSet, width, height)
+---Create a new TileGrid.
+---@param tileSet nyoom.TileSet The tileSet to source tile textures from.
+---@param width? integer The number of tiles along the x axis. Defaults to `0`.
+---@param height? integer The number of tiles along the y axis. Defaults to `0`.
+---@return nyoom.TileGrid
+function nyoom.objects.newTileGrid(tileSet, width, height)
   local tileGrid = {
     tileSet = tileSet,
-    tileMap = nyoom.common.newGrid(width or 0, height or 0),
-    spriteMap = nyoom.common.newGrid(width or 0, height or 0),
+    tileMap = nyoom.objects.newGrid(width or 0, height or 0),
+    spriteMap = nyoom.objects.newGrid(width or 0, height or 0),
     spriteBatch = love.graphics.newSpriteBatch(tileSet.image)
   }
 
@@ -63,7 +64,7 @@ function methods:getTileId(x, y)
   return self.tileMap:getValue(index)
 end
 
----@param self Nyoom.TileGrid
+---@param self nyoom.TileGrid
 function methods:setTileId(id, x, y)
   local index = indexOrCoords(self, x, y)
   local spriteIndex = self.spriteMap:getValue(index)
@@ -73,12 +74,12 @@ function methods:setTileId(id, x, y)
   return self
 end
 
----@param self Nyoom.TileGrid
+---@param self nyoom.TileGrid
 function methods:getTilePixelPosition(x, y)
   local index = indexOrCoords(self, x, y)
   local pos = self.tileMap:getPosition(index)
   if not pos then return
-  else return nyoom.common.newVector2(pos.x, pos.y) * self.tileSet.tileSize end
+  else return nyoom.objects.newVector2(pos.x, pos.y) * self.tileSet.tileSize end
 end
 
 function methods:setTileSet(tileSet)
@@ -111,5 +112,3 @@ function metamethods:__newindex(key, value)
   elseif key == 'size' then self:setSize(value.x, value.y)
   else rawset(self, key, value) end
 end
-
-return newTileGrid

@@ -1,24 +1,26 @@
----@class Nyoom.TileSet
+---A texture atlas configured with equally-sized square 'tile' textures
+---@class nyoom.TileSet
 ---@field image love.Image
----@field tilesPerDimension Nyoom.Vector2
----@field tileSize Nyoom.Vector2
+---@field tilesPerDimension nyoom.Vector2
+---@field tileSize nyoom.Vector2
 ---@field tileWidth number
 ---@field tileHeight number
 ---@field quads love.Quad[]
 ---
----@field getTilesPerDimension fun(self: Nyoom.TileSet)
+---@field getTilesPerDimension fun(self: nyoom.TileSet)
 
-local methods, metamethods = {}, { __name = 'Nyoom.TileSet' }
+local methods, metamethods = {}, { __name = 'nyoom.TileSet' }
 
----@param image love.Image
----@param tileWidth number
----@param tileHeight number
----@return Nyoom.TileSet
-local function newTileSet(image, tileWidth, tileHeight)
+---Create a new TileSet.
+---@param image love.Image The source image to derive tiles from.
+---@param tileWidth? integer The width of a tile. Defaults to `nyoom.defaults.tileSize`.
+---@param tileHeight? integer The height of a tile. Defaults to `nyoom.defaults.tileSize`.
+---@return nyoom.TileSet
+function nyoom.objects.newTileSet(image, tileWidth, tileHeight)
   local tileSet = {
     image = image,
-    tileSize = nyoom.common.newVector2(tileWidth, tileHeight),
-    tilesPerDimension = nyoom.common.newVector2(math.floor(image:getWidth() / tileWidth), math.floor(image:getHeight() / tileHeight)),
+    tileSize = nyoom.objects.newVector2(tileWidth, tileHeight),
+    tilesPerDimension = nyoom.objects.newVector2(math.floor(image:getWidth() / tileWidth), math.floor(image:getHeight() / tileHeight)),
     quads = {}
   }
 
@@ -29,7 +31,7 @@ local function newTileSet(image, tileWidth, tileHeight)
   return tileSet
 end
 
----@param self Nyoom.TileSet
+---@param self nyoom.TileSet
 function methods:generateQuads()
   for i=1, self.tilesPerDimension.x * self.tilesPerDimension.y do
     local quadX = ((i-1) % self.tilesPerDimension.x) * self.tileWidth
@@ -53,5 +55,3 @@ function metamethods:__newindex(key, value)
   elseif key == 'tileHeight' then self.tileSize.height = value
   else rawset(self, key, value) end
 end
-
-return newTileSet

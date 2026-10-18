@@ -1,18 +1,18 @@
 ---@diagnostic disable: invisible
 
----@class Nyoom.UIElement
+---@class nyoom.UIElement
 ---@field id string
----@field relativePosition Nyoom.Vector2
+---@field relativePosition nyoom.Vector2
 ---@field x number
 ---@field y number
 ---@field width number
 ---@field height number
----@field position Nyoom.Vector2
----@field size Nyoom.Vector2
----@field rect Nyoom.Rect
----@field boundingBox Nyoom.Rect
----@field parent Nyoom.UIElement?
----@field children Nyoom.UIElement[]
+---@field position nyoom.Vector2
+---@field size nyoom.Vector2
+---@field rect nyoom.Rect
+---@field boundingBox nyoom.Rect
+---@field parent nyoom.UIElement?
+---@field children nyoom.UIElement[]
 ---
 ---@field isVisible boolean
 ---@field isEnabled boolean
@@ -24,45 +24,45 @@
 ---
 ---@field private _isResizing boolean Prevents infinite loops by halting resize triggers during a resize trigger.
 ---
----@field private update fun(self: Nyoom.UIElement, deltaTime: number)
----@field private draw fun(self: Nyoom.UIElement)
----@field private click fun(self: Nyoom.UIElement, position: Nyoom.Vector2, button: number, presses: number)
----@field private press fun(self: Nyoom.UIElement, position: Nyoom.Vector2, button: number)
----@field private release fun(self: Nyoom.UIElement, position: Nyoom.Vector2, button: number)
----@field private mousemove fun(self: Nyoom.UIElement, position: Nyoom.Vector2)
----@field private hover fun(self: Nyoom.UIElement)
----@field private unhover fun(self: Nyoom.UIElement)
----@field private focus fun(self: Nyoom.UIElement)
----@field private unfocus fun(self: Nyoom.UIElement)
----@field private wheel fun(self: Nyoom.UIElement, delta: Nyoom.Vector2)
----@field private resize fun(self: Nyoom.UIElement, dimensions: Nyoom.Vector2)
+---@field private update fun(self: nyoom.UIElement, deltaTime: number)
+---@field private draw fun(self: nyoom.UIElement)
+---@field private click fun(self: nyoom.UIElement, position: nyoom.Vector2, button: number, presses: number)
+---@field private press fun(self: nyoom.UIElement, position: nyoom.Vector2, button: number)
+---@field private release fun(self: nyoom.UIElement, position: nyoom.Vector2, button: number)
+---@field private mousemove fun(self: nyoom.UIElement, position: nyoom.Vector2)
+---@field private hover fun(self: nyoom.UIElement)
+---@field private unhover fun(self: nyoom.UIElement)
+---@field private focus fun(self: nyoom.UIElement)
+---@field private unfocus fun(self: nyoom.UIElement)
+---@field private wheel fun(self: nyoom.UIElement, delta: nyoom.Vector2)
+---@field private resize fun(self: nyoom.UIElement, dimensions: nyoom.Vector2)
 ---
----@field addChild fun(self: Nyoom.UIElement, element: Nyoom.UIElement): Nyoom.UIElement
----@field removeChild fun(self: Nyoom.UIElement, element: Nyoom.UIElement): Nyoom.UIElement
----@field getChild fun(self: Nyoom.UIElement, id: string): Nyoom.UIElement?
----@field setPosition fun(self: Nyoom.UIElement, x: number, y: number)
----@field setPosition fun(self: Nyoom.UIElement, position: Nyoom.Vector2)
----@field setSize fun(self: Nyoom.UIElement, width: number, height: number)
----@field setSize fun(self: Nyoom.UIElement, size: Nyoom.Vector2)
----@field updateScreenPosition fun(self: Nyoom.UIElement)
----@field getRelativeMousePosition fun(self: Nyoom.UIElement): Nyoom.Vector2
+---@field addChild fun(self: nyoom.UIElement, element: nyoom.UIElement): nyoom.UIElement
+---@field removeChild fun(self: nyoom.UIElement, element: nyoom.UIElement): nyoom.UIElement
+---@field getChild fun(self: nyoom.UIElement, id: string): nyoom.UIElement?
+---@field setPosition fun(self: nyoom.UIElement, x: number, y: number)
+---@field setPosition fun(self: nyoom.UIElement, position: nyoom.Vector2)
+---@field setSize fun(self: nyoom.UIElement, width: number, height: number)
+---@field setSize fun(self: nyoom.UIElement, size: nyoom.Vector2)
+---@field updateScreenPosition fun(self: nyoom.UIElement)
+---@field getRelativeMousePosition fun(self: nyoom.UIElement): nyoom.Vector2
 ---
----@field onUpdate fun(self: Nyoom.UIElement, deltaTime: number)?
----@field onPostUpdate fun(self: Nyoom.UIElement)?
----@field onDraw fun(self: Nyoom.UIElement)?
----@field onPostDraw fun(self: Nyoom.UIElement)?
----@field onTooltip fun(self: Nyoom.UIElement)?
+---@field onUpdate fun(self: nyoom.UIElement, deltaTime: number)?
+---@field onPostUpdate fun(self: nyoom.UIElement)?
+---@field onDraw fun(self: nyoom.UIElement)?
+---@field onPostDraw fun(self: nyoom.UIElement)?
+---@field onTooltip fun(self: nyoom.UIElement)?
 ---
----@field eventMouseClick Nyoom.Event<{ position: Nyoom.Vector2, button: number, presses: number }>
----@field eventMousePress Nyoom.Event<{ position: Nyoom.Vector2, button: number}>
----@field eventMouseRelease Nyoom.Event<{ position: Nyoom.Vector2, button: number}>
----@field eventMouseMove Nyoom.Event<{ position: Nyoom.Vector2 }>
----@field eventHover Nyoom.Event
----@field eventUnhover Nyoom.Event
----@field eventFocus Nyoom.Event
----@field eventUnfocus Nyoom.Event
----@field eventMouseWheel Nyoom.Event<{ delta: Nyoom.Vector2 }>
----@field eventResize Nyoom.Event<{ dimensions: Nyoom.Vector2 }>
+---@field eventMouseClick nyoom.Event<{ position: nyoom.Vector2, button: number, presses: number }>
+---@field eventMousePress nyoom.Event<{ position: nyoom.Vector2, button: number}>
+---@field eventMouseRelease nyoom.Event<{ position: nyoom.Vector2, button: number}>
+---@field eventMouseMove nyoom.Event<{ position: nyoom.Vector2 }>
+---@field eventHover nyoom.Event
+---@field eventUnhover nyoom.Event
+---@field eventFocus nyoom.Event
+---@field eventUnfocus nyoom.Event
+---@field eventMouseWheel nyoom.Event<{ delta: nyoom.Vector2 }>
+---@field eventResize nyoom.Event<{ dimensions: nyoom.Vector2 }>
 
 ---@class ElementStates
 ---@field isVisible boolean?
@@ -73,7 +73,7 @@
 ---@field isHovered boolean?
 ---@field isFocused boolean?
 
-local methods, metamethods = {}, { __name = 'Nyoom.UIElement' }
+local methods, metamethods = {}, { __name = 'nyoom.UIElement' }
 
 ---Creates a new element.
 ---@param id string
@@ -81,15 +81,15 @@ local methods, metamethods = {}, { __name = 'Nyoom.UIElement' }
 ---@param y number
 ---@param width number
 ---@param height number
----@param parent? Nyoom.UIElement
+---@param parent? nyoom.UIElement
 ---@param state? ElementStates
----@return Nyoom.UIElement
-local function newElement(id, x, y, width, height, parent, state)
+---@return nyoom.UIElement
+function nyoom.ui.newElement(id, x, y, width, height, parent, state)
   local element = {
     id = id or '',
-    relativePosition = nyoom.common.newVector2(x, y),
-    rect = nyoom.common.newRect(x, y, width, height),
-    boundingBox = nyoom.common.newRect(x, y, width, height),
+    relativePosition = nyoom.objects.newVector2(x, y),
+    rect = nyoom.objects.newRect(x, y, width, height),
+    boundingBox = nyoom.objects.newRect(x, y, width, height),
 
     isVisible = true,
     isEnabled = true,
@@ -127,7 +127,7 @@ end
 -- Methods
 -- Runtime Callbacks
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:update(deltaTime)
   if not self.isEnabled then return end
   if self.onUpdate then self:onUpdate(deltaTime) end
@@ -135,7 +135,7 @@ function methods:update(deltaTime)
   if self.onPostUpdate then self:onPostUpdate() end
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:draw()
   if not self.isVisible then return end
   love.graphics.push()
@@ -148,59 +148,59 @@ end
 
 -- Event Handling
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:click(position, button, presses)
   self.eventMouseClick:trigger({ position = position, button = button, presses = presses })
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:press(position, button)
   self.isPressed = true
   self.eventMousePress:trigger({ position = position, button = button })
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:release(position, button)
   self.isPressed = false
   self.eventMouseRelease:trigger({ position = position, button = button })
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:mousemove(position)
   self.eventMouseMove:trigger({ position = position })
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:hover()
   self.isHovered = true
   self.eventHover:trigger()
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:unhover()
   self.isHovered = false
   self.eventUnhover:trigger()
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:focus()
   self.isFocused = true
   self.eventFocus:trigger()
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:unfocus()
   self.isFocused = false
   self.eventUnfocus:trigger()
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:wheel(delta)
   self.eventMouseWheel:trigger({ delta = delta })
   for _, e in ipairs(self.children) do e:wheel(delta) end
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:resize(dimensions)
   if not self._isResizing then
     self._isResizing = true
@@ -212,7 +212,7 @@ end
 
 -- Hierarchy manipulation / tooling
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:addChild(element)
   if element.parent then table.removeValue(element.parent.children, element) end
   table.insert(self.children, element)
@@ -221,28 +221,28 @@ function methods:addChild(element)
   return self
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:removeChild(element)
   table.removeValue(self.children, element)
   element.parent = nil
   return self
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:getChild(id)
   for _, element in ipairs(self.children) do
     if element.id == id then return element end
   end
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:setPosition(x, y)
-  if type(x) == 'number' then self.relativePosition = nyoom.common.newVector2(x, y)
+  if type(x) == 'number' then self.relativePosition = nyoom.objects.newVector2(x, y)
   else self.relativePosition = x end
   self:updateScreenPosition()
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:setSize(width, height)
   if type(width) == 'number' then self.rect:setSize(width, height)
   else self.rect:setSize(width) end
@@ -252,7 +252,7 @@ function methods:setSize(width, height)
   self:resize(self.rect.size)
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:updateScreenPosition()
   if self.parent then
     self.rect:setPosition(self.parent.rect.position + self.relativePosition)
@@ -264,9 +264,9 @@ function methods:updateScreenPosition()
   self.boundingBox:setPosition(self.rect.position)
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function methods:getRelativeMousePosition()
-  local mousePosition = nyoom.common.newVector2(love.mouse.getPosition())
+  local mousePosition = nyoom.objects.newVector2(love.mouse.getPosition())
   return mousePosition - self.rect.position
 end
 
@@ -282,7 +282,7 @@ function metamethods:__index(key)
   return methods[key]
 end
 
----@param self Nyoom.UIElement
+---@param self nyoom.UIElement
 function metamethods:__newindex(key, value)
   if key == 'x' then self:setPosition(value, self.relativePosition.y)
   elseif key == 'y' then self:setPosition(self.relativePosition.x, value)
@@ -296,5 +296,3 @@ end
 function metamethods:__tostring()
   return self.id
 end
-
-return newElement

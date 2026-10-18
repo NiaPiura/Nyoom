@@ -1,26 +1,28 @@
----@class Nyoom.UISlider : Nyoom.UIElement
----@field getValue fun(self: Nyoom.UISlider): number
----@field setValue fun(self: Nyoom.UISlider, value: number)
----@field onValueChange fun(self: Nyoom.UISlider, value: number)
----@field setRailLength fun(self:Nyoom.UISlider, length: integer)
----@field setBarLength fun(self:Nyoom.UISlider, length: integer)
+---@class nyoom.UISlider : nyoom.UIElement
+---@field getValue fun(self: nyoom.UISlider): number
+---@field setValue fun(self: nyoom.UISlider, value: number)
+---@field onValueChange fun(self: nyoom.UISlider, value: number)
+---@field setRailLength fun(self:nyoom.UISlider, length: integer)
+---@field setBarLength fun(self:nyoom.UISlider, length: integer)
 
----@param x integer
----@param y integer
----@param orientation Nyoom.Orientation
----@param railLength integer
----@param barLength integer
----@param parent Nyoom.UIElement
----@return Nyoom.UISlider
-local function newSlider(x, y, orientation, railLength, barLength, parent)
-  local defaults = nyoom.ui.defaults.slider
+---A UI element that functions like a slider, which can also be used as a scrollbar.
+---@param x integer The x axis position of this element relative to its parent.
+---@param y integer The y axis position of this element relative to its parent.
+---@param orientation nyoom.Orientation The orientation of this element.
+---@param parent nyoom.UIElement The parent element for this element.
+---@param railLength? integer The length of the slider's rail; the space the slider can move along. If `0` or `nil`, `nyoom.defaults.barMinLength`  is used.
+---@param barLength? integer The length of the Slider's bar; the draggable element that moves along the rail. If `0` or `nil`, `nyoom.defaults.barMinLength`  is used.
+---@return nyoom.UISlider
+function nyoom.ui.prefabs.newSlider(x, y, orientation, parent, railLength, barLength)
+  local defaults = nyoom.defaults.slider
   local railWidth, railHeight = 0, 0
   local barWidth, barHeight = 0, 0
+  railLength, barLength = 0, 0
 
   local value = 0
   local barPosition = 0
   local mouseOffset = nil
-  local slider = nyoom.ui.newElement('slider', x, y, 0, 0, parent) --[[@as Nyoom.UISlider]]
+  local slider = nyoom.ui.newElement('slider', x, y, 0, 0, parent) --[[@as nyoom.UISlider]]
 
   ---@param position number
   local function moveBar(position)
@@ -113,5 +115,3 @@ local function newSlider(x, y, orientation, railLength, barLength, parent)
 
   return slider
 end
-
-return newSlider

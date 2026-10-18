@@ -6,18 +6,22 @@ require('nyoom.globals')
 love.graphics.setDefaultFilter('nearest', 'nearest')
 love.keyboard.setKeyRepeat(true)
 
----@alias Nyoom.Orientation 'vertical' | 'horizontal'
+---@alias nyoom.Orientation 'vertical' | 'horizontal'
+---@alias nyoom.HorizontalAlignment 'left' | 'right' | 'center' | 'justify'
+---@alias nyoom.VerticalAlignment 'top' | 'bottom' | 'center'
 
----@class Nyoom
+---@class nyoom
 nyoom = {}
-nyoom.common = require('nyoom.common') ---@type Nyoom.Common
-nyoom.objects = require('nyoom.objects') ---@type Nyoom.Objects
-nyoom.timing = require('nyoom.timing') ---@type Nyoom.Timing
-nyoom.events = require('nyoom.events') ---@type Nyoom.Events
-nyoom.input = require('nyoom.input') ---@type Nyoom.Input
-nyoom.levels = require('nyoom.levels') ---@type Nyoom.Levels
-nyoom.profiler = require('nyoom.profiler') ---@type Nyoom.Profiler
-nyoom.ui = require('nyoom.ui') ---@type Nyoom.UI
+require('nyoom.objects')
+require('nyoom.defaults')
+require('nyoom.events')
+require('nyoom.timing')
+require('nyoom.input')
+require('nyoom.levels')
+require('nyoom.ui')
+
+-- TEMP
+require('nyoom.profiler')
 
 nyoom.mainCamera = nyoom.objects.newCamera()
 
@@ -25,7 +29,7 @@ nyoom.mainCamera = nyoom.objects.newCamera()
 if love.filesystem.getInfo('nytor') then require('nytor') end
 
 ---Load and initialize game data.
----You can provide `update(deltaTime)` and `draw()` functions within your game data to be iterated along with Nyoom's update and draw cycle, which are called before the UI.
+---You can provide `update(deltaTime)` and `draw()` functions within your game data to be iterated along with nyoom's update and draw cycle, which are called before the UI.
 ---@param game table
 function nyoom:loadGame(game)
   local gameUpdate = game.update or function(deltaTime) end

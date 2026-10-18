@@ -1,14 +1,21 @@
----@class Nyoom.UIViewport : Nyoom.UIElement
+---@class nyoom.UIViewport : nyoom.UIElement
 
-local function newViewport(x, y, width, height, parent)
-  local viewport = nyoom.ui.newElement('viewport', x, y, width, height, parent) --[[@as Nyoom.UIViewport]]
+---A UI element that only renders contents within it's dimensions.
+---@param x integer The x axis position of this element relative to its parent.
+---@param y integer The y axis position of this element relative to its parent.
+---@param width integer The width of this element.
+---@param height integer The height of this element.
+---@param parent nyoom.UIElement The parent element for this element.
+---@return nyoom.UIViewport
+function nyoom.ui.prefabs.newViewport(x, y, width, height, parent)
+  local viewport = nyoom.ui.newElement('viewport', x, y, width, height, parent) --[[@as nyoom.UIViewport]]
 
   local returnScissor
 
   function viewport:onDraw()
     local scissorX, scissorY, scissorWidth, scissorHeight = love.graphics.getScissor()
     if scissorX then
-      returnScissor = nyoom.common.newRect(scissorX, scissorY, scissorWidth, scissorHeight)
+      returnScissor = nyoom.objects.newRect(scissorX, scissorY, scissorWidth, scissorHeight)
     end
 
     local position = self.position
@@ -26,5 +33,3 @@ local function newViewport(x, y, width, height, parent)
 
   return viewport
 end
-
-return newViewport

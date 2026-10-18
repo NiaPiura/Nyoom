@@ -1,17 +1,17 @@
 local newTileLayer = require('nyoom.levels.layers.tileLayer')
 
----@class Nyoom.Level
+---@class nyoom.Level
 ---@field name string
----@field layers Nyoom.LayerTypes[]
+---@field layers nyoom.LayerTypes[]
 ---
----@field update fun(self: Nyoom.Level, deltaTime: number)
----@field draw fun(self: Nyoom.Level)
----@field addTileLayer fun(self: Nyoom.Level, name: string, tileGrid: Nyoom.TileGrid, offsetX?: integer, offsetY?: integer): Nyoom.TileLayer
----@field findLayer fun(self: Nyoom.Level, name: string): Nyoom.LayerTypes|nil
+---@field update fun(self: nyoom.Level, deltaTime: number)
+---@field draw fun(self: nyoom.Level)
+---@field addTileLayer fun(self: nyoom.Level, name: string, tileGrid: nyoom.TileGrid, offsetX?: integer, offsetY?: integer): nyoom.TileLayer
+---@field findLayer fun(self: nyoom.Level, name: string): nyoom.LayerTypes|nil
 
----@alias Nyoom.LayerTypes Nyoom.TileLayer
+---@alias nyoom.LayerTypes nyoom.TileLayer
 
-local methods, metamethods = {}, { __name = 'Nyoom.Level' }
+local methods, metamethods = {}, { __name = 'nyoom.Level' }
 
 ---@param name string
 local function newLevel(name)
@@ -44,8 +44,8 @@ function methods:addTileLayer(name, tileGrid, offsetX, offsetY)
   return tileLayer
 end
 
----@param self Nyoom.Level
----@return Nyoom.LayerTypes|nil, number
+---@param self nyoom.Level
+---@return nyoom.LayerTypes|nil, number
 function methods:findLayer(name)
   for i, layer in ipairs(self.layers) do
     if layer.name == name then return layer, i end

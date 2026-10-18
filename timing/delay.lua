@@ -1,32 +1,20 @@
 ---Allows for delayed execution of a given function.
----@class Nyoom.Delay
+---@class nyoom.Delay
 ---@field duration number
 ---@field position number
----@field onFinish fun(self: Nyoom.Delay): Nyoom.Delay
+---@field onFinish fun(self: nyoom.Delay): nyoom.Delay
 ---
----@field set fun(self: Nyoom.Delay, remainder: number): Nyoom.Delay Sets the current delay's remaining time.
----@field finish fun(self: Nyoom.Delay): Nyoom.Delay Finish the Delay.
----@field start fun(self: Nyoom.Delay): Nyoom.Delay Add delay into activeDelays.
----@field stop fun(self: Nyoom.Delay): Nyoom.Delay Remove tween from activeDelays.
----@field restart fun(self: Nyoom.Delay): Nyoom.Delay Equivalent to `self:set(0):start()`
+---@field set fun(self: nyoom.Delay, remainder: number): nyoom.Delay Sets the current delay's remaining time.
+---@field finish fun(self: nyoom.Delay): nyoom.Delay Finish the Delay.
+---@field start fun(self: nyoom.Delay): nyoom.Delay Add delay into activeDelays.
+---@field stop fun(self: nyoom.Delay): nyoom.Delay Remove tween from activeDelays.
+---@field restart fun(self: nyoom.Delay): nyoom.Delay Equivalent to `self:set(0):start()`
 
-local methods, metamethods = {}, { __name = 'Nyoom.Delay' }
+local methods, metamethods = {}, { __name = 'nyoom.Delay' }
 
----A simple delayed execution library.
----@class Nyoom.Delays
----@field update fun(deltaTime: number)
----@field newDelay fun(duration: number, onFinish: function): Nyoom.Delay
-local delays = {
-  activeDelays = {} ---@type Nyoom.Delay[]
-}
+local activeDelays = {} ---@type nyoom.Delay[]
 
-function delays.update(deltaTime)
-  for _, delay in pairs(delays.activeDelays) do
-    delay:set(delay.position + deltaTime)
-  end
-end
-
-function delays.newDelay(duration, onFinish)
+function nyoom.timing.newDelay(duration, onFinish)
   local delay = {
     duration = duration or 0,
     position = 0,
@@ -58,14 +46,14 @@ function methods:finish()
 end
 
 function methods:start()
-  local index = table.indexOf(delays.activeDelays, self)
-  if not index then table.insert(delays.activeDelays, self) end
+  local index = table.indexOf(activeDelays, self)
+  if not index then table.insert(activeDelays, self) end
   return self
 end
 
 function methods:stop()
-  local index = table.indexOf(delays.activeDelays, self)
-  if index then table.remove(delays.activeDelays, index) end
+  local index = table.indexOf(activeDelays, self)
+  if index then table.remove(activeDelays, index) end
   return self
 end
 
@@ -85,4 +73,12 @@ function metamethods:__tostring()
   return ('Time left: %.3f'):format(self.duration - self.position)
 end
 
-return delays
+
+
+---Delay Update Function
+---@param deltaTime number
+return function(deltaTime)
+  for _, delay in pairs(activeDelays) do
+    delay:set(delay.position + deltaTime)
+  end
+end

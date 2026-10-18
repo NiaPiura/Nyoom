@@ -1,15 +1,15 @@
----@class Nyoom.ProfilerMark
+---@class nyoom.ProfilerMark
 ---@field label string
 ---@field delta number
 ---@field percentage number
 
----@class Nyoom.Profiler
----@field marks Nyoom.ProfilerMark[]
+---@class nyoom.Profiler
+---@field marks nyoom.ProfilerMark[]
 ---@field targetFPS number
 ---@field frameStart number
 ---@field timestamp number
 ---@field isVisible boolean
-local profiler = {
+nyoom.profiler = {
   marks = {},
   targetFPS = 30,
   frameStart = 0,
@@ -22,31 +22,31 @@ local display = {
   graph = love.graphics.newCanvas(200, 120),
   graphBuffer = love.graphics.newCanvas(200, 120),
   font = love.graphics.newFont(11),
-  markOffset = nyoom.common.newVector2(3, 28) -- 210, 28
+  markOffset = nyoom.objects.newVector2(3, 28) -- 210, 28
 }
 
 display.font:setLineHeight(0.75)
 
 ---Sets up profiler for the start of the update.
-function profiler.start()
-  profiler.marks = {}
-  profiler.timestamp = love.timer.getTime()
-  profiler.frameStart = love.timer.getTime()
+function nyoom.profiler.start()
+  nyoom.profiler.marks = {}
+  nyoom.profiler.timestamp = love.timer.getTime()
+  nyoom.profiler.frameStart = love.timer.getTime()
 end
 
 ---Marks time elapsed since the last mark or start of the update with the given label.
 ---@param label string
-function profiler.mark(label)
+function nyoom.profiler.mark(label)
   local time = love.timer.getTime()
 
-  table.insert(profiler.marks, { label = label, delta = time - profiler.timestamp })
-  profiler.timestamp = time
+  table.insert(nyoom.profiler.marks, { label = label, delta = time - nyoom.profiler.timestamp })
+  nyoom.profiler.timestamp = time
 end
 
-function profiler.toggle()
-  profiler.isVisible = not profiler.isVisible
+function nyoom.profiler.toggle()
+  nyoom.profiler.isVisible = not nyoom.profiler.isVisible
 
-  if profiler.isVisible then
+  if nyoom.profiler.isVisible then
     local canvas = love.graphics.getCanvas()
     display.graphPos = 0
 
@@ -89,7 +89,7 @@ end
 
 local function renderMarks(totalTime, offset)
   local markBuilder = string.builder()
-  for _, mark in ipairs(profiler.marks) do
+  for _, mark in ipairs(nyoom.profiler.marks) do
     markBuilder:add(('%s: %.1f%% / %.3fms'):format(
       mark.label,
       mark.percentage,
@@ -98,10 +98,10 @@ local function renderMarks(totalTime, offset)
   end
 
   local markString = markBuilder:build('\n')
-  local totalString = ('total: %.1f%% / %.3fms'):format((totalTime / (1 / profiler.targetFPS)) * 100, totalTime * 1000)
+  local totalString = ('total: %.1f%% / %.3fms'):format((totalTime / (1 / nyoom.profiler.targetFPS)) * 100, totalTime * 1000)
 
   love.graphics.setColor(0, 0, 0, 0.8)
-  love.graphics.rectangle('fill', display.markOffset.x, display.markOffset.y, math.max(display.font:getWidth(totalString), display.font:getWidth(markString)) + 6, ((#profiler.marks + 1) * 10) + 8)
+  love.graphics.rectangle('fill', display.markOffset.x, display.markOffset.y, math.max(display.font:getWidth(totalString), display.font:getWidth(markString)) + 6, ((#nyoom.profiler.marks + 1) * 10) + 8)
   love.graphics.setColor(1, 1, 1)
   love.graphics.print(totalString, display.font, display.markOffset.x + 3, display.markOffset.y + 2)
   love.graphics.setColor(0.8, 0.8, 0.8)
@@ -117,7 +117,7 @@ local function renderGraph(totalTime)
   love.graphics.setColor(1, 1, 1, 0.98)
   love.graphics.draw(display.graphBuffer, 0, 0)
 
-  local lineHeight = math.clamp((totalTime * 1000) / profiler.targetFPS, 0, 100)
+  local lineHeight = math.clamp((totalTime * 1000) / nyoom.profiler.targetFPS, 0, 100)
   --print(totalTime, lineHeight, 1-lineHeight)
 
   love.graphics.setColor(lineHeight, 1 - lineHeight, 0)
@@ -144,18 +144,16 @@ local function renderGraph(totalTime)
 end
 
 ---Finishes the profiler and renders results to the screen
-function profiler.draw()
-  if not profiler.isVisible then return end
+function nyoom.profiler.draw()
+  if not nyoom.profiler.isVisible then return end
 
   local stamp = love.timer.getTime()
 
-  local totalTime = love.timer.getTime() - profiler.frameStart
-  for _, mark in ipairs(profiler.marks) do mark.percentage = (mark.delta / totalTime) * 100 end
+  local totalTime = love.timer.getTime() - nyoom.profiler.frameStart
+  for _, mark in ipairs(nyoom.profiler.marks) do mark.percentage = (mark.delta / totalTime) * 100 end
 
   renderStats()
   renderMarks(totalTime)
   --renderGraph(totalTime) -- Graph rendering has issues
   --love.graphics.print(('%.3fms'):format((love.timer.getTime() - stamp) * 1000), 3, 157)
 end
-
-return profiler

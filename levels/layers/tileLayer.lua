@@ -1,23 +1,23 @@
----@class Nyoom.TileLayer
+---@class nyoom.TileLayer
 ---@field name string
----@field parent Nyoom.Level
----@field offset Nyoom.Vector2
----@field tileGrid Nyoom.TileGrid
+---@field parent nyoom.Level
+---@field offset nyoom.Vector2
+---@field tileGrid nyoom.TileGrid
 ---
----@field update fun(self: Nyoom.TileLayer, deltaTime: number)
----@field draw fun(self: Nyoom.TileLayer)
+---@field update fun(self: nyoom.TileLayer, deltaTime: number)
+---@field draw fun(self: nyoom.TileLayer)
 
-local methods, metamethods = {}, { __name = 'Nyoom.TileLayer' }
+local methods, metamethods = {}, { __name = 'nyoom.TileLayer' }
 
 ---@param name string
----@param tileGrid Nyoom.TileGrid
+---@param tileGrid nyoom.TileGrid
 ---@param offsetX? integer
 ---@param offsetY? integer
----@return Nyoom.TileLayer
+---@return nyoom.TileLayer
 local function newTileLayer(name, tileGrid, offsetX, offsetY)
   local tileLayer = {
     name = name,
-    offset = nyoom.common.newVector2(offsetX or 0, offsetY or 0),
+    offset = nyoom.objects.newVector2(offsetX or 0, offsetY or 0),
     tileGrid = tileGrid
   }
 
@@ -30,7 +30,7 @@ end
 
 function methods:update(deltaTime) end
 
----@param self Nyoom.TileLayer
+---@param self nyoom.TileLayer
 function methods:draw()
   love.graphics.setColor(1, 1, 1)
   love.graphics.draw(self.tileGrid.spriteBatch, self.offset.x, self.offset.y)

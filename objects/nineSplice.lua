@@ -1,17 +1,18 @@
----@class Nyoom.NineSplice
+---A collection of 9 quads, each referencing a section of a texture such they can be re-combined and scaled up to any rectangular size.
+---@class nyoom.NineSplice
 ---@field texture love.Texture
 ---@field cornerSize integer
 ---@field quads love.Quad[]
 ---
----@field getSpriteBatch fun(self: Nyoom.NineSplice, width: integer, height: integer, isCenterSize?: boolean)
+---@field getSpriteBatch fun(self: nyoom.NineSplice, width: integer, height: integer, isCenterSize?: boolean)
 
-local methods, metamethods = {}, { __name = "Nyoom.NineSplice" }
+local methods, metamethods = {}, { __name = "nyoom.NineSplice" }
 
----Splices a texture into 9 sections, which can then be resized to fit any desired shape. Source `texture` needs to be square.
----@param texture love.Texture
----@param cornerSize integer
----@return Nyoom.NineSplice
-local function newNineSplice(texture, cornerSize)
+---Create a new NineSplice.
+---@param texture love.Texture The source texture to derive quads from. Must be square.
+---@param cornerSize integer The size of the corners on the source image.
+---@return nyoom.NineSplice
+function nyoom.objects.newNineSplice(texture, cornerSize)
   local nineSplice = {
     texture = texture,
     cornerSize = cornerSize
@@ -39,7 +40,7 @@ local function newNineSplice(texture, cornerSize)
   return nineSplice
 end
 
----@param self Nyoom.NineSplice
+---@param self nyoom.NineSplice
 function methods:getSpriteBatch(width, height, isCenterSize)
   local cornerSize = self.cornerSize
   local sideLength = self.texture:getDimensions() - (cornerSize * 2)
@@ -69,5 +70,3 @@ end
 function metamethods:__index(key)
   return methods[key]
 end
-
-return newNineSplice

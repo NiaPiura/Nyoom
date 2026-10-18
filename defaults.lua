@@ -1,5 +1,7 @@
----@class Nyoom.UIDefaults
-local defaults = {
+---Various default values for nyoom to function in a predictable manner.
+nyoom.defaults = {
+  tileSize = 16,
+  inputRepeatDelay = 0.4,
   backgroundColor = nyoom.objects.newColor(0.3),
   foregroundColor = nyoom.objects.newColor(0.9),
   font = love.graphics.newFont(16),
@@ -14,5 +16,3 @@ local defaults = {
     scrollIncrement = 50
   }
 }
-
-return defaults

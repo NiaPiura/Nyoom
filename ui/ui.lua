@@ -1,29 +1,25 @@
 ---@diagnostic disable: invisible
 
----@class Nyoom.UI
----@field update fun(deltaTime: number)
----@field draw fun()
----@field isUIHovered fun(): boolean
----@field defaults Nyoom.UIDefaults
----@field prefabs Nyoom.UIPrefabs
-local ui = {
-  newElement = require('nyoom.ui.element'),
-  root = nil, ---@type Nyoom.UIElement
-  focused = nil, ---@type Nyoom.UIElement?
-  topmost = nil, ---@type Nyoom.UIElement
+---A lightweight and adaptable event and callback driven UI system.
+nyoom.ui = {
+  root = nil, ---@type nyoom.UIElement
+  focused = nil, ---@type nyoom.UIElement?
+  topmost = nil ---@type nyoom.UIElement
 }
 
-ui.root = ui.newElement('root', 0, 0, love.graphics.getDimensions())
-ui.defaults = require('nyoom.ui.defaults')
-ui.prefabs = require('nyoom.ui.prefabs')
-ui.topmost = ui.root
-function ui.root:onResize(dimensions) self.size = dimensions end
+require('nyoom.ui.element')
+require('nyoom.ui.prefabs')
 
-local hoverStack = {} ---@type Nyoom.UIElement[]
-local clickCache = {} ---@type table<number, Nyoom.UIElement[]>
-local lastMousePosition = nyoom.common.newVector2()
+nyoom.ui.root = nyoom.ui.newElement('root', 0, 0, love.graphics.getDimensions())
+nyoom.ui.topmost = nyoom.ui.root
 
-----@param mousePosition Nyoom.Vector2
+function nyoom.ui.root:onResize(dimensions) self.size = dimensions end
+
+local hoverStack = {} ---@type nyoom.UIElement[]
+local clickCache = {} ---@type table<number, nyoom.UIElement[]>
+local lastMousePosition = nyoom.objects.newVector2()
+
+----@param mousePosition nyoom.Vector2
 --[[ local function regenerateHoverStack(mousePosition)
   hoverStack = {}
   local searchQueue = { ui.root }
@@ -45,7 +41,7 @@ local lastMousePosition = nyoom.common.newVector2()
   end
 end ]]
 
----@param mousePosition Nyoom.Vector2
+---@param mousePosition nyoom.Vector2
 local function checkHoverStackRecursive(mousePosition, element)
   if element.isIgnored and element.isHovered then element:unhover() end
   if not element.isIgnored and element.isVisible and element.boundingBox:isWithinBounds(mousePosition) then
@@ -61,10 +57,10 @@ end
 
 local function regenerateHoverStack(mousePosition)
   hoverStack = {}
-  checkHoverStackRecursive(mousePosition, ui.root)
+  checkHoverStackRecursive(mousePosition, nyoom.ui.root)
 end
 
----@param eventData { position: Nyoom.Vector2 }
+---@param eventData { position: nyoom.Vector2 }
 local function mouseMoved(eventData)
   for _, element in ipairs(hoverStack) do
     if not element.boundingBox:isWithinBounds(eventData.position) then element:unhover() end
@@ -72,10 +68,10 @@ local function mouseMoved(eventData)
 
   regenerateHoverStack(eventData.position)
 
-  if ui.topmost ~= hoverStack[#hoverStack] then
-    ui.topmost.isTopmost = false
-    ui.topmost = hoverStack[#hoverStack]
-    ui.topmost.isTopmost = true
+  if nyoom.ui.topmost ~= hoverStack[#hoverStack] then
+    nyoom.ui.topmost.isTopmost = false
+    nyoom.ui.topmost = hoverStack[#hoverStack]
+    nyoom.ui.topmost.isTopmost = true
   end
 
   for _, element in ipairs(hoverStack) do
@@ -86,7 +82,7 @@ local function mouseMoved(eventData)
   lastMousePosition = eventData.position
 end
 
----@param eventData { position: Nyoom.Vector2, button: number }
+---@param eventData { position: nyoom.Vector2, button: number }
 local function mousePressed(eventData)
   clickCache[eventData.button] = {}
   for _, element in ipairs(hoverStack) do
@@ -97,11 +93,11 @@ local function mousePressed(eventData)
   end
 end
 
----@param eventData { position: Nyoom.Vector2, button: number, presses: number}
+---@param eventData { position: nyoom.Vector2, button: number, presses: number}
 local function mouseReleased(eventData)
-  if ui.focused and ui.focused ~= clickCache[eventData.button][#clickCache[eventData.button]] then
-    ui.focused:unfocus()
-    ui.focused = nil
+  if nyoom.ui.focused and nyoom.ui.focused ~= clickCache[eventData.button][#clickCache[eventData.button]] then
+    nyoom.ui.focused:unfocus()
+    nyoom.ui.focused = nil
   end
 
   for i, element in ipairs(clickCache[eventData.button]) do
@@ -110,52 +106,49 @@ local function mouseReleased(eventData)
     if element.boundingBox:isWithinBounds(eventData.position) then element:click(delta, eventData.button, eventData.presses) end
 
     if not element.isFocused and i == #clickCache[eventData.button] then
-      ui.focused = element
+      nyoom.ui.focused = element
       element:focus()
     end
   end
 end
 
----@param eventData { direction: Nyoom.Vector2 }
+---@param eventData { direction: nyoom.Vector2 }
 local function wheelMoved(eventData)
-  ui.root:wheel(eventData.direction)
+  nyoom.ui.root:wheel(eventData.direction)
 end
 
----@param eventData { dimensions: Nyoom.Vector2 }
+---@param eventData { dimensions: nyoom.Vector2 }
 local function resize(eventData)
-  ui.root:resize(eventData.dimensions)
+  nyoom.ui.root:resize(eventData.dimensions)
 end
 
-function ui.updateMouse()
+function nyoom.ui.updateMouse()
   local mouseX, mouseY = love.mouse.getPosition()
-  mouseMoved({ position = nyoom.common.newVector2(mouseX, mouseY) })
+  mouseMoved({ position = nyoom.objects.newVector2(mouseX, mouseY) })
 end
 
-function ui.updateElements(deltaTime)
-  ui.root:update(deltaTime)
+function nyoom.ui.updateElements(deltaTime)
+  nyoom.ui.root:update(deltaTime)
 end
 
-function ui.draw()
+function nyoom.ui.draw()
   love.graphics.setColor(1, 1, 1)
-  ui.root:draw()
+  nyoom.ui.root:draw()
 
-  if ui.topmost.onTooltip then
+  if nyoom.ui.topmost.onTooltip then
     love.graphics.push()
-    love.graphics.translate(ui.topmost.rect.x, ui.topmost.rect.y)
-    ui.topmost:onTooltip()
+    love.graphics.translate(nyoom.ui.topmost.rect.x, nyoom.ui.topmost.rect.y)
+    nyoom.ui.topmost:onTooltip()
     love.graphics.pop()
   end
 end
 
-function ui.isUIHovered()
+function nyoom.ui.isUIHovered()
   return nyoom.ui.topmost ~= nyoom.ui.root
 end
 
 -- Love event hooks
---nyoom.events.eventMouseMoved:addListener(mouseMoved)
 nyoom.events.eventMousePressed:addListener(mousePressed)
 nyoom.events.eventMouseReleased:addListener(mouseReleased)
 nyoom.events.eventWheelMoved:addListener(wheelMoved)
 nyoom.events.eventResize:addListener(resize)
-
-return ui

@@ -1,13 +1,20 @@
----@class Nyoom.UIScrollview : Nyoom.UIElement
----@field container Nyoom.UIElement
----@field scrollVertical Nyoom.UISlider
----@field scrollHorizontal Nyoom.UISlider
+---@class nyoom.UIScrollview : nyoom.UIElement
+---@field container nyoom.UIElement
+---@field scrollVertical nyoom.UISlider
+---@field scrollHorizontal nyoom.UISlider
 
-local function newScrollview(x, y, width, height, parent)
-  local scrollview = nyoom.ui.prefabs.newViewport(x, y, width, height, parent) --[[@as Nyoom.UIScrollview]]
+---A UI element that allows content larger than itself to be contained within, and to pan across said content using scrollbars.
+---@param x integer The x axis position of this element relative to its parent.
+---@param y integer The y axis position of this element relative to its parent.
+---@param width integer The width of this element.
+---@param height integer The height of this element.
+---@param parent nyoom.UIElement The parent element for this element.
+---@return nyoom.UIScrollview
+function nyoom.ui.prefabs.newScrollview(x, y, width, height, parent)
+  local scrollview = nyoom.ui.prefabs.newViewport(x, y, width, height, parent) --[[@as nyoom.UIScrollview]]
   local container = nyoom.ui.newElement('container', 0, 0, width, height, scrollview)
-  local scrollVertical = nyoom.ui.prefabs.newSlider(0, 0, 'vertical', 0, 0, scrollview)
-  local scrollHorizontal = nyoom.ui.prefabs.newSlider(0, 0, 'horizontal', 0, 0, scrollview)
+  local scrollVertical = nyoom.ui.prefabs.newSlider(0, 0, 'vertical', scrollview)
+  local scrollHorizontal = nyoom.ui.prefabs.newSlider(0, 0, 'horizontal', scrollview)
 
   scrollview.id = 'scrollview'
   scrollview.container = container
@@ -17,7 +24,7 @@ local function newScrollview(x, y, width, height, parent)
   scrollHorizontal.isVisible = false
 
   local function resize()
-    local railThickness = nyoom.ui.defaults.slider.railThickness
+    local railThickness = nyoom.defaults.slider.railThickness
     local isOverflowX = container.width > scrollview.width
     local isOverflowY = container.height > scrollview.height
     local overflowX = isOverflowX and math.abs((scrollview.width - (isOverflowY and railThickness or 0)) - container.width) or 0
@@ -85,12 +92,12 @@ local function newScrollview(x, y, width, height, parent)
     if mousePosition.x < 0 or mousePosition.x > scrollview.width or mousePosition.y < 0 or mousePosition.y > scrollview.height then return end
 
     if eventData.delta.x ~= 0 then
-      local stepSize = nyoom.ui.defaults.scrollview.scrollIncrement / container.width
+      local stepSize = nyoom.defaults.scrollview.scrollIncrement / container.width
       scrollHorizontal:setValue(scrollHorizontal:getValue() + (stepSize * -eventData.delta.x))
     end
 
     if eventData.delta.y ~= 0 then
-      local stepSize = nyoom.ui.defaults.scrollview.scrollIncrement / container.height
+      local stepSize = nyoom.defaults.scrollview.scrollIncrement / container.height
       scrollVertical:setValue(scrollVertical:getValue() + (stepSize * -eventData.delta.y))
     end
   end)
@@ -102,5 +109,3 @@ local function newScrollview(x, y, width, height, parent)
 
   return scrollview
 end
-
-return newScrollview
