@@ -3,6 +3,7 @@ nyoom.objects = {}
 require('nyoom.objects.vector2')
 require('nyoom.objects.rect')
 require('nyoom.objects.grid')
+require('nyoom.objects.list')
 require('nyoom.objects.color')
 require('nyoom.objects.coloredText')
 require('nyoom.objects.alignedText')
