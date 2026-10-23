@@ -3,7 +3,7 @@
 ---@field values T[]
 ---
 ---@field getIndex fun(self: nyoom.List<T>, value: T): integer? Returns the index of `value`, or `nil` if not found.
----@field getValue fun(self: nyoom.List<T>, index: integer): T? Returns the value at `index`, or `nil` if not found.
+---@field getValue fun(self: nyoom.List<T>, index?: integer): T? Returns the value at `index`, or `nil` if not found. If `index` is unspecified or out of bounds, returns top-most value.
 ---@field set fun(self: nyoom.List<T>, ...: T) Replaces the contents of the list with the given values.
 ---@field set fun(self: nyoom.List<T>, values: T[]) Replaces the contents of the list with the given values.
 ---@field add fun(self: nyoom.List<T>, ...: T) Adds the given values to the end of the list.
@@ -40,7 +40,9 @@ function methods:getIndex(value)
 end
 
 function methods:getValue(index)
-  return self.values[index]
+  if type(index) ~= 'number' then return self.values[#self.values]
+  elseif index < 0 or index > #self.values then return
+  else return self.values[index] end
 end
 
 function methods:set(...)
