@@ -1,5 +1,6 @@
 ---A list/array of values with an event attached.
 ---@class nyoom.List<T>
+---@field values T[]
 ---
 ---@field getIndex fun(self: nyoom.List<T>, value: T): integer? Returns the index of `value`, or `nil` if not found.
 ---@field getValue fun(self: nyoom.List<T>, index: integer): T? Returns the value at `index`, or `nil` if not found.
@@ -24,6 +25,8 @@ function nyoom.objects.newList(...)
     values = {...},
     eventListChanged = nyoom.events.newEvent()
   }
+
+  if type(list.values[1]) == 'table' then list.values = list.values[1] end
 
   setmetatable(list, metamethods)
 
