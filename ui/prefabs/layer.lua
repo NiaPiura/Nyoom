@@ -18,8 +18,8 @@ function nyoom.ui.prefabs.newLayer(id, opacity, x, y, width, height, parent)
   x, y = x or 0, y or 0
   parent = parent or nyoom.ui.root
 
-  if not definedWidth then width = love.graphics.getWidth() end
-  if not definedHeight then height = love.graphics.getHeight() end
+  if not definedWidth then width = nyoom.ui.root.width end
+  if not definedHeight then height = nyoom.ui.root.height end
 
   width = width --[[@as integer]]
   height = height --[[@as integer]]
@@ -43,8 +43,8 @@ function nyoom.ui.prefabs.newLayer(id, opacity, x, y, width, height, parent)
   end
 
   layer.eventResize:addListener(function()
-    if not definedWidth then width = love.graphics.getWidth() end
-    if not definedHeight then height = love.graphics.getHeight() end
+    if not definedWidth then width = nyoom.ui.root.width end
+    if not definedHeight then height = nyoom.ui.root.height end
 
     canvas = love.graphics.newCanvas(width, height)
     layer:setSize(width, height)
