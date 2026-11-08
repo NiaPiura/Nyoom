@@ -42,7 +42,7 @@ function nyoom:loadGame(game)
     nyoom.timing.update(deltaTime)
     nyoom.levels.update(deltaTime)
     gameUpdate(deltaTime)
-    nyoom.ui.updateElements(deltaTime)
+    nyoom.ui.update(deltaTime)
     nyoom.profiler.mark('nyoom.update')
   end
 

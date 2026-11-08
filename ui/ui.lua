@@ -127,7 +127,7 @@ function nyoom.ui.updateMouse()
   mouseMoved({ position = nyoom.objects.newVector2(mouseX, mouseY) })
 end
 
-function nyoom.ui.updateElements(deltaTime)
+function nyoom.ui.update(deltaTime)
   nyoom.ui.root:update(deltaTime)
 end
 
