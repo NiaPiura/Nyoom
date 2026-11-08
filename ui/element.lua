@@ -204,7 +204,7 @@ end
 function methods:resize(dimensions)
   if not self._isResizing then
     self._isResizing = true
-    self.eventResize:trigger(dimensions)
+    self.eventResize:trigger({ dimensions = dimensions })
   end
   for _, e in ipairs(self.children) do e:resize(dimensions) end
   self._isResizing = false
