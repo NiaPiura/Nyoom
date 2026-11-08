@@ -13,6 +13,8 @@ love.keyboard.setKeyRepeat(true)
 ---@class nyoom
 nyoom = {}
 require('nyoom.objects')
+require('nyoom.settings')
+
 require('nyoom.defaults')
 require('nyoom.events')
 require('nyoom.timing')

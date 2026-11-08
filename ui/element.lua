@@ -270,7 +270,7 @@ end
 
 ---@param self nyoom.UIElement
 function methods:getRelativeMousePosition()
-  local mousePosition = nyoom.objects.newVector2(love.mouse.getPosition())
+  local mousePosition = nyoom.ui.projectMousePosition()
   return mousePosition - self.rect.position
 end
 
