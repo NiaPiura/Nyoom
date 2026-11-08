@@ -244,12 +244,16 @@ end
 
 ---@param self nyoom.UIElement
 function methods:setSize(width, height)
-  if type(width) == 'number' then self.rect:setSize(width, height)
-  else self.rect:setSize(width) end
+  local target
+  if type(width) == 'number' then target = nyoom.objects.newVector2(width, height)
+  else target = width end
 
-  self.boundingBox:setSize(self.rect.size)
+  if target ~= self.rect.size then
+    self.rect:setSize(target)
+    self.boundingBox:setSize(self.rect.size)
 
-  self:resize(self.rect.size)
+    self:resize(self.rect.size)
+  end
 end
 
 ---@param self nyoom.UIElement
