@@ -77,7 +77,7 @@ function love.directorydropped(a)                             nyoom.events.event
 function love.filedropped(a)                                  nyoom.events.eventFileDropped:trigger({ file = a }) end
 function love.focus(a)                                        nyoom.events.eventFocus:trigger({ focus = a }) end
 function love.mousefocus(a)                                   nyoom.events.eventMouseFocus:trigger({ focus = a }) end
-function love.resize(a, b)                                    nyoom.events.eventResize:trigger({ dimensions = nyoom.objects.newVector2(a, b) }) end
+function love.resize(a, b)                                    nyoom.events.eventResize:trigger({ dimensions = nyoom.objects.newVector2(love.graphics.getDimensions()) }) end
 function love.visible(a)                                      nyoom.events.eventVisible:trigger({ visible = a }) end
 
 -- Keyboard
